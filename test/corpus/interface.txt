@@ -143,6 +143,11 @@ interface ILookup;
      method     Bool  initialized;
 endinterface: ILookup
 
+interface ClockTickIfc ;
+    method Action tick() ;
+    interface Clock  new_clk ;
+ endinterface
+
 ------------------------------------------------------------------------
 
 (program
@@ -190,4 +195,23 @@ endinterface: ILookup
                       (Identifier))))
                 (identifier)))
             (typeIde
-              (Identifier))))))
+              (Identifier))))
+        (packageStmt
+          (interfaceDecl
+            (typeDefType
+              (typeIde
+                (Identifier)))
+            (interfaceMemberDecl
+              (methodProto
+                (type
+                  (typePrimary
+                    (typeIde
+                      (Identifier))))
+                (identifier)))
+            (interfaceMemberDecl
+              (subinterfaceDecl
+                (type
+                  (typePrimary
+                    (typeIde
+                      (Identifier))))
+                (identifier)))))))
