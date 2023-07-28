@@ -1,0 +1,45 @@
+========================================================================
+package
+========================================================================
+
+package Chou;
+
+endpackage
+
+------------------------------------------------------------------------
+
+(program
+  (package
+    (packageIde
+      (Identifier))))
+
+========================================================================
+import/export
+========================================================================
+
+package Zhou;
+
+  import   ZZ ::       *;
+  export zhou   (..) ;
+  export      chou,   Chou;
+endpackage
+
+------------------------------------------------------------------------
+
+(program
+  (package
+    (packageIde
+      (Identifier))
+    (packageBody
+      (importDecl
+        (importItem
+          (packageIde
+            (Identifier))))
+      (exportDecl
+        (exportItem
+          (identifier)))
+      (exportDecl
+        (exportItem
+          (identifier))
+        (exportItem
+          (Identifier))))))

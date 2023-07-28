@@ -1,0 +1,5 @@
+package Chou;
+interface Zhou;
+  method Action chouyige();
+endinterface
+endpackage

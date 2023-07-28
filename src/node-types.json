@@ -1,0 +1,527 @@
+[
+  {
+    "type": "baseLiteral",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "decDigitsUnderscore",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bitWidth",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "decDigits",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "decDigits",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "decDigitsUnderscore",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "decNum",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "decDigits",
+          "named": true
+        },
+        {
+          "type": "decDigitsUnderscore",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exportDecl",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "exportItem",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exportItem",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Identifier",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "packageIde",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "importDecl",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "importItem",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "importItem",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "packageIde",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interfaceDecl",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "interfaceMemberDecl",
+          "named": true
+        },
+        {
+          "type": "typeDefType",
+          "named": true
+        },
+        {
+          "type": "typeIde",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interfaceMemberDecl",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "methodProto",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "methodProto",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "package",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "packageBody",
+          "named": true
+        },
+        {
+          "type": "packageIde",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "packageBody",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "exportDecl",
+          "named": true
+        },
+        {
+          "type": "importDecl",
+          "named": true
+        },
+        {
+          "type": "packageStmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "packageIde",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "packageStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "interfaceDecl",
+          "named": true
+        },
+        {
+          "type": "moduleDef",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "program",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "package",
+          "named": true
+        },
+        {
+          "type": "packageBody",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sign",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "sizedIntLiteral",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "baseLiteral",
+          "named": true
+        },
+        {
+          "type": "bitWidth",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "typePrimary",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeDefType",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "typeIde",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeIde",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeNat",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "decDigits",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typePrimary",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "typeIde",
+          "named": true
+        },
+        {
+          "type": "typeNat",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "unsizedIntLiteral",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "baseLiteral",
+          "named": true
+        },
+        {
+          "type": "decNum",
+          "named": true
+        },
+        {
+          "type": "sign",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "#",
+    "named": false
+  },
+  {
+    "type": "'0",
+    "named": false
+  },
+  {
+    "type": "'1",
+    "named": false
+  },
+  {
+    "type": "'D",
+    "named": false
+  },
+  {
+    "type": "'d",
+    "named": false
+  },
+  {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": "(..)",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
+    "type": "*",
+    "named": false
+  },
+  {
+    "type": "+",
+    "named": false
+  },
+  {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": "-",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": "::",
+    "named": false
+  },
+  {
+    "type": ";",
+    "named": false
+  },
+  {
+    "type": "Identifier",
+    "named": true
+  },
+  {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
+    "type": "bit",
+    "named": false
+  },
+  {
+    "type": "endinterface",
+    "named": false
+  },
+  {
+    "type": "endpackage",
+    "named": false
+  },
+  {
+    "type": "export",
+    "named": false
+  },
+  {
+    "type": "identifier",
+    "named": true
+  },
+  {
+    "type": "import",
+    "named": false
+  },
+  {
+    "type": "interface",
+    "named": false
+  },
+  {
+    "type": "method",
+    "named": false
+  },
+  {
+    "type": "moduleDef",
+    "named": true
+  },
+  {
+    "type": "package",
+    "named": false
+  }
+]
