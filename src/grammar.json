@@ -395,12 +395,25 @@
               "value": "]"
             }
           ]
+        },
+        {
+          "type": "STRING",
+          "value": "int"
         }
       ]
     },
     "typeIde": {
-      "type": "SYMBOL",
-      "name": "Identifier"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "Identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        }
+      ]
     },
     "typeNat": {
       "type": "SYMBOL",
@@ -440,10 +453,6 @@
               "members": [
                 {
                   "type": "STRING",
-                  "value": "["
-                },
-                {
-                  "type": "STRING",
                   "value": ":"
                 },
                 {
@@ -460,8 +469,87 @@
       ]
     },
     "typeDefType": {
-      "type": "SYMBOL",
-      "name": "typeIde"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "typeIde"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "typeFormals"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "typeFormals": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "typeFormal"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "typeFormal"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "typeFormal": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "numeric"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        }
+      ]
     },
     "interfaceMemberDecl": {
       "type": "CHOICE",
@@ -469,6 +557,10 @@
         {
           "type": "SYMBOL",
           "name": "methodProto"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "subinterfaceDecl"
         }
       ]
     },
@@ -488,12 +580,96 @@
           "name": "identifier"
         },
         {
-          "type": "STRING",
-          "value": "("
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "("
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "methodProtoFormals"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "STRING",
+                  "value": ")"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",
-          "value": ")"
+          "value": ";"
+        }
+      ]
+    },
+    "methodProtoFormals": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "methodProtoFormal"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "methodProtoFormal"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "methodProtoFormal": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        }
+      ]
+    },
+    "subinterfaceDecl": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "interface"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
         },
         {
           "type": "STRING",
@@ -660,7 +836,7 @@
           },
           {
             "type": "PATTERN",
-            "value": "([a-zA-Z0-9_$])+"
+            "value": "([a-zA-Z0-9_$])*"
           }
         ]
       }
@@ -676,7 +852,7 @@
           },
           {
             "type": "PATTERN",
-            "value": "([a-zA-Z0-9_$])+"
+            "value": "([a-zA-Z0-9_$])*"
           }
         ]
       }

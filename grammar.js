@@ -1,7 +1,7 @@
 
 const UPPER_CASE_CHARS = /[A-Z]/
 const LOWER_CASE_CHARS = /[a-z]/
-const IDENTIFIER_CHARS = /([a-zA-Z0-9_$])+/
+const IDENTIFIER_CHARS = /([a-zA-Z0-9_$])*/
 
 module.exports = grammar({
   name: 'bsv',
@@ -66,10 +66,11 @@ module.exports = grammar({
       seq($.typeIde, optional(
         seq('#', '(', $.type, repeat(seq(',', $.type)), ')'))),
       $.typeNat,
-      seq('bit', '[', $.typeNat, ':', $.typeNat, ']')
+      seq('bit', '[', $.typeNat, ':', $.typeNat, ']'),
+      'int'
     ),
 
-    typeIde: $ => $.Identifier,
+    typeIde: $ => choice($.Identifier, $.identifier),
     typeNat: $ => $.decDigits,
 
     ///////////////
@@ -79,19 +80,37 @@ module.exports = grammar({
       // optional(attributeInstances),
       'interface', $.typeDefType, ';',
       repeat($.interfaceMemberDecl),
-      'endinterface', optional(seq('[', ':', $.typeIde))
+      'endinterface', optional(seq(':', $.typeIde))
     ),
 
-    typeDefType: $ => $.typeIde,  // optional(typeFormal)
+    typeDefType: $ => seq($.typeIde, optional($.typeFormals)),
+    typeFormals: $ => seq(
+      '#', '(', $.typeFormal, repeat(seq(',', $.typeFormal)), ')'
+    ),
+    typeFormal: $ => seq(optional('numeric'), 'type', $.identifier),
 
     interfaceMemberDecl: $ => choice(
-      $.methodProto
-      // subinterfaceDecl
+      $.methodProto,
+      $.subinterfaceDecl
     ),
 
     methodProto: $ => seq(
       // optional(attributeInstances),
-      'method', $.type, $.identifier, '(', /* methodProtoFormals */ ')', ';'
+      'method', $.type, $.identifier,
+      optional(seq('(', optional($.methodProtoFormals), ')')),
+      ';'
+    ),
+    methodProtoFormals: $ => seq(
+      $.methodProtoFormal, repeat(seq(',', $.methodProtoFormal))
+    ),
+    methodProtoFormal: $ => seq(
+      // optional(attributeInstances),
+      $.type, $.identifier
+    ),
+
+    subinterfaceDecl: $ => seq(
+      // optional(attributeInstances),
+      'interface', $.type, $.identifier, ';'
     ),
 
     ////////////

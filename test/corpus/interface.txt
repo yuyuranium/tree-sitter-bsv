@@ -1,0 +1,193 @@
+========================================================================
+interface
+========================================================================
+
+interface   Empty;
+
+endinterface : Empty
+
+------------------------------------------------------------------------
+
+(program
+  (packageBody
+    (packageStmt
+      (interfaceDecl
+        (typeDefType
+          (typeIde
+            (Identifier)))
+        (typeIde
+          (Identifier))))))
+
+
+========================================================================
+method declaration
+========================================================================
+
+interface IntStack;
+    method  Action  push(int x);
+    method  Action  pop;
+    method  int     top;
+endinterface
+
+interface Counter#(type count_size);
+   method Action increment();
+   method Bit#(count_size) read();
+endinterface
+
+interface SizedBuffer#(numeric type buffer_size, type element_type);
+   method Action enq(element_type e);
+   method ActionValue#(element_type) deq();
+endinterface
+
+------------------------------------------------------------------------
+(program
+  (packageBody
+    (packageStmt
+      (interfaceDecl
+        (typeDefType
+          (typeIde
+            (Identifier)))
+        (interfaceMemberDecl
+          (methodProto
+            (type
+              (typePrimary
+                (typeIde
+                  (Identifier))))
+            (identifier)
+            (methodProtoFormals
+              (methodProtoFormal
+                (type
+                  (typePrimary))
+                (identifier)))))
+        (interfaceMemberDecl
+          (methodProto
+            (type
+              (typePrimary
+                (typeIde
+                  (Identifier))))
+            (identifier)))
+        (interfaceMemberDecl
+          (methodProto
+            (type
+              (typePrimary))
+            (identifier)))))
+    (packageStmt
+      (interfaceDecl
+        (typeDefType
+          (typeIde
+            (Identifier))
+          (typeFormals
+            (typeFormal
+              (identifier))))
+        (interfaceMemberDecl
+          (methodProto
+            (type
+              (typePrimary
+                (typeIde
+                  (Identifier))))
+            (identifier)))
+        (interfaceMemberDecl
+          (methodProto
+            (type
+              (typePrimary
+                (typeIde
+                  (Identifier))
+                (type
+                  (typePrimary
+                    (typeIde
+                      (identifier))))))
+            (identifier)))))
+    (packageStmt
+      (interfaceDecl
+        (typeDefType
+          (typeIde
+            (Identifier))
+          (typeFormals
+            (typeFormal
+              (identifier))
+            (typeFormal
+              (identifier))))
+        (interfaceMemberDecl
+          (methodProto
+            (type
+              (typePrimary
+                (typeIde
+                  (Identifier))))
+            (identifier)
+            (methodProtoFormals
+              (methodProtoFormal
+                (type
+                  (typePrimary
+                    (typeIde
+                      (identifier))))
+                (identifier)))))
+        (interfaceMemberDecl
+          (methodProto
+            (type
+              (typePrimary
+                (typeIde
+                  (Identifier))
+                (type
+                  (typePrimary
+                    (typeIde
+                      (identifier))))))
+            (identifier)))))))
+
+========================================================================
+subinterface declaration
+========================================================================
+
+interface ILookup;
+     interface  Server#( RequestType, ResponseType )  mif;
+     interface  RAMclient#( AddrType, DataType )      ram;
+     method     Bool  initialized;
+endinterface: ILookup
+
+------------------------------------------------------------------------
+
+(program
+      (packageBody
+        (packageStmt
+          (interfaceDecl
+            (typeDefType
+              (typeIde
+                (Identifier)))
+            (interfaceMemberDecl
+              (subinterfaceDecl
+                (type
+                  (typePrimary
+                    (typeIde
+                      (Identifier))
+                    (type
+                      (typePrimary
+                        (typeIde
+                          (Identifier))))
+                    (type
+                      (typePrimary
+                        (typeIde
+                          (Identifier))))))
+                (identifier)))
+            (interfaceMemberDecl
+              (subinterfaceDecl
+                (type
+                  (typePrimary
+                    (typeIde
+                      (Identifier))
+                    (type
+                      (typePrimary
+                        (typeIde
+                          (Identifier))))
+                    (type
+                      (typePrimary
+                        (typeIde
+                          (Identifier))))))
+                (identifier)))
+            (interfaceMemberDecl
+              (methodProto
+                (type
+                  (typePrimary
+                    (typeIde
+                      (Identifier))))
+                (identifier)))
+            (typeIde
+              (Identifier))))))

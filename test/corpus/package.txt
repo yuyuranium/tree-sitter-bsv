@@ -4,12 +4,14 @@ package
 
 package Chou;
 
-endpackage
+endpackage : Chou
 
 ------------------------------------------------------------------------
 
 (program
   (package
+    (packageIde
+      (Identifier))
     (packageIde
       (Identifier))))
 

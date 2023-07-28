@@ -160,6 +160,10 @@
         {
           "type": "methodProto",
           "named": true
+        },
+        {
+          "type": "subinterfaceDecl",
+          "named": true
         }
       ]
     }
@@ -177,7 +181,45 @@
           "named": true
         },
         {
+          "type": "methodProtoFormals",
+          "named": true
+        },
+        {
           "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "methodProtoFormal",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "methodProtoFormals",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "methodProtoFormal",
           "named": true
         }
       ]
@@ -303,6 +345,25 @@
     }
   },
   {
+    "type": "subinterfaceDecl",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "type",
     "named": true,
     "fields": {},
@@ -326,11 +387,45 @@
     "named": true,
     "fields": {},
     "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "typeFormals",
+          "named": true
+        },
+        {
+          "type": "typeIde",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeFormal",
+    "named": true,
+    "fields": {},
+    "children": {
       "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "typeIde",
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeFormals",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "typeFormal",
           "named": true
         }
       ]
@@ -346,6 +441,10 @@
       "types": [
         {
           "type": "Identifier",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -372,7 +471,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "type",
@@ -509,6 +608,10 @@
     "named": false
   },
   {
+    "type": "int",
+    "named": false
+  },
+  {
     "type": "interface",
     "named": false
   },
@@ -521,7 +624,15 @@
     "named": true
   },
   {
+    "type": "numeric",
+    "named": false
+  },
+  {
     "type": "package",
+    "named": false
+  },
+  {
+    "type": "type",
     "named": false
   }
 ]
