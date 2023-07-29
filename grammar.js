@@ -133,13 +133,52 @@ module.exports = grammar({
       optional($.provisos), ';'
     ),
 
-    moduleFormalParams: $ => 'param',
+    moduleFormalParams: $ => seq(
+      '#', '(', $.moduleFormalParam, repeat(seq(',', $.moduleFormalParam)), ')'
+    ),
+    moduleFormalParam: $ => seq(
+      // optional(attributeInstances),
+      optional('parameter'), $.type, $.identifier
+    ),
 
-    moduleFormalArgs: $ => 'args',
+    moduleFormalArgs: $ => choice(
+      $.type,  // seq(optional(attributeInstances), $.type)
+      seq($.type, $.identifier, repeat(seq(',', $.type, $.identifier)))
+      // ^optional(attributeInstances)         ^optional(attributeInstances)
+    ),
 
-    moduleStmt: $ => 'stmt',
+    moduleStmt: $ => choice(
+      $.moduleInst,
+      $.methodDef,
+      // subinterfaceDef
+      $.rule,
+      // ...
+    ),
 
     provisos: $ => 'provisos()',
+
+    moduleInst: $ => seq(
+      // optional(attributeInstances),
+      $.type, $.identifier, '<-', $.moduleApp, ';'
+    ),
+    moduleApp: $ => seq(
+      $.identifier,
+      '(', optional(seq($.moduleActualParamArg, repeat(seq(',', $.moduleActualParamArg)))), ')'
+    ),
+    moduleActualParamArg: $ => choice(
+      $.expression,
+      seq('clocked_by', $.expression),
+      seq('reset_by', $.expression)
+    ),
+
+    methodDef: $ => 'method',
+
+    rule: $ => 'rule',
+
+    /////////////////
+    // Expressions //
+    /////////////////
+    expression: $ => '123',
 
     //////////////////////
     // Integer literals //

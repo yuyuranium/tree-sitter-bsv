@@ -1,0 +1,61 @@
+========================================================================
+module definitions
+========================================================================
+
+module mkFifo#(Int#(8) a) (Fifo);
+
+endmodule
+
+module mkSyncPulse (Clock sClkIn, Reset sRstIn,
+                    Clock dClkIn,
+                    SyncPulseIfc ifc);
+endmodule
+
+------------------------------------------------------------------------
+
+(program
+  (packageStmt
+    (moduleDef
+      (moduleProto
+        (identifier)
+        (moduleFormalParams
+          (moduleFormalParam
+            (type
+              (typePrimary
+                (typeIde
+                  (Identifier))
+                (type
+                  (typePrimary
+                    (typeNat
+                      (decDigits))))))
+            (identifier)))
+        (moduleFormalArgs
+          (type
+            (typePrimary
+              (typeIde
+                (Identifier))))))))
+  (packageStmt
+    (moduleDef
+      (moduleProto
+        (identifier)
+        (moduleFormalArgs
+          (type
+            (typePrimary
+              (typeIde
+                (Identifier))))
+          (identifier)
+          (type
+            (typePrimary
+              (typeIde
+                (Identifier))))
+          (identifier)
+          (type
+            (typePrimary
+              (typeIde
+                (Identifier))))
+          (identifier)
+          (type
+            (typePrimary
+              (typeIde
+                (Identifier))))
+          (identifier))))))

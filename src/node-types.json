@@ -169,6 +169,11 @@
     }
   },
   {
+    "type": "methodDef",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "methodProto",
     "named": true,
     "fields": {},
@@ -226,6 +231,40 @@
     }
   },
   {
+    "type": "moduleActualParamArg",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "moduleApp",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "moduleActualParamArg",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "moduleDef",
     "named": true,
     "fields": {},
@@ -243,6 +282,82 @@
         },
         {
           "type": "moduleStmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "moduleFormalArgs",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "moduleFormalParam",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "moduleFormalParams",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "moduleFormalParam",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "moduleInst",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "moduleApp",
+          "named": true
+        },
+        {
+          "type": "type",
           "named": true
         }
       ]
@@ -274,6 +389,29 @@
         },
         {
           "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "moduleStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "methodDef",
+          "named": true
+        },
+        {
+          "type": "moduleInst",
+          "named": true
+        },
+        {
+          "type": "rule",
           "named": true
         }
       ]
@@ -619,6 +757,10 @@
     "named": false
   },
   {
+    "type": "<-",
+    "named": false
+  },
+  {
     "type": "Identifier",
     "named": true
   },
@@ -632,6 +774,10 @@
   },
   {
     "type": "bit",
+    "named": false
+  },
+  {
+    "type": "clocked_by",
     "named": false
   },
   {
@@ -649,6 +795,10 @@
   {
     "type": "export",
     "named": false
+  },
+  {
+    "type": "expression",
+    "named": true
   },
   {
     "type": "identifier",
@@ -675,18 +825,6 @@
     "named": false
   },
   {
-    "type": "moduleFormalArgs",
-    "named": true
-  },
-  {
-    "type": "moduleFormalParams",
-    "named": true
-  },
-  {
-    "type": "moduleStmt",
-    "named": true
-  },
-  {
     "type": "numeric",
     "named": false
   },
@@ -695,7 +833,19 @@
     "named": false
   },
   {
+    "type": "parameter",
+    "named": false
+  },
+  {
     "type": "provisos",
+    "named": true
+  },
+  {
+    "type": "reset_by",
+    "named": false
+  },
+  {
+    "type": "rule",
     "named": true
   },
   {
