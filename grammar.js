@@ -193,7 +193,12 @@ module.exports = grammar({
     /////////////////////
     // String literals //
     /////////////////////
-    // TODO
+    stringLiteral: $ => seq('"', repeat(choice(
+      /\\[nt\\"vfa]/,
+      /\\[0-7]{3}/,
+      /\\x[0-9A-Fa-f]{2}/,
+      /[^"\\]/),
+    ), '"'),
 
     // Identifiers starts with uppercase letters
     Identifier: $ => token(seq(UPPER_CASE_CHARS, IDENTIFIER_CHARS)),
