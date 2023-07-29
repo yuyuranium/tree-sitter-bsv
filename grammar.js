@@ -182,7 +182,13 @@ module.exports = grammar({
     ///////////////////
     // Real literals //
     ///////////////////
-    // TODO
+    realLiteral: $ => choice(
+      seq($.decNum, optional(seq('.', $.decDigitsUnderscore)),
+          $.exp, optional($.sign), $.decDigitsUnderscore),
+      seq($.decNum, '.', $.decDigitsUnderscore)
+    ),
+
+    exp: $ => choice('e', 'E'),
 
     /////////////////////
     // String literals //
