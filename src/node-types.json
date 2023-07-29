@@ -226,7 +226,7 @@
     }
   },
   {
-    "type": "package",
+    "type": "moduleDef",
     "named": true,
     "fields": {},
     "children": {
@@ -234,18 +234,53 @@
       "required": true,
       "types": [
         {
-          "type": "packageBody",
+          "type": "identifier",
           "named": true
         },
         {
-          "type": "packageIde",
+          "type": "moduleProto",
+          "named": true
+        },
+        {
+          "type": "moduleStmt",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "packageBody",
+    "type": "moduleProto",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "moduleFormalArgs",
+          "named": true
+        },
+        {
+          "type": "moduleFormalParams",
+          "named": true
+        },
+        {
+          "type": "provisos",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "package",
     "named": true,
     "fields": {},
     "children": {
@@ -258,6 +293,10 @@
         },
         {
           "type": "importDecl",
+          "named": true
+        },
+        {
+          "type": "packageIde",
           "named": true
         },
         {
@@ -306,15 +345,23 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "exportDecl",
+          "named": true
+        },
+        {
+          "type": "importDecl",
+          "named": true
+        },
         {
           "type": "package",
           "named": true
         },
         {
-          "type": "packageBody",
+          "type": "packageStmt",
           "named": true
         }
       ]
@@ -592,6 +639,10 @@
     "named": false
   },
   {
+    "type": "endmodule",
+    "named": false
+  },
+  {
     "type": "endpackage",
     "named": false
   },
@@ -620,7 +671,19 @@
     "named": false
   },
   {
-    "type": "moduleDef",
+    "type": "module",
+    "named": false
+  },
+  {
+    "type": "moduleFormalArgs",
+    "named": true
+  },
+  {
+    "type": "moduleFormalParams",
+    "named": true
+  },
+  {
+    "type": "moduleStmt",
     "named": true
   },
   {
@@ -630,6 +693,10 @@
   {
     "type": "package",
     "named": false
+  },
+  {
+    "type": "provisos",
+    "named": true
   },
   {
     "type": "type",

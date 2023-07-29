@@ -27,21 +27,19 @@ package Zhou;
 endpackage
 
 ------------------------------------------------------------------------
-
 (program
   (package
     (packageIde
       (Identifier))
-    (packageBody
-      (importDecl
-        (importItem
-          (packageIde
-            (Identifier))))
-      (exportDecl
-        (exportItem
-          (identifier)))
-      (exportDecl
-        (exportItem
-          (identifier))
-        (exportItem
-          (Identifier))))))
+    (importDecl
+      (importItem
+        (packageIde
+          (Identifier))))
+    (exportDecl
+      (exportItem
+        (identifier)))
+    (exportDecl
+      (exportItem
+        (identifier))
+      (exportItem
+        (Identifier)))))

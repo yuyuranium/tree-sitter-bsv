@@ -6,27 +6,31 @@ const IDENTIFIER_CHARS = /([a-zA-Z0-9_$])*/
 module.exports = grammar({
   name: 'bsv',
 
+  inline: $ => [
+    $.packageBody
+  ],
+
   extras: $ => [
     /\s/
   ],
 
   rules: {
-    program: $ => choice($.package, optional($.packageBody)),
+    program: $ => choice($.package, repeat($.packageBody)),
 
     //////////////
     // Packages //
     //////////////
     package: $ => seq(
       'package', $.packageIde, ';',
-      optional($.packageBody),
+      repeat($.packageBody),
       'endpackage', optional(seq(':', $.packageIde))
     ),
 
-    packageBody: $ => repeat1(choice(
+    packageBody: $ => choice(
       $.exportDecl,
       $.importDecl,
       $.packageStmt
-    )),
+    ),
 
     exportDecl: $ => seq(
       'export', $.exportItem, repeat(seq(',', $.exportItem)), ';'),
@@ -116,7 +120,26 @@ module.exports = grammar({
     ////////////
     // Module //
     ////////////
-    moduleDef: $ => 'module',
+    moduleDef: $ => seq(
+      // optional(attributeInstances),
+      $.moduleProto,
+      repeat($.moduleStmt),
+      'endmodule', optional(seq(':', $.identifier))
+    ),
+
+    moduleProto: $ => seq(
+      'module', optional(seq('[', $.type, ']')), $.identifier,
+      optional($.moduleFormalParams), '(', optional($.moduleFormalArgs), ')',
+      optional($.provisos), ';'
+    ),
+
+    moduleFormalParams: $ => 'param',
+
+    moduleFormalArgs: $ => 'args',
+
+    moduleStmt: $ => 'stmt',
+
+    provisos: $ => 'provisos()',
 
     //////////////////////
     // Integer literals //

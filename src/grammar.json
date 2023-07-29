@@ -9,16 +9,11 @@
           "name": "package"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "packageBody"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "packageBody"
+          }
         }
       ]
     },
@@ -38,16 +33,11 @@
           "value": ";"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "packageBody"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "packageBody"
+          }
         },
         {
           "type": "STRING",
@@ -77,24 +67,21 @@
       ]
     },
     "packageBody": {
-      "type": "REPEAT1",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "exportDecl"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "importDecl"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "packageStmt"
-          }
-        ]
-      }
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "exportDecl"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "importDecl"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "packageStmt"
+        }
+      ]
     },
     "exportDecl": {
       "type": "SEQ",
@@ -678,8 +665,147 @@
       ]
     },
     "moduleDef": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "moduleProto"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "moduleStmt"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "endmodule"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ":"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "moduleProto": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "module"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "["
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "type"
+                },
+                {
+                  "type": "STRING",
+                  "value": "]"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "moduleFormalParams"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "moduleFormalArgs"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "provisos"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "moduleFormalParams": {
       "type": "STRING",
-      "value": "module"
+      "value": "param"
+    },
+    "moduleFormalArgs": {
+      "type": "STRING",
+      "value": "args"
+    },
+    "moduleStmt": {
+      "type": "STRING",
+      "value": "stmt"
+    },
+    "provisos": {
+      "type": "STRING",
+      "value": "provisos()"
     },
     "intLiteral": {
       "type": "CHOICE",
@@ -867,7 +993,9 @@
   "conflicts": [],
   "precedences": [],
   "externals": [],
-  "inline": [],
+  "inline": [
+    "packageBody"
+  ],
   "supertypes": []
 }
 
