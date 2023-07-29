@@ -154,15 +154,15 @@ module.exports = grammar({
     sizedIntLiteral: $ => seq($.bitWidth, $.baseLiteral),
 
     unsizedIntLiteral: $ => choice(
-      seq($.sign, $.baseLiteral),
-      seq($.sign, $.decNum)
+      seq(optional($.sign), $.baseLiteral),
+      seq(optional($.sign), $.decNum)
     ),
 
     baseLiteral: $ => choice(
-      seq(choice('\'d', '\'D'), $.decDigitsUnderscore)
-      // h
-      // o
-      // b
+      seq(choice('\'d', '\'D'), $.decDigitsUnderscore),
+      seq(choice('\'h', '\'H'), $.hexDigitsUnderscore),
+      seq(choice('\'o', '\'O'), $.octDigitsUnderscore),
+      seq(choice('\'b', '\'B'), $.binDigitsUnderscore),
     ),
 
     decNum: $ => seq(
@@ -175,9 +175,9 @@ module.exports = grammar({
 
     decDigits: $ => repeat1(/[0-9]/),
     decDigitsUnderscore: $ => repeat1(/[0-9_]/),
-    // hex
-    // oct
-    // bin
+    hexDigitsUnderscore: $ => repeat1(/[0-9a-fA-F_]/),
+    octDigitsUnderscore: $ => repeat1(/[0-7_]/),
+    binDigitsUnderscore: $ => repeat1(/[01_]/),
 
     ///////////////////
     // Real literals //
