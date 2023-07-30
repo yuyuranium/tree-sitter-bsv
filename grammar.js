@@ -33,7 +33,7 @@ module.exports = grammar({
     ),
 
     exportDecl: $ => seq(
-      'export', $.exportItem, repeat(seq(',', $.exportItem)), ';'),
+      'export', comma_sep($.exportItem), ';'),
     exportItem: $ => choice(
       seq($.identifier, optional('(..)')),
       seq($.Identifier, optional('(..)')),
@@ -41,7 +41,7 @@ module.exports = grammar({
     ),
 
     importDecl: $ => seq(
-      'import', $.importItem, repeat(seq(',', $.importItem)), ';'),
+      'import', comma_sep($.importItem), ';'),
     importItem: $ => seq($.packageIde, '::', '*'),
 
     packageStmt: $ => choice(
@@ -63,12 +63,12 @@ module.exports = grammar({
     ///////////
     type: $ => choice(
       $.typePrimary,
-      seq($.typePrimary, '(', $.type, repeat(seq(',', $.type)), ')')
+      seq($.typePrimary, '(', comma_sep($.type), ')')
     ),
 
     typePrimary: $ => choice(
       seq($.typeIde, optional(
-        seq('#', '(', $.type, repeat(seq(',', $.type)), ')'))),
+        seq('#', '(', comma_sep($.type), ')'))),
       $.typeNat,
       seq('bit', '[', $.typeNat, ':', $.typeNat, ']'),
       'int'
@@ -89,7 +89,7 @@ module.exports = grammar({
 
     typeDefType: $ => seq($.typeIde, optional($.typeFormals)),
     typeFormals: $ => seq(
-      '#', '(', $.typeFormal, repeat(seq(',', $.typeFormal)), ')'
+      '#', '(', comma_sep($.typeFormal), ')'
     ),
     typeFormal: $ => seq(optional('numeric'), 'type', $.identifier),
 
@@ -104,9 +104,7 @@ module.exports = grammar({
       optional(seq('(', optional($.methodProtoFormals), ')')),
       ';'
     ),
-    methodProtoFormals: $ => seq(
-      $.methodProtoFormal, repeat(seq(',', $.methodProtoFormal))
-    ),
+    methodProtoFormals: $ => comma_sep($.methodProtoFormal),
     methodProtoFormal: $ => seq(
       // optional(attributeInstances),
       $.type, $.identifier
@@ -134,7 +132,7 @@ module.exports = grammar({
     ),
 
     moduleFormalParams: $ => seq(
-      '#', '(', $.moduleFormalParam, repeat(seq(',', $.moduleFormalParam)), ')'
+      '#', '(', comma_sep($.moduleFormalParam), ')'
     ),
     moduleFormalParam: $ => seq(
       // optional(attributeInstances),
@@ -143,7 +141,7 @@ module.exports = grammar({
 
     moduleFormalArgs: $ => choice(
       $.type,  // seq(optional(attributeInstances), $.type)
-      seq($.type, $.identifier, repeat(seq(',', $.type, $.identifier)))
+      comma_sep(seq($.type, $.identifier))
       // ^optional(attributeInstances)         ^optional(attributeInstances)
     ),
 
@@ -163,7 +161,7 @@ module.exports = grammar({
     ),
     moduleApp: $ => seq(
       $.identifier,
-      '(', optional(seq($.moduleActualParamArg, repeat(seq(',', $.moduleActualParamArg)))), ')'
+      '(', optional(comma_seq($.moduleActualParamArg)), ')'
     ),
     moduleActualParamArg: $ => choice(
       $.expression,
@@ -235,3 +233,7 @@ module.exports = grammar({
     identifier: $ => token(seq(LOWER_CASE_CHARS, IDENTIFIER_CHARS))
   }
 });
+
+function comma_sep(rule) {
+  return seq(rule, repeat(seq(',', rule)));
+}
