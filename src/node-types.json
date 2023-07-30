@@ -31,6 +31,10 @@
           "named": true
         },
         {
+          "type": "functionDef",
+          "named": true
+        },
+        {
           "type": "moduleDef",
           "named": true
         },
@@ -74,6 +78,10 @@
       "types": [
         {
           "type": "actionBlock",
+          "named": true
+        },
+        {
+          "type": "functionDef",
           "named": true
         },
         {
@@ -348,6 +356,10 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "functionDef",
+          "named": true
+        },
         {
           "type": "moduleDef",
           "named": true
@@ -1050,6 +1062,44 @@
     }
   },
   {
+    "type": "rule",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "actionStmt",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "ruleCond",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ruleCond",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "condPredicate",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "sign",
     "named": true,
     "fields": {}
@@ -1464,6 +1514,10 @@
     "named": false
   },
   {
+    "type": "endrule",
+    "named": false
+  },
+  {
     "type": "export",
     "named": false
   },
@@ -1529,7 +1583,7 @@
   },
   {
     "type": "rule",
-    "named": true
+    "named": false
   },
   {
     "type": "type",

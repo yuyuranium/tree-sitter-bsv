@@ -1,6 +1,6 @@
 
 const UPPER_CASE_CHARS = /[A-Z]/
-const LOWER_CASE_CHARS = /[a-z]/
+const LOWER_CASE_CHARS = /[a-z_]/
 const IDENTIFIER_CHARS = /([a-zA-Z0-9_$])*/
 
 module.exports = grammar({
@@ -218,7 +218,13 @@ module.exports = grammar({
     methodFormal: $ => seq(optional($.type), $.identifier),
     implicitCond: $ => seq('if', '(', $.condPredicate, ')'),
 
-    rule: $ => 'rule',
+    rule: $ => seq(
+      // optional(attributeInstances),
+      'rule', $.identifier, optional($.ruleCond), ';',
+      repeat($.actionStmt),  // ruleBody
+      'endrule', optional(seq(':', $.identifier))
+    ),
+    ruleCond: $ => seq('(', $.condPredicate, ')'),
 
     //////////////////////////
     // Function definitions //
@@ -243,7 +249,7 @@ module.exports = grammar({
       $.returnStmt,
       // varDecl
       // varAssign
-      // functionDef
+      $.functionDef,
       $.moduleDef,
       // beginEndStmt
       // if, case, for, while
@@ -253,7 +259,6 @@ module.exports = grammar({
     /////////////////
     // Expressions //
     /////////////////
-    // TODO: parse actual expression
     expression: $ => choice(
       $.condExpr,
       // operatorExpr,
@@ -296,7 +301,7 @@ module.exports = grammar({
       $.actionBlock,
       // varDecl
       // varAssign
-      // functionDef
+      $.functionDef,
       $.moduleDef
       // beginEndStmt
       // if, case, for, while
@@ -320,7 +325,7 @@ module.exports = grammar({
       $.actionBlock,
       // varDecl
       // varAssign
-      // functionDef
+      $.functionDef,
       $.moduleDef
       // beginEndStmt
       // if, case, for, while
