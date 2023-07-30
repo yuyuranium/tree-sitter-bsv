@@ -59,3 +59,241 @@ endmodule
               (typeIde
                 (Identifier))))
           (identifier))))))
+
+========================================================================
+module instantiation
+========================================================================
+
+module mkTest ();
+
+     ArithIO#(bit [31:0]) gcdIfc <- mkGCD (5, clocked_by dClkIn);
+
+  endmodule: mkTest
+
+ module mkDesign(Clock prim_clk, Clock sec_clk, Design_IFC ifc);
+
+     RWire#(Bool) select <- mkRWire (select, clocked_by sec_clk);
+
+ endmodule:mkDesign
+
+------------------------------------------------------------------------
+
+(program
+  (packageStmt
+    (moduleDef
+      (moduleProto
+        (identifier))
+      (moduleStmt
+        (moduleInst
+          (type
+            (typePrimary
+              (typeIde
+                (Identifier))
+              (type
+                (typePrimary
+                  (typeNat
+                    (decDigits))
+                  (typeNat
+                    (decDigits))))))
+          (identifier)
+          (moduleApp
+            (identifier)
+            (moduleActualParamArg
+              (expression
+                (exprPrimary
+                  (intLiteral
+                    (unsizedIntLiteral
+                      (decNum
+                        (decDigits)))))))
+            (moduleActualParamArg
+              (expression
+                (exprPrimary
+                  (identifier)))))))
+      (identifier)))
+  (packageStmt
+    (moduleDef
+      (moduleProto
+        (identifier)
+        (moduleFormalArgs
+          (type
+            (typePrimary
+              (typeIde
+                (Identifier))))
+          (identifier)
+          (type
+            (typePrimary
+              (typeIde
+                (Identifier))))
+          (identifier)
+          (type
+            (typePrimary
+              (typeIde
+                (Identifier))))
+          (identifier)))
+      (moduleStmt
+        (moduleInst
+          (type
+            (typePrimary
+              (typeIde
+                (Identifier))
+              (type
+                (typePrimary
+                  (typeIde
+                    (Identifier))))))
+          (identifier)
+          (moduleApp
+            (identifier)
+            (moduleActualParamArg
+              (expression
+                (exprPrimary
+                  (identifier))))
+            (moduleActualParamArg
+              (expression
+                (exprPrimary
+                  (identifier)))))))
+      (identifier))))
+
+========================================================================
+method definitions
+========================================================================
+
+interface GrabAndGive;
+    method Action grab(Bit#(8) value);
+    method Bit#(8) give();
+ endinterface
+ module mkExample (GrabAndGive);
+    Reg#(Bit#(8)) value_reg <- mkReg(?);
+    Reg#(Bool) not_yet <- mkReg(?);
+    method Action grab(Bit#(8) value) if (not_yet);
+
+    endmethod
+    method Bit#(8) give() if (not_yet);
+       return value_reg;
+    endmethod
+endmodule
+
+------------------------------------------------------------------------
+
+(program
+  (packageStmt
+    (interfaceDecl
+      (typeDefType
+        (typeIde
+          (Identifier)))
+      (interfaceMemberDecl
+        (methodProto
+          (type
+            (typePrimary
+              (typeIde
+                (Identifier))))
+          (identifier)
+          (methodProtoFormals
+            (methodProtoFormal
+              (type
+                (typePrimary
+                  (typeIde
+                    (Identifier))
+                  (type
+                    (typePrimary
+                      (typeNat
+                        (decDigits))))))
+              (identifier)))))
+      (interfaceMemberDecl
+        (methodProto
+          (type
+            (typePrimary
+              (typeIde
+                (Identifier))
+              (type
+                (typePrimary
+                  (typeNat
+                    (decDigits))))))
+          (identifier)))))
+  (packageStmt
+    (moduleDef
+      (moduleProto
+        (identifier)
+        (moduleFormalArgs
+          (type
+            (typePrimary
+              (typeIde
+                (Identifier))))))
+      (moduleStmt
+        (moduleInst
+          (type
+            (typePrimary
+              (typeIde
+                (Identifier))
+              (type
+                (typePrimary
+                  (typeIde
+                    (Identifier))
+                  (type
+                    (typePrimary
+                      (typeNat
+                        (decDigits))))))))
+          (identifier)
+          (moduleApp
+            (identifier)
+            (moduleActualParamArg
+              (expression
+                (exprPrimary))))))
+      (moduleStmt
+        (moduleInst
+          (type
+            (typePrimary
+              (typeIde
+                (Identifier))
+              (type
+                (typePrimary
+                  (typeIde
+                    (Identifier))))))
+          (identifier)
+          (moduleApp
+            (identifier)
+            (moduleActualParamArg
+              (expression
+                (exprPrimary))))))
+      (moduleStmt
+        (methodDef
+          (identifier)
+          (methodFormals
+            (methodFormal
+              (type
+                (typePrimary
+                  (typeIde
+                    (Identifier))
+                  (type
+                    (typePrimary
+                      (typeNat
+                        (decDigits))))))
+              (identifier)))
+          (implicitCond
+            (condPredicate
+              (exprOrCondPattern
+                (expression
+                  (exprPrimary
+                    (identifier))))))))
+      (moduleStmt
+        (methodDef
+          (type
+            (typePrimary
+              (typeIde
+                (Identifier))
+              (type
+                (typePrimary
+                  (typeNat
+                    (decDigits))))))
+          (identifier)
+          (implicitCond
+            (condPredicate
+              (exprOrCondPattern
+                (expression
+                  (exprPrimary
+                    (identifier))))))
+          (functionBody
+            (functionBodyStmt
+              (returnStmt
+                (expression
+                  (exprPrimary
+                    (identifier)))))))))))
