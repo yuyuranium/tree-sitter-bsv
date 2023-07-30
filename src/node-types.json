@@ -1482,6 +1482,10 @@
     "named": false
   },
   {
+    "type": "comment",
+    "named": true
+  },
+  {
     "type": "e",
     "named": false
   },

@@ -11,7 +11,8 @@ module.exports = grammar({
   ],
 
   extras: $ => [
-    /\s/
+    /\s/,
+    $.comment
   ],
 
   conflicts: $ => [
@@ -401,6 +402,16 @@ module.exports = grammar({
       /\\x[0-9A-Fa-f]{2}/,
       /[^"\\]/),
     ), '"'),
+
+    // http://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment/36328890#36328890
+    comment: _ => token(choice(
+      seq('//', /(\\+(.|\r?\n)|[^\\\n])*/),
+      seq(
+        '/*',
+        /[^*]*\*+([^/*][^*]*\*+)*/,
+        '/',
+      ),
+    )),
 
     // Identifiers starts with uppercase letters
     Identifier: $ => token(seq(UPPER_CASE_CHARS, IDENTIFIER_CHARS)),
