@@ -191,15 +191,15 @@ module.exports = grammar({
     sizedIntLiteral: $ => seq($.bitWidth, $.baseLiteral),
 
     unsizedIntLiteral: $ => choice(
-      seq($.sign, $.baseLiteral),
-      seq($.sign, $.decNum)
+      seq(optional($.sign), $.baseLiteral),
+      seq(optional($.sign), $.decNum)
     ),
 
     baseLiteral: $ => choice(
-      seq(choice('\'d', '\'D'), $.decDigitsUnderscore)
-      // h
-      // o
-      // b
+      seq(choice('\'d', '\'D'), $.decDigitsUnderscore),
+      seq(choice('\'h', '\'H'), $.hexDigitsUnderscore),
+      seq(choice('\'o', '\'O'), $.octDigitsUnderscore),
+      seq(choice('\'b', '\'B'), $.binDigitsUnderscore),
     ),
 
     decNum: $ => seq(
@@ -212,19 +212,30 @@ module.exports = grammar({
 
     decDigits: $ => repeat1(/[0-9]/),
     decDigitsUnderscore: $ => repeat1(/[0-9_]/),
-    // hex
-    // oct
-    // bin
+    hexDigitsUnderscore: $ => repeat1(/[0-9a-fA-F_]/),
+    octDigitsUnderscore: $ => repeat1(/[0-7_]/),
+    binDigitsUnderscore: $ => repeat1(/[01_]/),
 
     ///////////////////
     // Real literals //
     ///////////////////
-    // TODO
+    realLiteral: $ => choice(
+      seq($.decNum, optional(seq('.', $.decDigitsUnderscore)),
+          $.exp, optional($.sign), $.decDigitsUnderscore),
+      seq($.decNum, '.', $.decDigitsUnderscore)
+    ),
+
+    exp: $ => choice('e', 'E'),
 
     /////////////////////
     // String literals //
     /////////////////////
-    // TODO
+    stringLiteral: $ => seq('"', repeat(choice(
+      /\\[nt\\"vfa]/,
+      /\\[0-7]{3}/,
+      /\\x[0-9A-Fa-f]{2}/,
+      /[^"\\]/),
+    ), '"'),
 
     // Identifiers starts with uppercase letters
     Identifier: $ => token(seq(UPPER_CASE_CHARS, IDENTIFIER_CHARS)),
