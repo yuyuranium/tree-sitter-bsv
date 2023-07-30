@@ -31,6 +31,10 @@
           "named": true
         },
         {
+          "type": "expression",
+          "named": true
+        },
+        {
           "type": "functionDef",
           "named": true
         },
@@ -81,6 +85,10 @@
           "named": true
         },
         {
+          "type": "expression",
+          "named": true
+        },
+        {
           "type": "functionDef",
           "named": true
         },
@@ -98,6 +106,74 @@
         },
         {
           "type": "varDo",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "attrName",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Identifier",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "attrSpec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attrName",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "attributeInstance",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attrSpec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "attributeInstances",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attributeInstance",
           "named": true
         }
       ]
@@ -380,6 +456,10 @@
       "required": true,
       "types": [
         {
+          "type": "attributeInstances",
+          "named": true
+        },
+        {
           "type": "functionBody",
           "named": true
         },
@@ -533,6 +613,10 @@
       "required": true,
       "types": [
         {
+          "type": "attributeInstances",
+          "named": true
+        },
+        {
           "type": "interfaceMemberDecl",
           "named": true
         },
@@ -648,6 +732,10 @@
       "required": true,
       "types": [
         {
+          "type": "attributeInstances",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -670,6 +758,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "attributeInstances",
+          "named": true
+        },
         {
           "type": "identifier",
           "named": true
@@ -739,6 +831,10 @@
       "required": true,
       "types": [
         {
+          "type": "attributeInstances",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -762,6 +858,10 @@
       "required": true,
       "types": [
         {
+          "type": "attributeInstances",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -780,6 +880,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "attributeInstances",
+          "named": true
+        },
         {
           "type": "identifier",
           "named": true
@@ -814,6 +918,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "attributeInstances",
+          "named": true
+        },
         {
           "type": "identifier",
           "named": true
@@ -1074,6 +1182,10 @@
           "named": true
         },
         {
+          "type": "attributeInstances",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -1136,6 +1248,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "attributeInstances",
+          "named": true
+        },
         {
           "type": "identifier",
           "named": true
@@ -1394,6 +1510,10 @@
     "named": false
   },
   {
+    "type": "(*",
+    "named": false
+  },
+  {
     "type": "(..)",
     "named": false
   },
@@ -1403,6 +1523,10 @@
   },
   {
     "type": "*",
+    "named": false
+  },
+  {
+    "type": "*)",
     "named": false
   },
   {
@@ -1435,6 +1559,10 @@
   },
   {
     "type": "<-",
+    "named": false
+  },
+  {
+    "type": "=",
     "named": false
   },
   {

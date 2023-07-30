@@ -6,6 +6,7 @@ module mkFifo#(Int#(8) a) (Fifo);
 
 endmodule
 
+(* synthesize *)
 module mkSyncPulse (Clock sClkIn, Reset sRstIn,
                     Clock dClkIn,
                     SyncPulseIfc ifc);
@@ -36,6 +37,11 @@ endmodule
                 (Identifier))))))))
   (packageStmt
     (moduleDef
+      (attributeInstances
+        (attributeInstance
+          (attrSpec
+            (attrName
+              (identifier)))))
       (moduleProto
         (identifier)
         (moduleFormalArgs
@@ -159,6 +165,7 @@ method definitions
 
 interface GrabAndGive;
     method Action grab(Bit#(8) value);
+    (* prefix = "" *)
     method Bit#(8) give();
  endinterface
  module mkExample (GrabAndGive);
@@ -200,6 +207,14 @@ endmodule
               (identifier)))))
       (interfaceMemberDecl
         (methodProto
+          (attributeInstances
+            (attributeInstance
+              (attrSpec
+                (attrName
+                  (identifier))
+                (expression
+                  (exprPrimary
+                    (stringLiteral))))))
           (type
             (typePrimary
               (typeIde

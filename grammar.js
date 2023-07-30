@@ -89,16 +89,14 @@ module.exports = grammar({
     // Interface //
     ///////////////
     interfaceDecl: $ => seq(
-      // optional(attributeInstances),
+      optional($.attributeInstances),
       'interface', $.typeDefType, ';',
       repeat($.interfaceMemberDecl),
       'endinterface', optional(seq(':', $.typeIde))
     ),
 
     typeDefType: $ => seq($.typeIde, optional($.typeFormals)),
-    typeFormals: $ => seq(
-      '#', '(', comma_sep($.typeFormal), ')'
-    ),
+    typeFormals: $ => seq('#', '(', comma_sep($.typeFormal), ')'),
     typeFormal: $ => seq(optional('numeric'), 'type', $.identifier),
 
     interfaceMemberDecl: $ => choice(
@@ -107,27 +105,25 @@ module.exports = grammar({
     ),
 
     methodProto: $ => seq(
-      // optional(attributeInstances),
+      optional($.attributeInstances),
       'method', $.type, $.identifier,
       optional(seq('(', optional($.methodProtoFormals), ')')),
       ';'
     ),
     methodProtoFormals: $ => comma_sep($.methodProtoFormal),
     methodProtoFormal: $ => seq(
-      // optional(attributeInstances),
-      $.type, $.identifier
+      optional($.attributeInstances), $.type, $.identifier
     ),
 
     subinterfaceDecl: $ => seq(
-      // optional(attributeInstances),
-      'interface', $.type, $.identifier, ';'
+      optional($.attributeInstances), 'interface', $.type, $.identifier, ';'
     ),
 
     ////////////
     // Module //
     ////////////
     moduleDef: $ => seq(
-      // optional(attributeInstances),
+      optional($.attributeInstances),
       $.moduleProto,
       repeat($.moduleStmt),
       'endmodule', optional(seq(':', $.identifier))
@@ -143,14 +139,13 @@ module.exports = grammar({
       '#', '(', comma_sep($.moduleFormalParam), ')'
     ),
     moduleFormalParam: $ => seq(
-      // optional(attributeInstances),
+      optional($.attributeInstances),
       optional('parameter'), $.type, $.identifier
     ),
 
     moduleFormalArgs: $ => choice(
-      $.type,  // seq(optional(attributeInstances), $.type)
-      comma_sep(seq($.type, $.identifier))
-      //           ^optional(attributeInstances)
+      seq(optional($.attributeInstances), $.type),
+      comma_sep(seq(optional($.attributeInstances), $.type, $.identifier))
     ),
 
     moduleStmt: $ => choice(
@@ -175,7 +170,7 @@ module.exports = grammar({
     // Module instantiation //
     //////////////////////////
     moduleInst: $ => seq(
-      // optional(attributeInstances),
+      optional($.attributeInstances),
       $.type, $.identifier, '<-', $.moduleApp, ';'
     ),
     moduleApp: $ => seq(
@@ -220,7 +215,7 @@ module.exports = grammar({
     implicitCond: $ => seq('if', '(', $.condPredicate, ')'),
 
     rule: $ => seq(
-      // optional(attributeInstances),
+      optional($.attributeInstances),
       'rule', $.identifier, optional($.ruleCond), ';',
       repeat($.actionStmt),  // ruleBody
       'endrule', optional(seq(':', $.identifier))
@@ -231,13 +226,14 @@ module.exports = grammar({
     // Function definitions //
     //////////////////////////
     functionDef: $ => seq(
-      // optional(attributeInstances),
+      optional($.attributeInstances),
       $.functionProto,
       $.functionBody,
       'endfunction', optional(seq(':', $.identifier))
     ),
     functionProto: $ => seq(
-      'function', $.type, $.identifier, '(', $.functionFormals, ')', optional($.provisos), ';'
+      'function', $.type, $.identifier, '(', $.functionFormals, ')',
+      optional($.provisos), ';'
     ),
     functionFormals: $ => comma_sep($.functionFormal),
     functionFormal: $ => seq($.type, $.identifier),
@@ -276,7 +272,9 @@ module.exports = grammar({
       // ...
     ),
 
-    condExpr: $ => prec.right(2, seq($.condPredicate, '?', $.expression, ':', $.expression)),
+    condExpr: $ => prec.right(2, seq(
+      $.condPredicate, '?', $.expression, ':', $.expression
+    )),
     condPredicate: $ => seq(
       $.exprOrCondPattern, repeat(seq('&&&', $.exprOrCondPattern))
     ),
@@ -298,7 +296,7 @@ module.exports = grammar({
       $.varDo, $.varDeclDo,
       // functionCall
       // systemTaskStmt
-      // (expression)
+      seq('(', $.expression, ')'),
       $.actionBlock,
       // varDecl
       // varAssign
@@ -321,7 +319,7 @@ module.exports = grammar({
       $.varDo, $.varDeclDo,
       // functionCall
       // systemTaskStmt
-      // (expression)
+      seq('(', $.expression, ')'),
       $.returnStmt,
       $.actionBlock,
       // varDecl
@@ -343,6 +341,14 @@ module.exports = grammar({
       seq('.', $.identifier),  // Pattern variable
       seq('.', '*')            // Wildcard
     ),
+
+    ////////////////
+    // Attributes //
+    ////////////////
+    attributeInstances: $ => repeat1($.attributeInstance),
+    attributeInstance: $ => seq('(*', comma_sep($.attrSpec), '*)'),
+    attrSpec: $ => seq($.attrName, optional(seq('=', $.expression))),
+    attrName: $ => choice($.identifier, $.Identifier),
 
     //////////////////////
     // Integer literals //
