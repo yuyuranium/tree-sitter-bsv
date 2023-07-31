@@ -56,8 +56,8 @@ module.exports = grammar({
       $.moduleDef,
       $.interfaceDecl,
       // typeDef
-      // varDecl
-      // varAssign
+      $.varDecl,
+      $.varAssign,
       $.functionDef
       // typeclassDef
       // typeclassInstanceDef
@@ -222,6 +222,27 @@ module.exports = grammar({
     ),
     ruleCond: $ => seq('(', $.condPredicate, ')'),
 
+    //////////////////////////////////////////
+    // Variable declarations and statements //
+    //////////////////////////////////////////
+    varDecl: $ => choice(
+      seq($.type, comma_sep($.varInit), ';'),
+      seq('let', $.identifier, '=', $.expression, ';')
+    ),
+    varInit: $ => seq($.identifier, optional($.arrayDims), optional(seq('=', $.expression))),
+    arrayDims: $ => repeat1(seq('[', $.expression, ']')),
+
+    varAssign: $ => choice(
+      seq($.IValue, '=', $.expression, ';'),
+      seq('let', $.identifier, '<-', $.expression)
+    ),
+    IValue: $ => choice(
+      $.identifier,
+      seq($.IValue, '.', $.identifier),
+      seq($.IValue, '[', $.expression, ']'),
+      seq($.IValue, '[', $.expression, ':', $.expression, ']')
+    ),
+
     //////////////////////////
     // Function definitions //
     //////////////////////////
@@ -244,8 +265,8 @@ module.exports = grammar({
     ),
     functionBodyStmt: $ => choice(
       $.returnStmt,
-      // varDecl
-      // varAssign
+      $.varDecl,
+      $.varAssign,
       $.functionDef,
       $.moduleDef,
       // beginEndStmt
@@ -298,8 +319,8 @@ module.exports = grammar({
       // systemTaskStmt
       seq('(', $.expression, ')'),
       $.actionBlock,
-      // varDecl
-      // varAssign
+      $.varDecl,
+      $.varAssign,
       $.functionDef,
       $.moduleDef
       // beginEndStmt
@@ -322,8 +343,8 @@ module.exports = grammar({
       seq('(', $.expression, ')'),
       $.returnStmt,
       $.actionBlock,
-      // varDecl
-      // varAssign
+      $.varDecl,
+      $.varAssign,
       $.functionDef,
       $.moduleDef
       // beginEndStmt

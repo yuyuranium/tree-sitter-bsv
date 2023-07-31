@@ -1,0 +1,122 @@
+========================================================================
+variable declaration
+========================================================================
+
+UInt#(4) f = 'b0000;
+Int#(32) a, b, c, d;
+Bool b[3][2][1];
+
+------------------------------------------------------------------------
+
+(program
+  (packageStmt
+    (varDecl
+      (type
+        (typePrimary
+          (typeIde
+            (Identifier))
+          (type
+            (typePrimary
+              (typeNat
+                (decDigits))))))
+      (varInit
+        (identifier)
+        (expression
+          (exprPrimary
+            (intLiteral
+              (unsizedIntLiteral
+                (baseLiteral
+                  (binDigitsUnderscore)))))))))
+  (packageStmt
+    (varDecl
+      (type
+        (typePrimary
+          (typeIde
+            (Identifier))
+          (type
+            (typePrimary
+              (typeNat
+                (decDigits))))))
+      (varInit
+        (identifier))
+      (varInit
+        (identifier))
+      (varInit
+        (identifier))
+      (varInit
+        (identifier))))
+  (packageStmt
+    (varDecl
+      (type
+        (typePrimary
+          (typeIde
+            (Identifier))))
+      (varInit
+        (identifier)
+        (arrayDims
+          (expression
+            (exprPrimary
+              (intLiteral
+                (unsizedIntLiteral
+                  (decNum
+                    (decDigits))))))
+          (expression
+            (exprPrimary
+              (intLiteral
+                (unsizedIntLiteral
+                  (decNum
+                    (decDigits))))))
+          (expression
+            (exprPrimary
+              (intLiteral
+                (unsizedIntLiteral
+                  (decNum
+                    (decDigits)))))))))))
+
+========================================================================
+variable assignment
+========================================================================
+
+Integer wordSize;
+wordSize = 16;
+
+int x;
+x = 22;
+
+------------------------------------------------------------------------
+
+(program
+  (packageStmt
+    (varDecl
+      (type
+        (typePrimary
+          (typeIde
+            (Identifier))))
+      (varInit
+        (identifier))))
+  (packageStmt
+    (varAssign
+      (IValue
+        (identifier))
+      (expression
+        (exprPrimary
+          (intLiteral
+            (unsizedIntLiteral
+              (decNum
+                (decDigits))))))))
+  (packageStmt
+    (varDecl
+      (type
+        (typePrimary))
+      (varInit
+        (identifier))))
+  (packageStmt
+    (varAssign
+      (IValue
+        (identifier))
+      (expression
+        (exprPrimary
+          (intLiteral
+            (unsizedIntLiteral
+              (decNum
+                (decDigits)))))))))

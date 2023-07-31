@@ -1,5 +1,28 @@
 [
   {
+    "type": "IValue",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "IValue",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "actionBlock",
     "named": true,
     "fields": {},
@@ -40,6 +63,14 @@
         },
         {
           "type": "moduleDef",
+          "named": true
+        },
+        {
+          "type": "varAssign",
+          "named": true
+        },
+        {
+          "type": "varDecl",
           "named": true
         },
         {
@@ -101,11 +132,34 @@
           "named": true
         },
         {
+          "type": "varAssign",
+          "named": true
+        },
+        {
+          "type": "varDecl",
+          "named": true
+        },
+        {
           "type": "varDeclDo",
           "named": true
         },
         {
           "type": "varDo",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "arrayDims",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
           "named": true
         }
       ]
@@ -442,6 +496,14 @@
         },
         {
           "type": "returnStmt",
+          "named": true
+        },
+        {
+          "type": "varAssign",
+          "named": true
+        },
+        {
+          "type": "varDecl",
           "named": true
         }
       ]
@@ -1081,6 +1143,14 @@
         {
           "type": "moduleDef",
           "named": true
+        },
+        {
+          "type": "varAssign",
+          "named": true
+        },
+        {
+          "type": "varDecl",
+          "named": true
         }
       ]
     }
@@ -1412,6 +1482,56 @@
     }
   },
   {
+    "type": "varAssign",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "IValue",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "varDecl",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "varInit",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "varDeclDo",
     "named": true,
     "fields": {},
@@ -1442,6 +1562,29 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "varInit",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arrayDims",
+          "named": true
+        },
         {
           "type": "expression",
           "named": true
@@ -1675,6 +1818,10 @@
   },
   {
     "type": "interface",
+    "named": false
+  },
+  {
+    "type": "let",
     "named": false
   },
   {
