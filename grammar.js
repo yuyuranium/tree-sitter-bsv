@@ -252,9 +252,15 @@ module.exports = grammar({
       $.functionBody,
       'endfunction', optional(seq(':', $.identifier))
     ),
-    functionProto: $ => seq(
-      'function', $.type, $.identifier, '(', $.functionFormals, ')',
-      optional($.provisos), ';'
+    functionProto: $ => choice(
+      seq(
+        'function', $.type, $.identifier, '(', $.functionFormals, ')',
+        optional($.provisos), ';'
+      ),
+      seq(
+        'function', $.type, $.identifier, '(', $.functionFormals, ')',
+        optional($.provisos), '=', $.expression, ';'
+      )
     ),
     functionFormals: $ => comma_sep($.functionFormal),
     functionFormal: $ => seq($.type, $.identifier),
