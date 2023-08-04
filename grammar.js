@@ -162,13 +162,15 @@ module.exports = grammar({
       $.moduleDef,
       $.moduleBeginEndStmt,
       $.moduleIfStmt,
-      $.moduleCaseStmt
+      $.moduleCaseStmt,
+      $.moduleWhileStmt
       // if, case, for, while
     ),
 
     moduleBeginEndStmt: $ => beginEndStmt($, $.moduleStmt),
     moduleIfStmt: $ => ifStmt($, $.moduleStmt),
     moduleCaseStmt: $ => caseStmt($, $.moduleStmt),
+    moduleWhileStmt: $ => whileStmt($, $.moduleStmt),
 
     provisos: $ => 'provisos()',
 
@@ -240,7 +242,7 @@ module.exports = grammar({
 
     varAssign: $ => prec.right(-2, choice(
       seq($.IValue, '=', $.expression, ';'),
-      seq('let', $.identifier, '<-', $.expression)
+      seq('let', $.identifier, '<-', $.expression, ';')
     )),
     IValue: $ => choice(
       $.identifier,
@@ -283,7 +285,8 @@ module.exports = grammar({
       $.moduleDef,
       $.functionBodyBeginEndStmt,
       $.functionBodyIfStmt,
-      $.functionBodyCaseStmt
+      $.functionBodyCaseStmt,
+      $.functionBodyWhileStmt
       // if, case, for, while
     ),
     returnStmt: $ => seq('return', $.expression, ';'),
@@ -291,6 +294,7 @@ module.exports = grammar({
     functionBodyBeginEndStmt: $ => beginEndStmt($, $.functionBodyStmt),
     functionBodyIfStmt: $ => ifStmt($, $.functionBodyStmt),
     functionBodyCaseStmt: $ => caseStmt($, $.functionBodyStmt),
+    functionBodyWhileStmt: $ => whileStmt($, $.functionBodyStmt),
 
     /////////////////
     // Expressions //
@@ -343,13 +347,15 @@ module.exports = grammar({
       $.moduleDef,
       $.actionBeginEndStmt,
       $.actionIfStmt,
-      $.actionCaseStmt
+      $.actionCaseStmt,
+      $.actionWhileStmt
       // if, case, for, while
     ),
 
     actionBeginEndStmt: $ => beginEndStmt($, $.actionStmt),
     actionIfStmt: $ => ifStmt($, $.actionStmt),
     actionCaseStmt: $ => caseStmt($, $.actionStmt),
+    actionWhileStmt: $ => whileStmt($, $.actionStmt),
 
     //////////////////
     // ActionValues //
@@ -373,13 +379,15 @@ module.exports = grammar({
       $.moduleDef,
       $.actionValueBeginEndStmt,
       $.actionValueIfStmt,
-      $.actionValueCaseStmt
+      $.actionValueCaseStmt,
+      $.actionValueWhileStmt
       // if, case, for, while
     ),
 
     actionValueBeginEndStmt: $ => beginEndStmt($, $.actionValueStmt),
     actionValueIfStmt: $ => ifStmt($, $.actionValueStmt),
     actionValueCaseStmt: $ => caseStmt($, $.actionValueStmt),
+    actionValueWhileStmt: $ => whileStmt($, $.actionValueStmt),
 
     varDeclDo: $ => prec.right(-2, seq($.type, $.identifier, '<-', $.expression)),
     varDo: $ => prec.right(-2, seq($.identifier, '<-', $.expression)),
@@ -500,6 +508,13 @@ function caseStmt($, stmt) {
     repeat(caseItem),
     optional(defaultItem),
     'endcase'
+  );
+}
+
+function whileStmt($, stmt) {
+  return seq(
+    'while', '(', $.expression, ')',
+    stmt
   );
 }
 

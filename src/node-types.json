@@ -123,6 +123,10 @@
           "named": true
         },
         {
+          "type": "actionWhileStmt",
+          "named": true
+        },
+        {
           "type": "expression",
           "named": true
         },
@@ -254,6 +258,10 @@
           "named": true
         },
         {
+          "type": "actionValueWhileStmt",
+          "named": true
+        },
+        {
           "type": "expression",
           "named": true
         },
@@ -283,6 +291,44 @@
         },
         {
           "type": "varDo",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "actionValueWhileStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "actionValueStmt",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "actionWhileStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "actionStmt",
+          "named": true
+        },
+        {
+          "type": "expression",
           "named": true
         }
       ]
@@ -679,6 +725,10 @@
           "named": true
         },
         {
+          "type": "functionBodyWhileStmt",
+          "named": true
+        },
+        {
           "type": "functionDef",
           "named": true
         },
@@ -696,6 +746,25 @@
         },
         {
           "type": "varDecl",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "functionBodyWhileStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "functionBodyStmt",
           "named": true
         }
       ]
@@ -1324,6 +1393,10 @@
           "named": true
         },
         {
+          "type": "moduleWhileStmt",
+          "named": true
+        },
+        {
           "type": "returnStmt",
           "named": true
         },
@@ -1337,6 +1410,25 @@
         },
         {
           "type": "varDo",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "moduleWhileStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "moduleStmt",
           "named": true
         }
       ]
@@ -2162,6 +2254,10 @@
   },
   {
     "type": "type",
+    "named": false
+  },
+  {
+    "type": "while",
     "named": false
   }
 ]

@@ -1124,6 +1124,10 @@
         {
           "type": "SYMBOL",
           "name": "moduleCaseStmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "moduleWhileStmt"
         }
       ]
     },
@@ -1335,6 +1339,31 @@
         {
           "type": "STRING",
           "value": "endcase"
+        }
+      ]
+    },
+    "moduleWhileStmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "while"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "moduleStmt"
         }
       ]
     },
@@ -2108,6 +2137,10 @@
               {
                 "type": "SYMBOL",
                 "name": "expression"
+              },
+              {
+                "type": "STRING",
+                "value": ";"
               }
             ]
           }
@@ -2435,6 +2468,10 @@
         {
           "type": "SYMBOL",
           "name": "functionBodyCaseStmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "functionBodyWhileStmt"
         }
       ]
     },
@@ -2663,6 +2700,31 @@
         {
           "type": "STRING",
           "value": "endcase"
+        }
+      ]
+    },
+    "functionBodyWhileStmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "while"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "functionBodyStmt"
         }
       ]
     },
@@ -2922,6 +2984,10 @@
         {
           "type": "SYMBOL",
           "name": "actionCaseStmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "actionWhileStmt"
         }
       ]
     },
@@ -3136,6 +3202,31 @@
         }
       ]
     },
+    "actionWhileStmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "while"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "actionStmt"
+        }
+      ]
+    },
     "actionValueBlock": {
       "type": "SEQ",
       "members": [
@@ -3261,6 +3352,10 @@
         {
           "type": "SYMBOL",
           "name": "actionValueCaseStmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "actionValueWhileStmt"
         }
       ]
     },
@@ -3472,6 +3567,31 @@
         {
           "type": "STRING",
           "value": "endcase"
+        }
+      ]
+    },
+    "actionValueWhileStmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "while"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "actionValueStmt"
         }
       ]
     },
