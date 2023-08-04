@@ -160,9 +160,11 @@ module.exports = grammar({
       $.returnStmt,
       $.functionDef,
       $.moduleDef,
-      // beginEndStmt,
+      $.moduleBeginEndStmt
       // if, case, for, while
     ),
+
+    moduleBeginEndStmt: $ => beginEndStmt($, $.moduleStmt),
 
     provisos: $ => 'provisos()',
 
@@ -275,10 +277,12 @@ module.exports = grammar({
       $.varAssign,
       $.functionDef,
       $.moduleDef,
-      // beginEndStmt
+      $.functionBodyBeginEndStmt,
       // if, case, for, while
     ),
     returnStmt: $ => seq('return', $.expression, ';'),
+
+    functionBodyBeginEndStmt: $ => beginEndStmt($, $.functionBodyStmt),
 
     /////////////////
     // Expressions //
@@ -328,10 +332,12 @@ module.exports = grammar({
       $.varDecl,
       $.varAssign,
       $.functionDef,
-      $.moduleDef
-      // beginEndStmt
+      $.moduleDef,
+      $.actionBeginEndStmt,
       // if, case, for, while
     ),
+
+    actionBeginEndStmt: $ => beginEndStmt($, $.actionStmt),
 
     //////////////////
     // ActionValues //
@@ -352,10 +358,12 @@ module.exports = grammar({
       $.varDecl,
       $.varAssign,
       $.functionDef,
-      $.moduleDef
-      // beginEndStmt
+      $.moduleDef,
+      $.actionValueBeginEndStmt
       // if, case, for, while
     ),
+
+    actionValueBeginEndStmt: $ => beginEndStmt($, $.actionValueStmt),
 
     varDeclDo: $ => seq($.type, $.identifier, '<-', $.expression),
     varDo: $ => seq($.identifier, '<-', $.expression),
@@ -453,6 +461,14 @@ module.exports = grammar({
     identifier: $ => token(seq(LOWER_CASE_CHARS, IDENTIFIER_CHARS))
   }
 });
+
+function beginEndStmt($, stmt) {
+  return seq(
+    'begin', optional(seq(':', $.identifier)),
+    repeat(stmt),
+    'end', optional(seq(':', $.identifier))
+  );
+}
 
 function comma_sep(rule) {
   return seq(rule, repeat(seq(',', rule)));

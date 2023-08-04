@@ -23,6 +23,25 @@
     }
   },
   {
+    "type": "actionBeginEndStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "actionStmt",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "actionBlock",
     "named": true,
     "fields": {},
@@ -49,6 +68,10 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "actionBeginEndStmt",
+          "named": true
+        },
         {
           "type": "actionBlock",
           "named": true
@@ -85,6 +108,25 @@
     }
   },
   {
+    "type": "actionValueBeginEndStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "actionValueStmt",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "actionValueBlock",
     "named": true,
     "fields": {},
@@ -113,6 +155,10 @@
       "types": [
         {
           "type": "actionBlock",
+          "named": true
+        },
+        {
+          "type": "actionValueBeginEndStmt",
           "named": true
         },
         {
@@ -479,6 +525,25 @@
     }
   },
   {
+    "type": "functionBodyBeginEndStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "functionBodyStmt",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "functionBodyStmt",
     "named": true,
     "fields": {},
@@ -486,6 +551,10 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "functionBodyBeginEndStmt",
+          "named": true
+        },
         {
           "type": "functionDef",
           "named": true
@@ -889,6 +958,25 @@
     }
   },
   {
+    "type": "moduleBeginEndStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "moduleStmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "moduleDef",
     "named": true,
     "fields": {},
@@ -1052,6 +1140,10 @@
         },
         {
           "type": "methodDef",
+          "named": true
+        },
+        {
+          "type": "moduleBeginEndStmt",
           "named": true
         },
         {
@@ -1749,6 +1841,10 @@
     "named": false
   },
   {
+    "type": "begin",
+    "named": false
+  },
+  {
     "type": "bit",
     "named": false
   },
@@ -1762,6 +1858,10 @@
   },
   {
     "type": "e",
+    "named": false
+  },
+  {
+    "type": "end",
     "named": false
   },
   {
