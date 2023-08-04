@@ -163,7 +163,8 @@ module.exports = grammar({
       $.moduleBeginEndStmt,
       $.moduleIfStmt,
       $.moduleCaseStmt,
-      $.moduleWhileStmt
+      $.moduleWhileStmt,
+      $.moduleForStmt
       // if, case, for, while
     ),
 
@@ -171,6 +172,7 @@ module.exports = grammar({
     moduleIfStmt: $ => ifStmt($, $.moduleStmt),
     moduleCaseStmt: $ => caseStmt($, $.moduleStmt),
     moduleWhileStmt: $ => whileStmt($, $.moduleStmt),
+    moduleForStmt: $ => forStmt($, $.moduleStmt),
 
     provisos: $ => 'provisos()',
 
@@ -286,7 +288,8 @@ module.exports = grammar({
       $.functionBodyBeginEndStmt,
       $.functionBodyIfStmt,
       $.functionBodyCaseStmt,
-      $.functionBodyWhileStmt
+      $.functionBodyWhileStmt,
+      $.functionBodyForStmt
       // if, case, for, while
     ),
     returnStmt: $ => seq('return', $.expression, ';'),
@@ -295,6 +298,7 @@ module.exports = grammar({
     functionBodyIfStmt: $ => ifStmt($, $.functionBodyStmt),
     functionBodyCaseStmt: $ => caseStmt($, $.functionBodyStmt),
     functionBodyWhileStmt: $ => whileStmt($, $.functionBodyStmt),
+    functionBodyForStmt: $ => forStmt($, $.functionBodyForStmt),
 
     /////////////////
     // Expressions //
@@ -348,7 +352,8 @@ module.exports = grammar({
       $.actionBeginEndStmt,
       $.actionIfStmt,
       $.actionCaseStmt,
-      $.actionWhileStmt
+      $.actionWhileStmt,
+      $.actionForStmt
       // if, case, for, while
     ),
 
@@ -356,6 +361,7 @@ module.exports = grammar({
     actionIfStmt: $ => ifStmt($, $.actionStmt),
     actionCaseStmt: $ => caseStmt($, $.actionStmt),
     actionWhileStmt: $ => whileStmt($, $.actionStmt),
+    actionForStmt: $ => forStmt($, $.actionStmt),
 
     //////////////////
     // ActionValues //
@@ -380,7 +386,8 @@ module.exports = grammar({
       $.actionValueBeginEndStmt,
       $.actionValueIfStmt,
       $.actionValueCaseStmt,
-      $.actionValueWhileStmt
+      $.actionValueWhileStmt,
+      $.actionValueForStmt
       // if, case, for, while
     ),
 
@@ -388,6 +395,7 @@ module.exports = grammar({
     actionValueIfStmt: $ => ifStmt($, $.actionValueStmt),
     actionValueCaseStmt: $ => caseStmt($, $.actionValueStmt),
     actionValueWhileStmt: $ => whileStmt($, $.actionValueStmt),
+    actionValueForStmt: $ => forStmt($, $.actionValueStmt),
 
     varDeclDo: $ => prec.right(-2, seq($.type, $.identifier, '<-', $.expression)),
     varDo: $ => prec.right(-2, seq($.identifier, '<-', $.expression)),
@@ -514,6 +522,26 @@ function caseStmt($, stmt) {
 function whileStmt($, stmt) {
   return seq(
     'while', '(', $.expression, ')',
+    stmt
+  );
+}
+
+function forStmt($, stmt) {
+  let simpleVarAssign = seq($.identifier, '=', $.expression);
+  let simpleVarDeclAssign = seq(optional($.type), $.identifier, '=', $.expression)
+  let forOldInit = comma_sep(simpleVarAssign);
+  let forNewInit = seq(
+    $.type, $.identifier, '=', $.expression, repeat(seq(',', simpleVarDeclAssign))
+  );
+  let forInit = choice(
+    forOldInit,
+    forNewInit
+  );
+  let forTest = $.expression;
+  let varIncr = seq($.identifier, '=', $.expression);
+  let forIncr = comma_sep(varIncr);
+  return seq(
+    'for', '(', forInit, ';', forTest, ';', forIncr, ')',
     stmt
   );
 }

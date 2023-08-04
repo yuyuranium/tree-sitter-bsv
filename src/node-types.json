@@ -80,6 +80,33 @@
     }
   },
   {
+    "type": "actionForStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "actionStmt",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "actionIfStmt",
     "named": true,
     "fields": {},
@@ -116,6 +143,10 @@
         },
         {
           "type": "actionCaseStmt",
+          "named": true
+        },
+        {
+          "type": "actionForStmt",
           "named": true
         },
         {
@@ -215,6 +246,33 @@
     }
   },
   {
+    "type": "actionValueForStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "actionValueStmt",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "actionValueIfStmt",
     "named": true,
     "fields": {},
@@ -251,6 +309,10 @@
         },
         {
           "type": "actionValueCaseStmt",
+          "named": true
+        },
+        {
+          "type": "actionValueForStmt",
           "named": true
         },
         {
@@ -686,6 +748,33 @@
     }
   },
   {
+    "type": "functionBodyForStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "functionBodyForStmt",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "functionBodyIfStmt",
     "named": true,
     "fields": {},
@@ -718,6 +807,10 @@
         },
         {
           "type": "functionBodyCaseStmt",
+          "named": true
+        },
+        {
+          "type": "functionBodyForStmt",
           "named": true
         },
         {
@@ -1215,6 +1308,33 @@
     }
   },
   {
+    "type": "moduleForStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "moduleStmt",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "moduleFormalArgs",
     "named": true,
     "fields": {},
@@ -1382,6 +1502,10 @@
         },
         {
           "type": "moduleDef",
+          "named": true
+        },
+        {
+          "type": "moduleForStmt",
           "named": true
         },
         {
@@ -2182,6 +2306,10 @@
   },
   {
     "type": "export",
+    "named": false
+  },
+  {
+    "type": "for",
     "named": false
   },
   {
