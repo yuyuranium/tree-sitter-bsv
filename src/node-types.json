@@ -61,6 +61,25 @@
     }
   },
   {
+    "type": "actionIfStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "actionStmt",
+          "named": true
+        },
+        {
+          "type": "condPredicate",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "actionStmt",
     "named": true,
     "fields": {},
@@ -74,6 +93,10 @@
         },
         {
           "type": "actionBlock",
+          "named": true
+        },
+        {
+          "type": "actionIfStmt",
           "named": true
         },
         {
@@ -146,6 +169,25 @@
     }
   },
   {
+    "type": "actionValueIfStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "actionValueStmt",
+          "named": true
+        },
+        {
+          "type": "condPredicate",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "actionValueStmt",
     "named": true,
     "fields": {},
@@ -159,6 +201,10 @@
         },
         {
           "type": "actionValueBeginEndStmt",
+          "named": true
+        },
+        {
+          "type": "actionValueIfStmt",
           "named": true
         },
         {
@@ -544,6 +590,25 @@
     }
   },
   {
+    "type": "functionBodyIfStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "condPredicate",
+          "named": true
+        },
+        {
+          "type": "functionBodyStmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "functionBodyStmt",
     "named": true,
     "fields": {},
@@ -553,6 +618,10 @@
       "types": [
         {
           "type": "functionBodyBeginEndStmt",
+          "named": true
+        },
+        {
+          "type": "functionBodyIfStmt",
           "named": true
         },
         {
@@ -1065,6 +1134,25 @@
     }
   },
   {
+    "type": "moduleIfStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "condPredicate",
+          "named": true
+        },
+        {
+          "type": "moduleStmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "moduleInst",
     "named": true,
     "fields": {},
@@ -1148,6 +1236,10 @@
         },
         {
           "type": "moduleDef",
+          "named": true
+        },
+        {
+          "type": "moduleIfStmt",
           "named": true
         },
         {
@@ -1858,6 +1950,10 @@
   },
   {
     "type": "e",
+    "named": false
+  },
+  {
+    "type": "else",
     "named": false
   },
   {

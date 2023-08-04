@@ -1116,6 +1116,10 @@
         {
           "type": "SYMBOL",
           "name": "moduleBeginEndStmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "moduleIfStmt"
         }
       ]
     },
@@ -1180,6 +1184,56 @@
           ]
         }
       ]
+    },
+    "moduleIfStmt": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "if"
+          },
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "SYMBOL",
+            "name": "condPredicate"
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "moduleStmt"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "else"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "moduleStmt"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
     },
     "provisos": {
       "type": "STRING",
@@ -2266,6 +2320,10 @@
         {
           "type": "SYMBOL",
           "name": "functionBodyBeginEndStmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "functionBodyIfStmt"
         }
       ]
     },
@@ -2347,6 +2405,56 @@
           ]
         }
       ]
+    },
+    "functionBodyIfStmt": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "if"
+          },
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "SYMBOL",
+            "name": "condPredicate"
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "functionBodyStmt"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "else"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "functionBodyStmt"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
     },
     "expression": {
       "type": "CHOICE",
@@ -2596,6 +2704,10 @@
         {
           "type": "SYMBOL",
           "name": "actionBeginEndStmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "actionIfStmt"
         }
       ]
     },
@@ -2660,6 +2772,56 @@
           ]
         }
       ]
+    },
+    "actionIfStmt": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "if"
+          },
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "SYMBOL",
+            "name": "condPredicate"
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "actionStmt"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "else"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "actionStmt"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
     },
     "actionValueBlock": {
       "type": "SEQ",
@@ -2778,6 +2940,10 @@
         {
           "type": "SYMBOL",
           "name": "actionValueBeginEndStmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "actionValueIfStmt"
         }
       ]
     },
@@ -2842,6 +3008,56 @@
           ]
         }
       ]
+    },
+    "actionValueIfStmt": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "if"
+          },
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "SYMBOL",
+            "name": "condPredicate"
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "actionValueStmt"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "else"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "actionValueStmt"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
     },
     "varDeclDo": {
       "type": "SEQ",

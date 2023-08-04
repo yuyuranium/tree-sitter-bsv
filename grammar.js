@@ -160,11 +160,13 @@ module.exports = grammar({
       $.returnStmt,
       $.functionDef,
       $.moduleDef,
-      $.moduleBeginEndStmt
+      $.moduleBeginEndStmt,
+      $.moduleIfStmt
       // if, case, for, while
     ),
 
     moduleBeginEndStmt: $ => beginEndStmt($, $.moduleStmt),
+    moduleIfStmt: $ => ifStmt($, $.moduleStmt),
 
     provisos: $ => 'provisos()',
 
@@ -278,11 +280,13 @@ module.exports = grammar({
       $.functionDef,
       $.moduleDef,
       $.functionBodyBeginEndStmt,
+      $.functionBodyIfStmt
       // if, case, for, while
     ),
     returnStmt: $ => seq('return', $.expression, ';'),
 
     functionBodyBeginEndStmt: $ => beginEndStmt($, $.functionBodyStmt),
+    functionBodyIfStmt: $ => ifStmt($, $.functionBodyStmt),
 
     /////////////////
     // Expressions //
@@ -334,10 +338,12 @@ module.exports = grammar({
       $.functionDef,
       $.moduleDef,
       $.actionBeginEndStmt,
+      $.actionIfStmt
       // if, case, for, while
     ),
 
     actionBeginEndStmt: $ => beginEndStmt($, $.actionStmt),
+    actionIfStmt: $ => ifStmt($, $.actionStmt),
 
     //////////////////
     // ActionValues //
@@ -359,11 +365,13 @@ module.exports = grammar({
       $.varAssign,
       $.functionDef,
       $.moduleDef,
-      $.actionValueBeginEndStmt
+      $.actionValueBeginEndStmt,
+      $.actionValueIfStmt
       // if, case, for, while
     ),
 
     actionValueBeginEndStmt: $ => beginEndStmt($, $.actionValueStmt),
+    actionValueIfStmt: $ => ifStmt($, $.actionValueStmt),
 
     varDeclDo: $ => seq($.type, $.identifier, '<-', $.expression),
     varDo: $ => seq($.identifier, '<-', $.expression),
@@ -468,6 +476,14 @@ function beginEndStmt($, stmt) {
     repeat(stmt),
     'end', optional(seq(':', $.identifier))
   );
+}
+
+function ifStmt($, stmt) {
+  return prec.left(seq(
+    'if', '(', $.condPredicate, ')',
+    stmt,
+    optional(seq('else', stmt))
+  ));
 }
 
 function comma_sep(rule) {
