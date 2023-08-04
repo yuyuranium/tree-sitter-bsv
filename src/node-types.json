@@ -61,6 +61,25 @@
     }
   },
   {
+    "type": "actionCaseStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "actionStmt",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "actionIfStmt",
     "named": true,
     "fields": {},
@@ -93,6 +112,10 @@
         },
         {
           "type": "actionBlock",
+          "named": true
+        },
+        {
+          "type": "actionCaseStmt",
           "named": true
         },
         {
@@ -169,6 +192,25 @@
     }
   },
   {
+    "type": "actionValueCaseStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "actionValueStmt",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "actionValueIfStmt",
     "named": true,
     "fields": {},
@@ -201,6 +243,10 @@
         },
         {
           "type": "actionValueBeginEndStmt",
+          "named": true
+        },
+        {
+          "type": "actionValueCaseStmt",
           "named": true
         },
         {
@@ -356,21 +402,6 @@
     "type": "binDigitsUnderscore",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "bitWidth",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "decDigits",
-          "named": true
-        }
-      ]
-    }
   },
   {
     "type": "condExpr",
@@ -590,6 +621,25 @@
     }
   },
   {
+    "type": "functionBodyCaseStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "functionBodyStmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "functionBodyIfStmt",
     "named": true,
     "fields": {},
@@ -618,6 +668,10 @@
       "types": [
         {
           "type": "functionBodyBeginEndStmt",
+          "named": true
+        },
+        {
+          "type": "functionBodyCaseStmt",
           "named": true
         },
         {
@@ -1046,6 +1100,25 @@
     }
   },
   {
+    "type": "moduleCaseStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "moduleStmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "moduleDef",
     "named": true,
     "fields": {},
@@ -1232,6 +1305,10 @@
         },
         {
           "type": "moduleBeginEndStmt",
+          "named": true
+        },
+        {
+          "type": "moduleCaseStmt",
           "named": true
         },
         {
@@ -1477,17 +1554,24 @@
   {
     "type": "sizedIntLiteral",
     "named": true,
-    "fields": {},
+    "fields": {
+      "bitWidth": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "decDigits",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "baseLiteral",
-          "named": true
-        },
-        {
-          "type": "bitWidth",
           "named": true
         }
       ]
@@ -1941,12 +2025,20 @@
     "named": false
   },
   {
+    "type": "case",
+    "named": false
+  },
+  {
     "type": "clocked_by",
     "named": false
   },
   {
     "type": "comment",
     "named": true
+  },
+  {
+    "type": "default",
+    "named": false
   },
   {
     "type": "e",
@@ -1966,6 +2058,10 @@
   },
   {
     "type": "endactionvalue",
+    "named": false
+  },
+  {
+    "type": "endcase",
     "named": false
   },
   {

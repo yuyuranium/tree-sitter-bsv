@@ -161,12 +161,14 @@ module.exports = grammar({
       $.functionDef,
       $.moduleDef,
       $.moduleBeginEndStmt,
-      $.moduleIfStmt
+      $.moduleIfStmt,
+      $.moduleCaseStmt
       // if, case, for, while
     ),
 
     moduleBeginEndStmt: $ => beginEndStmt($, $.moduleStmt),
     moduleIfStmt: $ => ifStmt($, $.moduleStmt),
+    moduleCaseStmt: $ => caseStmt($, $.moduleStmt),
 
     provisos: $ => 'provisos()',
 
@@ -236,10 +238,10 @@ module.exports = grammar({
     varInit: $ => seq($.identifier, optional($.arrayDims), optional(seq('=', $.expression))),
     arrayDims: $ => repeat1(seq('[', $.expression, ']')),
 
-    varAssign: $ => choice(
+    varAssign: $ => prec.right(-2, choice(
       seq($.IValue, '=', $.expression, ';'),
       seq('let', $.identifier, '<-', $.expression)
-    ),
+    )),
     IValue: $ => choice(
       $.identifier,
       seq($.IValue, '.', $.identifier),
@@ -280,13 +282,15 @@ module.exports = grammar({
       $.functionDef,
       $.moduleDef,
       $.functionBodyBeginEndStmt,
-      $.functionBodyIfStmt
+      $.functionBodyIfStmt,
+      $.functionBodyCaseStmt
       // if, case, for, while
     ),
     returnStmt: $ => seq('return', $.expression, ';'),
 
     functionBodyBeginEndStmt: $ => beginEndStmt($, $.functionBodyStmt),
     functionBodyIfStmt: $ => ifStmt($, $.functionBodyStmt),
+    functionBodyCaseStmt: $ => caseStmt($, $.functionBodyStmt),
 
     /////////////////
     // Expressions //
@@ -307,7 +311,7 @@ module.exports = grammar({
       // ...
     ),
 
-    condExpr: $ => prec.right(2, seq(
+    condExpr: $ => prec.right(-1, seq(
       $.condPredicate, '?', $.expression, ':', $.expression
     )),
     condPredicate: $ => seq(
@@ -338,12 +342,14 @@ module.exports = grammar({
       $.functionDef,
       $.moduleDef,
       $.actionBeginEndStmt,
-      $.actionIfStmt
+      $.actionIfStmt,
+      $.actionCaseStmt
       // if, case, for, while
     ),
 
     actionBeginEndStmt: $ => beginEndStmt($, $.actionStmt),
     actionIfStmt: $ => ifStmt($, $.actionStmt),
+    actionCaseStmt: $ => caseStmt($, $.actionStmt),
 
     //////////////////
     // ActionValues //
@@ -366,15 +372,17 @@ module.exports = grammar({
       $.functionDef,
       $.moduleDef,
       $.actionValueBeginEndStmt,
-      $.actionValueIfStmt
+      $.actionValueIfStmt,
+      $.actionValueCaseStmt
       // if, case, for, while
     ),
 
     actionValueBeginEndStmt: $ => beginEndStmt($, $.actionValueStmt),
     actionValueIfStmt: $ => ifStmt($, $.actionValueStmt),
+    actionValueCaseStmt: $ => caseStmt($, $.actionValueStmt),
 
-    varDeclDo: $ => seq($.type, $.identifier, '<-', $.expression),
-    varDo: $ => seq($.identifier, '<-', $.expression),
+    varDeclDo: $ => prec.right(-2, seq($.type, $.identifier, '<-', $.expression)),
+    varDo: $ => prec.right(-2, seq($.identifier, '<-', $.expression)),
 
     //////////////////////
     // Pattern matching //
@@ -403,7 +411,7 @@ module.exports = grammar({
       $.unsizedIntLiteral
     ),
 
-    sizedIntLiteral: $ => seq($.bitWidth, $.baseLiteral),
+    sizedIntLiteral: $ => seq(field('bitWidth', $.decDigits), $.baseLiteral),
 
     unsizedIntLiteral: $ => choice(
       seq(optional($.sign), $.baseLiteral),
@@ -417,11 +425,9 @@ module.exports = grammar({
       seq(choice('\'b', '\'B'), $.binDigitsUnderscore),
     ),
 
-    decNum: $ => seq(
+    decNum: $ => prec.left(seq(
       $.decDigits, optional($.decDigitsUnderscore)
-    ),
-
-    bitWidth: $ => $.decDigits,
+    )),
 
     sign: $ => choice('+', '-'),
 
@@ -484,6 +490,17 @@ function ifStmt($, stmt) {
     stmt,
     optional(seq('else', stmt))
   ));
+}
+
+function caseStmt($, stmt) {
+  let caseItem = seq(comma_sep($.expression), ':', stmt);
+  let defaultItem = seq('default', optional(':'), stmt);
+  return seq(
+    'case', '(', $.expression, ')',
+    repeat(caseItem),
+    optional(defaultItem),
+    'endcase'
+  );
 }
 
 function comma_sep(rule) {
