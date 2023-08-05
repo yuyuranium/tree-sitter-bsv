@@ -1126,6 +1126,10 @@
           "named": true
         },
         {
+          "type": "expression",
+          "named": true
+        },
+        {
           "type": "functionBody",
           "named": true
         },
@@ -1569,6 +1573,10 @@
         },
         {
           "type": "rule",
+          "named": true
+        },
+        {
+          "type": "varDecl",
           "named": true
         },
         {

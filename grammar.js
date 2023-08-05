@@ -84,7 +84,8 @@ module.exports = grammar({
       'int'
     ),
 
-    typeIde: $ => choice($.Identifier, $.identifier),
+    // Polymorphism types starts with lowercase letters
+    typeIde: $ => prec(20, choice($.Identifier, $.identifier)),
     typeNat: $ => $.decDigits,
 
     ///////////////
@@ -160,6 +161,7 @@ module.exports = grammar({
       // systemTaskStmt
       seq('(', $.expression, ')'),
       $.returnStmt,
+      $.varDecl, $.varDeclDo,
       $.functionDef,
       $.moduleDef,
       $.moduleBeginEndStmt,
@@ -199,7 +201,7 @@ module.exports = grammar({
     ////////////////////////
     methodDef: $ => choice(
       seq(
-        'method', $.type, $.identifier,
+        'method', optional($.type), $.identifier,
         optional(seq('(', optional($.methodFormals), ')')),
         optional($.implicitCond), ';',
         $.functionBody,
@@ -218,6 +220,11 @@ module.exports = grammar({
         optional($.implicitCond), ';',
         repeat($.actionValueStmt),
         'endmethod', optional(seq(':', $.identifier))
+      ),
+      seq(
+        'method', optional(choice('Action', 'ActionValue', $.type)), $.identifier,
+        optional(seq('(', $.methodFormals, ')')),
+        optional($.implicitCond), '=', $.expression, ';'
       )
     ),
 
@@ -283,7 +290,7 @@ module.exports = grammar({
     functionBody: $ => choice(
       $.actionBlock,
       $.actionValueBlock,
-      repeat1($.functionBodyStmt)
+      repeat1($.functionBodyStmt)  // Hotfix: can have no functionBody
     ),
     functionBodyStmt: $ => prec(-3, choice(
       $.returnStmt,
