@@ -523,11 +523,6 @@
     }
   },
   {
-    "type": "binDigitsUnderscore",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "binaryExpr",
     "named": true,
     "fields": {
@@ -674,35 +669,6 @@
     }
   },
   {
-    "type": "decDigits",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "decDigitsUnderscore",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "decNum",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "decDigits",
-          "named": true
-        },
-        {
-          "type": "decDigitsUnderscore",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "derives",
     "named": true,
     "fields": {},
@@ -716,11 +682,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "exp",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "exportDecl",
@@ -784,9 +745,21 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "actionBlock",
+          "named": true
+        },
+        {
+          "type": "actionValueBlock",
+          "named": true
+        },
+        {
+          "type": "exprPrimary",
+          "named": true
+        },
         {
           "type": "expression",
           "named": true
@@ -1274,11 +1247,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "hexDigitsUnderscore",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "implicitCond",
@@ -1918,11 +1886,6 @@
     }
   },
   {
-    "type": "octDigitsUnderscore",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "operatorExpr",
     "named": true,
     "fields": {},
@@ -2097,29 +2060,7 @@
   {
     "type": "realLiteral",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "decDigitsUnderscore",
-          "named": true
-        },
-        {
-          "type": "decNum",
-          "named": true
-        },
-        {
-          "type": "exp",
-          "named": true
-        },
-        {
-          "type": "sign",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "regWrite",
@@ -3037,10 +2978,6 @@
     "named": false
   },
   {
-    "type": "E",
-    "named": false
-  },
-  {
     "type": "Identifier",
     "named": true
   },
@@ -3073,6 +3010,10 @@
     "named": false
   },
   {
+    "type": "binDigitsUnderscore",
+    "named": true
+  },
+  {
     "type": "bit",
     "named": false
   },
@@ -3089,15 +3030,23 @@
     "named": true
   },
   {
+    "type": "decDigits",
+    "named": true
+  },
+  {
+    "type": "decDigitsUnderscore",
+    "named": true
+  },
+  {
+    "type": "decNum",
+    "named": true
+  },
+  {
     "type": "default",
     "named": false
   },
   {
     "type": "deriving",
-    "named": false
-  },
-  {
-    "type": "e",
     "named": false
   },
   {
@@ -3161,6 +3110,10 @@
     "named": false
   },
   {
+    "type": "hexDigitsUnderscore",
+    "named": true
+  },
+  {
     "type": "identifier",
     "named": true
   },
@@ -3199,6 +3152,10 @@
   {
     "type": "numeric",
     "named": false
+  },
+  {
+    "type": "octDigitsUnderscore",
+    "named": true
   },
   {
     "type": "package",

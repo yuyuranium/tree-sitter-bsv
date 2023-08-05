@@ -168,28 +168,23 @@ typedef enum {
             (Identifier)
             (intLiteral
               (unsizedIntLiteral
-                (decNum
-                  (decDigits)))))
+                (decNum))))
           (typedefEnumElement
             (Identifier)
             (intLiteral
               (unsizedIntLiteral
-                (decNum
-                  (decDigits))))
+                (decNum)))
             (intLiteral
               (unsizedIntLiteral
-                (decNum
-                  (decDigits)))))
+                (decNum))))
           (typedefEnumElement
             (Identifier)
             (intLiteral
               (unsizedIntLiteral
-                (decNum
-                  (decDigits))))
+                (decNum)))
             (intLiteral
               (unsizedIntLiteral
-                (decNum
-                  (decDigits))))))
+                (decNum)))))
         (Identifier))))
   (packageStmt
     (typeDef

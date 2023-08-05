@@ -58,20 +58,17 @@ Bool b[3][2][1];
             (exprPrimary
               (intLiteral
                 (unsizedIntLiteral
-                  (decNum
-                    (decDigits))))))
+                  (decNum)))))
           (expression
             (exprPrimary
               (intLiteral
                 (unsizedIntLiteral
-                  (decNum
-                    (decDigits))))))
+                  (decNum)))))
           (expression
             (exprPrimary
               (intLiteral
                 (unsizedIntLiteral
-                  (decNum
-                    (decDigits)))))))))))
+                  (decNum))))))))))
 
 ========================================================================
 variable assignment
@@ -102,8 +99,7 @@ x = 22;
         (exprPrimary
           (intLiteral
             (unsizedIntLiteral
-              (decNum
-                (decDigits))))))))
+              (decNum)))))))
   (packageStmt
     (varDecl
       (type
@@ -118,5 +114,4 @@ x = 22;
         (exprPrimary
           (intLiteral
             (unsizedIntLiteral
-              (decNum
-                (decDigits)))))))))
+              (decNum))))))))

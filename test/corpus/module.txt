@@ -109,8 +109,7 @@ module mkTest ();
                 (exprPrimary
                   (intLiteral
                     (unsizedIntLiteral
-                      (decNum
-                        (decDigits)))))))
+                      (decNum))))))
             (moduleActualParamArg
               (expression
                 (exprPrimary

@@ -47,6 +47,7 @@ module.exports = grammar({
     [$.condPredicate],
     [$.moduleApp, $.exprPrimary],
     [$.typeIde, $.exprPrimary],
+    [$.IValue, $.exprPrimary],
     [$.typeIde, $.subinterfaceDef],
     [$.typeIde, $.methodDef],
     [$.typeNat, $.decNum]
@@ -374,6 +375,7 @@ module.exports = grammar({
     varAssign: $ => prec.right(PREC.ASSIGN, choice(
       seq($.IValue, '=', $.expression, ';'),
       seq('let', $.identifier, '<-', $.expression, ';')
+      // match pattern = expression ;
     )),
     IValue: $ => choice(
       $.identifier,
@@ -447,9 +449,21 @@ module.exports = grammar({
       $.stringLiteral,
       // systemFunctionCall
       seq('(', $.expression, ')'),
-      '?',
-      $.functionCall
-      // ...
+      '?',  // Don't-care expressions
+      // bitConcat, bitSelect
+      // beginEndExpr
+      $.actionBlock,
+      $.actionValueBlock,
+      $.functionCall,
+      // methodCall
+      // typeAssertion
+      // structExpr
+      seq($.exprPrimary, '.', $.identifier)
+      // taggedUnionExpr
+      // interfaceExpr
+      // ruleExpr
+      // caseExpr
+      // seqFsmStmt, parFsmStmt
     ),
 
     condExpr: $ => prec.right(PREC.COND, seq(
@@ -526,11 +540,11 @@ module.exports = grammar({
     /////////////
     // Actions //
     /////////////
-    actionBlock: $ => seq(
+    actionBlock: $ => prec.left(seq(
       'action', optional(seq(':', $.identifier)),
       repeat($.actionStmt),
       'endaction', optional(seq(':', $.identifier))
-    ),
+    )),
     actionStmt: $ => prec(PREC.STMT, choice(
       $.regWrite,
       $.varDo, $.varDeclDo,
@@ -558,11 +572,11 @@ module.exports = grammar({
     //////////////////
     // ActionValues //
     //////////////////
-    actionValueBlock: $ => seq(
+    actionValueBlock: $ => prec.left(seq(
       'actionvalue', optional(seq(':', $.identifier)),
       repeat($.actionStmt),
       'endactionvalue', optional(seq(':', $.identifier))
-    ),
+    )),
     actionValueStmt: $ => prec(PREC.STMT, choice(
       $.regWrite,
       $.varDo, $.varDeclDo,
@@ -603,6 +617,10 @@ module.exports = grammar({
     pattern: $ => choice(
       seq('.', $.identifier),  // Pattern variable
       seq('.', '*')            // Wildcard
+      // constantPattern
+      // taggedUnionPattern
+      // structPattern
+      // tuplePattern
     ),
 
     ////////////////
@@ -625,10 +643,10 @@ module.exports = grammar({
 
     sizedIntLiteral: $ => seq(field('bitWidth', $.decDigits), $.baseLiteral),
 
-    unsizedIntLiteral: $ => choice(
+    unsizedIntLiteral: $ => prec.left(choice(
       seq(optional($.sign), $.baseLiteral),
       seq(optional($.sign), $.decNum)
-    ),
+    )),
 
     baseLiteral: $ => choice(
       seq(choice('\'d', '\'D'), $.decDigitsUnderscore),
@@ -637,28 +655,24 @@ module.exports = grammar({
       seq(choice('\'b', '\'B'), $.binDigitsUnderscore),
     ),
 
-    decNum: $ => prec.left(seq(
-      $.decDigits, optional($.decDigitsUnderscore)
-    )),
+    decNum: $ => token(seq(/[0-9]+/, optional(/[0-9_]+/))),
 
     sign: $ => choice('+', '-'),
 
-    decDigits: $ => prec.left(repeat1(/[0-9]/)),
-    decDigitsUnderscore: $ => repeat1(/[0-9_]/),
-    hexDigitsUnderscore: $ => repeat1(/[0-9a-fA-F_]/),
-    octDigitsUnderscore: $ => repeat1(/[0-7_]/),
-    binDigitsUnderscore: $ => repeat1(/[01_]/),
+    decDigits: $ => /[0-9]+/,
+    decDigitsUnderscore: $ => /[0-9_]+/,
+    hexDigitsUnderscore: $ => /[0-9a-fA-F_]+/,
+    octDigitsUnderscore: $ => /[0-7_]+/,
+    binDigitsUnderscore: $ => /[01_]+/,
 
     ///////////////////
     // Real literals //
     ///////////////////
     realLiteral: $ => choice(
-      seq($.decNum, optional(seq('.', $.decDigitsUnderscore)),
-          $.exp, optional($.sign), $.decDigitsUnderscore),
-      seq($.decNum, '.', $.decDigitsUnderscore)
+      token(seq(/[0-9]+[0-9_]*/, optional(seq('.', /[0-9_]+/)),
+            /[eE]/, optional(/[-\+]/), /[0-9_]+/)),
+      token(seq(/[0-9]+[0-9_]*/, '.', /[0-9_]+/))
     ),
-
-    exp: $ => choice('e', 'E'),
 
     /////////////////////
     // String literals //
@@ -707,6 +721,7 @@ function ifStmt($, stmt) {
 function caseStmt($, stmt) {
   let caseItem = seq(comma_sep($.expression), ':', stmt);
   let defaultItem = seq('default', optional(':'), stmt);
+  // cases matches
   return seq(
     'case', '(', $.expression, ')',
     repeat(caseItem),
