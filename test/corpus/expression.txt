@@ -1,0 +1,64 @@
+========================================================================
+operator expressions
+========================================================================
+
+int e5 = e1 ? e2 : e3 + e4;
+int e6 = e1 * e2 + ~e3 * e4;
+
+------------------------------------------------------------------------
+ (program
+  (packageStmt
+    (varDecl
+      (type
+        (typePrimary))
+      (varInit
+        (identifier)
+        (expression
+          (condExpr
+            (condPredicate
+              (exprOrCondPattern
+                (expression
+                  (exprPrimary
+                    (identifier)))))
+            (expression
+              (exprPrimary
+                (identifier)))
+            (expression
+              (operatorExpr
+                (binaryExpr
+                  (expression
+                    (exprPrimary
+                      (identifier)))
+                  (expression
+                    (exprPrimary
+                      (identifier)))))))))))
+  (packageStmt
+    (varDecl
+      (type
+        (typePrimary))
+      (varInit
+        (identifier)
+        (expression
+          (operatorExpr
+            (binaryExpr
+              (expression
+                (operatorExpr
+                  (binaryExpr
+                    (expression
+                      (exprPrimary
+                        (identifier)))
+                    (expression
+                      (exprPrimary
+                        (identifier))))))
+              (expression
+                (operatorExpr
+                  (binaryExpr
+                    (expression
+                      (operatorExpr
+                        (unaryExpr
+                          (expression
+                            (exprPrimary
+                              (identifier))))))
+                    (expression
+                      (exprPrimary
+                        (identifier)))))))))))))
