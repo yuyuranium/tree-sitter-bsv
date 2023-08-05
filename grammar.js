@@ -3,6 +3,27 @@ const UPPER_CASE_CHARS = /[A-Z]/
 const LOWER_CASE_CHARS = /[a-z_]/
 const IDENTIFIER_CHARS = /([a-zA-Z0-9_$])*/
 
+const PREC = {
+  UNOP_PLUS: 18,
+  UNOP_AND: 17,
+  UNOP_NAND: 16,
+  UNOP_OR: 15,
+  UNOP_NOR: 14,
+  UNOP_XOR: 13,
+  UNOP_XNOR: 12,
+  BINOP_MUL: 11,
+  BINOP_ADD: 10,
+  BINOP_SHT: 9,
+  BINOP_COMP: 8,
+  BINOP_EQ: 7,
+  BINOP_AND: 6,
+  BINOP_XOR: 5,
+  BINOP_XNOR: 4,
+  BINOP_OR: 3,
+  BINOP_LOGIC_AND: 2,
+  BINOP_LOGIC_OR: 1
+};
+
 module.exports = grammar({
   name: 'bsv',
 
@@ -413,7 +434,7 @@ module.exports = grammar({
     /////////////////
     expression: $ => choice(
       $.condExpr,
-      // operatorExpr,
+      $.operatorExpr,
       $.exprPrimary
     ),
     exprPrimary: $ => choice(
@@ -434,10 +455,72 @@ module.exports = grammar({
     condPredicate: $ => seq(
       $.exprOrCondPattern, repeat(seq('&&&', $.exprOrCondPattern))
     ),
-    exprOrCondPattern: $ => choice(
+    exprOrCondPattern: $ => prec(PREC.UNOP_PLUS + 1, choice(
       $.expression,
       seq($.expression, 'matches', $.pattern)
+    )),
+
+    operatorExpr: $ => choice(
+      $.unaryExpr,
+      $.binaryExpr,
     ),
+
+    unaryExpr: $ => {
+      const table = [
+        ['+', PREC.UNOP_PLUS],
+        ['-', PREC.UNOP_PLUS],
+        ['!', PREC.UNOP_PLUS],
+        ['~', PREC.UNOP_PLUS],
+        ['&', PREC.UNOP_AND],
+        ['~&', PREC.UNOP_NAND],
+        ['|', PREC.UNOP_OR],
+        ['~|', PREC.UNOP_NOR],
+        ['^', PREC.UNOP_XOR],
+        ['~^', PREC.UNOP_XNOR],
+        ['^~', PREC.UNOP_XNOR]
+      ];
+
+      return choice(...table.map(([operator, precedence]) => {
+        return prec(precedence, seq(
+          field('unary_operator', operator),
+          field('unary_right', $.expression),
+        ));
+      }));
+
+    },
+
+    binaryExpr: $ => {
+      const table = [
+        ['*', PREC.BINOP_MUL],
+        ['/', PREC.BINOP_MUL],
+        ['%', PREC.BINOP_MUL],
+        ['+', PREC.BINOP_ADD],
+        ['-', PREC.BINOP_ADD],
+        ['<<', PREC.BINOP_SHT],
+        ['>>', PREC.BINOP_SHT],
+        ['<=', PREC.BINOP_COMP],
+        ['>=', PREC.BINOP_COMP],
+        ['<', PREC.BINOP_COMP],
+        ['>', PREC.BINOP_COMP],
+        ['==', PREC.BINOP_EQ],
+        ['!=', PREC.BINOP_EQ],
+        ['&', PREC.BINOP_AND],
+        ['^', PREC.BINOP_XOR],
+        ['~^', PREC.BINOP_XNOR],
+        ['^~', PREC.BINOP_XNOR],
+        ['|', PREC.BINOP_OR],
+        ['&&', PREC.BINOP_LOGIC_AND],
+        ['||', PREC.BINOP_LOGIC_OR]
+      ];
+
+      return choice(...table.map(([operator, precedence]) => {
+        return prec.left(precedence, seq(
+          field('binary_left', $.expression),
+          field('binary_operator', operator),
+          field('binary_right', $.expression),
+        ));
+      }));
+    },
 
     /////////////
     // Actions //
@@ -507,7 +590,7 @@ module.exports = grammar({
     varDeclDo: $ => prec.right(-2, seq($.type, $.identifier, '<-', $.expression, ';')),
     varDo: $ => prec.right(-2, seq($.identifier, '<-', $.expression, ';')),
 
-    functionCall: $ => prec.left(15, seq(
+    functionCall: $ => prec.left(PREC.UNOP_PLUS + 1, seq(
       // Note: The function must includes the argument list, like func(arg1, arg2)
       $.exprPrimary, seq('(', optional(comma_sep($.expression)), ')')
     )),
