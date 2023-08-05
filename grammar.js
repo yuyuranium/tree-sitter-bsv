@@ -3,6 +3,27 @@ const UPPER_CASE_CHARS = /[A-Z]/
 const LOWER_CASE_CHARS = /[a-z_]/
 const IDENTIFIER_CHARS = /([a-zA-Z0-9_$])*/
 
+const PREC = {
+  UNOP_PLUS: 18,
+  UNOP_AND: 17,
+  UNOP_NAND: 16,
+  UNOP_OR: 15,
+  UNOP_NOR: 14,
+  UNOP_XOR: 13,
+  UNOP_XNOR: 12,
+  BINOP_MUL: 11,
+  BINOP_ADD: 10,
+  BINOP_SHT: 9,
+  BINOP_COMP: 8,
+  BINOP_EQ: 7,
+  BINOP_AND: 6,
+  BINOP_XOR: 5,
+  BINOP_XNOR: 4,
+  BINOP_OR: 3,
+  BINOP_LOGIC_AND: 2,
+  BINOP_LOGIC_OR: 1
+};
+
 module.exports = grammar({
   name: 'bsv',
 
@@ -305,7 +326,7 @@ module.exports = grammar({
     /////////////////
     expression: $ => choice(
       $.condExpr,
-      // operatorExpr,
+      $.operatorExpr,
       $.exprPrimary
     ),
     exprPrimary: $ => choice(
@@ -326,9 +347,39 @@ module.exports = grammar({
     condPredicate: $ => seq(
       $.exprOrCondPattern, repeat(seq('&&&', $.exprOrCondPattern))
     ),
-    exprOrCondPattern: $ => choice(
+    exprOrCondPattern: $ => prec(PREC.UNOP_PLUS + 1, choice(
       $.expression,
       seq($.expression, 'matches', $.pattern)
+    )),
+
+    operatorExpr: $ => choice(
+      seq($.unop, $.expression),
+      prec.left(PREC.BINOP_MUL, seq($.expression, $.binop, $.expression))
+    ),
+
+
+    unop: $ => choice(
+      prec(PREC.UNOP_PLUS, choice('+', '-', '!', '~')),
+      prec(PREC.UNOP_AND, '&'),
+      prec(PREC.UNOP_NAND, '~&'),
+      prec(PREC.UNOP_OR, '|'),
+      prec(PREC.UNOP_NOR, '~|'),
+      prec(PREC.UNOP_XOR, '^'),
+      prec(PREC.UNOP_XNOR, choice('~^', '^~'))
+    ),
+
+    binop: $ => choice(
+      prec(PREC.BINOP_MUL, choice('*', '/', '%')),
+      prec(PREC.BINOP_ADD, choice('+', '-')),
+      prec(PREC.BINOP_SHT, choice('<<', '>>')),
+      prec(PREC.BINOP_COMP, choice('<=', '>=', '<', '>')),
+      prec(PREC.BINOP_EQ, choice('==', '!=')),
+      prec(PREC.BINOP_AND, '&'),
+      prec(PREC.BINOP_XOR, '^'),
+      prec(PREC.BINOP_XNOR, choice('~^', '^~')),
+      prec(PREC.BINOP_OR, '|'),
+      prec(PREC.BINOP_LOGIC_AND, '&&'),
+      prec(PREC.BINOP_LOGIC_OR, '||')
     ),
 
     /////////////
@@ -399,7 +450,7 @@ module.exports = grammar({
     varDeclDo: $ => prec.right(-2, seq($.type, $.identifier, '<-', $.expression)),
     varDo: $ => prec.right(-2, seq($.identifier, '<-', $.expression)),
 
-    functionCall: $ => prec.left(15, seq(
+    functionCall: $ => prec.left(19, seq(
       // Note: The function must includes the argument list, like func(arg1, arg2)
       $.exprPrimary, seq('(', optional(comma_sep($.expression)), ')')
     )),
