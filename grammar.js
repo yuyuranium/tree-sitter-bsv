@@ -249,10 +249,15 @@ module.exports = grammar({
     )),
     IValue: $ => choice(
       $.identifier,
-      seq($.IValue, '.', $.identifier),
-      seq($.IValue, '[', $.expression, ']'),
-      seq($.IValue, '[', $.expression, ':', $.expression, ']')
+      prec(16, seq($.IValue, '.', $.identifier)),
+      prec(17, seq($.IValue, '[', $.expression, ']')),
+      prec(17, seq($.IValue, '[', $.expression, ':', $.expression, ']'))
     ),
+
+    regWrite: $ => prec.right(-2, choice(
+      seq($.IValue, '<=', $.expression, ';'),
+      seq('(', $.expression, ')', '<=', $.expression, ';'),
+    )),
 
     //////////////////////////
     // Function definitions //
@@ -340,7 +345,7 @@ module.exports = grammar({
       'endaction', optional(seq(':', $.identifier))
     ),
     actionStmt: $ => prec(-3, choice(
-      // regWrite
+      $.regWrite,
       $.varDo, $.varDeclDo,
       seq($.functionCall, ';'),
       // systemTaskStmt
@@ -372,7 +377,7 @@ module.exports = grammar({
       'endactionvalue', optional(seq(':', $.identifier))
     ),
     actionValueStmt: $ => prec(-3, choice(
-      // regWrite
+      $.regWrite,
       $.varDo, $.varDeclDo,
       seq($.functionCall, ';'),
       // systemTaskStmt
@@ -396,8 +401,8 @@ module.exports = grammar({
     actionValueWhileStmt: $ => whileStmt($, $.actionValueStmt),
     actionValueForStmt: $ => forStmt($, $.actionValueStmt),
 
-    varDeclDo: $ => prec.right(-2, seq($.type, $.identifier, '<-', $.expression)),
-    varDo: $ => prec.right(-2, seq($.identifier, '<-', $.expression)),
+    varDeclDo: $ => prec.right(-2, seq($.type, $.identifier, '<-', $.expression, ';')),
+    varDo: $ => prec.right(-2, seq($.identifier, '<-', $.expression, ';')),
 
     functionCall: $ => prec.left(15, seq(
       // Note: The function must includes the argument list, like func(arg1, arg2)

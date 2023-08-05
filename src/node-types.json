@@ -174,6 +174,10 @@
           "named": true
         },
         {
+          "type": "regWrite",
+          "named": true
+        },
+        {
           "type": "varAssign",
           "named": true
         },
@@ -341,6 +345,10 @@
         },
         {
           "type": "moduleDef",
+          "named": true
+        },
+        {
+          "type": "regWrite",
           "named": true
         },
         {
@@ -1741,6 +1749,25 @@
     }
   },
   {
+    "type": "regWrite",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "IValue",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "returnStmt",
     "named": true,
     "fields": {},
@@ -2225,6 +2252,10 @@
   },
   {
     "type": "<-",
+    "named": false
+  },
+  {
+    "type": "<=",
     "named": false
   },
   {
