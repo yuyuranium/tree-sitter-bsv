@@ -19,6 +19,8 @@ module.exports = grammar({
     [$.condPredicate],
     [$.moduleApp, $.exprPrimary],
     [$.typeIde, $.exprPrimary],
+    [$.typeIde, $.subinterfaceDef],
+    [$.typeIde, $.methodDef],
     [$.typeNat, $.decNum]
   ],
 
@@ -85,7 +87,7 @@ module.exports = grammar({
     ),
 
     // Polymorphism types starts with lowercase letters
-    typeIde: $ => prec(20, choice($.Identifier, $.identifier)),
+    typeIde: $ => choice($.Identifier, $.identifier),
     typeNat: $ => $.decDigits,
 
     ///////////////
@@ -154,7 +156,7 @@ module.exports = grammar({
     moduleStmt: $ => prec(-3, choice(
       $.moduleInst,
       $.methodDef,
-      // subinterfaceDef
+      $.subinterfaceDef,
       $.rule,
       $.varDo, $.varDeclDo,
       seq($.functionCall, ';'),
@@ -229,6 +231,38 @@ module.exports = grammar({
     methodFormals: $ => comma_sep($.methodFormal),
     methodFormal: $ => seq(optional($.type), $.identifier),
     implicitCond: $ => seq('if', '(', $.condPredicate, ')'),
+
+    subinterfaceDef: $ => choice(
+      seq(
+        'interface', $.Identifier, $.identifier, ';',
+        repeat($.interfaceStmt),
+        'endinterface', optional(seq(':', $.identifier))
+      ),
+      seq(
+        'interface', optional($.type), $.identifier, '=', $.expression, ';'
+      )
+    ),
+    interfaceStmt: $ => choice(
+      $.methodDef,
+      $.subinterfaceDef,
+      $.expressionStmt
+    ),
+    expressionStmt: $ => choice(
+      $.varDecl, $.varAssign,
+      $.functionDef,
+      $.moduleDef,
+      $.expressionBeginEndStmt,
+      $.expressionIfStmt,
+      $.expressionCaseStmt,
+      $.expressionForStmt,
+      $.expressionWhileStmt
+    ),
+
+    expressionBeginEndStmt: $ => beginEndStmt($, $.expressionStmt),
+    expressionIfStmt: $ => ifStmt($, $.expressionStmt),
+    expressionCaseStmt: $ => caseStmt($, $.expressionStmt),
+    expressionForStmt: $ => forStmt($, $.expressionStmt),
+    expressionWhileStmt: $ => whileStmt($, $.expressionStmt),
 
     rule: $ => seq(
       optional($.attributeInstances),

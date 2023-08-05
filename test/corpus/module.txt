@@ -312,3 +312,62 @@ endmodule
                 (expression
                   (exprPrimary
                     (identifier)))))))))))
+
+========================================================================
+subinterface definitions
+========================================================================
+
+module mkFoo ();
+    interface Server mif;
+        interface Put request;
+            method Action put(Bool b);
+            endmethod: put
+        endinterface: request
+        interface Get response;
+            method ActionValue#(Bool) get();
+            endmethod: get
+        endinterface: response
+    endinterface: mif
+endmodule
+
+------------------------------------------------------------------------
+
+(program
+  (packageStmt
+    (moduleDef
+      (moduleProto
+        (identifier))
+      (moduleStmt
+        (subinterfaceDef
+          (Identifier)
+          (identifier)
+          (interfaceStmt
+            (subinterfaceDef
+              (Identifier)
+              (identifier)
+              (interfaceStmt
+                (methodDef
+                  (identifier)
+                  (methodFormals
+                    (methodFormal
+                      (type
+                        (typePrimary
+                          (typeIde
+                            (Identifier))))
+                      (identifier)))
+                  (identifier)))
+              (identifier)))
+          (interfaceStmt
+            (subinterfaceDef
+              (Identifier)
+              (identifier)
+              (interfaceStmt
+                (methodDef
+                  (type
+                    (typePrimary
+                      (typeIde
+                        (Identifier))))
+                  (identifier)
+                  (identifier)))
+              (identifier)))
+          (identifier))))))

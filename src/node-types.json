@@ -722,6 +722,156 @@
     }
   },
   {
+    "type": "expressionBeginEndStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "expressionStmt",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "expressionCaseStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "expressionStmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "expressionForStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "expressionStmt",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "expressionIfStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "condPredicate",
+          "named": true
+        },
+        {
+          "type": "expressionStmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "expressionStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expressionBeginEndStmt",
+          "named": true
+        },
+        {
+          "type": "expressionCaseStmt",
+          "named": true
+        },
+        {
+          "type": "expressionForStmt",
+          "named": true
+        },
+        {
+          "type": "expressionIfStmt",
+          "named": true
+        },
+        {
+          "type": "expressionWhileStmt",
+          "named": true
+        },
+        {
+          "type": "functionDef",
+          "named": true
+        },
+        {
+          "type": "moduleDef",
+          "named": true
+        },
+        {
+          "type": "varAssign",
+          "named": true
+        },
+        {
+          "type": "varDecl",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "expressionWhileStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "expressionStmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "functionBody",
     "named": true,
     "fields": {},
@@ -1119,6 +1269,29 @@
         },
         {
           "type": "subinterfaceDecl",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interfaceStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expressionStmt",
+          "named": true
+        },
+        {
+          "type": "methodDef",
+          "named": true
+        },
+        {
+          "type": "subinterfaceDef",
           "named": true
         }
       ]
@@ -1591,6 +1764,10 @@
           "named": true
         },
         {
+          "type": "subinterfaceDef",
+          "named": true
+        },
+        {
           "type": "varDecl",
           "named": true
         },
@@ -1988,6 +2165,37 @@
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "subinterfaceDef",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "Identifier",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "interfaceStmt",
           "named": true
         },
         {
