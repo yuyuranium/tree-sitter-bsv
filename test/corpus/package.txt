@@ -27,6 +27,7 @@ package Zhou;
 endpackage
 
 ------------------------------------------------------------------------
+
 (program
   (package
     (packageIde
@@ -45,7 +46,173 @@ endpackage
         (Identifier)))))
 
 ========================================================================
-typedef
+typedef synonyms
+========================================================================
+
+typedef bit [7:0]   Byte;
+typedef bit [31:0]  Word;
+typedef bit [63:0]  LongWord;
+typedef Tuple3#(a, a, a) Triple#(type a);
+typedef Int#(n) MyInt#(type n);
+
+------------------------------------------------------------------------
+
+(program
+  (packageStmt
+    (typeDef
+      (typedefSynonym
+        (type
+          (typePrimary
+            (typeNat
+              (decDigits))
+            (typeNat
+              (decDigits))))
+        (typeDefType
+          (typeIde
+            (Identifier))))))
+  (packageStmt
+    (typeDef
+      (typedefSynonym
+        (type
+          (typePrimary
+            (typeNat
+              (decDigits))
+            (typeNat
+              (decDigits))))
+        (typeDefType
+          (typeIde
+            (Identifier))))))
+  (packageStmt
+    (typeDef
+      (typedefSynonym
+        (type
+          (typePrimary
+            (typeNat
+              (decDigits))
+            (typeNat
+              (decDigits))))
+        (typeDefType
+          (typeIde
+            (Identifier))))))
+  (packageStmt
+    (typeDef
+      (typedefSynonym
+        (type
+          (typePrimary
+            (typeIde
+              (Identifier))
+            (type
+              (typePrimary
+                (typeIde
+                  (identifier))))
+            (type
+              (typePrimary
+                (typeIde
+                  (identifier))))
+            (type
+              (typePrimary
+                (typeIde
+                  (identifier))))))
+        (typeDefType
+          (typeIde
+            (Identifier))
+          (typeFormals
+            (typeFormal
+              (identifier)))))))
+  (packageStmt
+    (typeDef
+      (typedefSynonym
+        (type
+          (typePrimary
+            (typeIde
+              (Identifier))
+            (type
+              (typePrimary
+                (typeIde
+                  (identifier))))))
+        (typeDefType
+          (typeIde
+            (Identifier))
+          (typeFormals
+            (typeFormal
+              (identifier))))))))
+
+========================================================================
+typedef enum
+========================================================================
+
+typedef enum {
+   Foo[2],
+   Bar[5:7],
+   Quux[3:2]
+} Glurph;
+
+typedef enum {
+ Foo0,
+ Foo1,
+ Bar5,
+ Bar6,
+ Bar7,
+ Quux3,
+ Quux2
+} Glurph;
+
+------------------------------------------------------------------------
+
+(program
+  (packageStmt
+    (typeDef
+      (typedefEnum
+        (typedefEnumElements
+          (typedefEnumElement
+            (Identifier)
+            (intLiteral
+              (unsizedIntLiteral
+                (decNum
+                  (decDigits)))))
+          (typedefEnumElement
+            (Identifier)
+            (intLiteral
+              (unsizedIntLiteral
+                (decNum
+                  (decDigits))))
+            (intLiteral
+              (unsizedIntLiteral
+                (decNum
+                  (decDigits)))))
+          (typedefEnumElement
+            (Identifier)
+            (intLiteral
+              (unsizedIntLiteral
+                (decNum
+                  (decDigits))))
+            (intLiteral
+              (unsizedIntLiteral
+                (decNum
+                  (decDigits))))))
+        (Identifier))))
+  (packageStmt
+    (typeDef
+      (typedefEnum
+        (typedefEnumElements
+          (typedefEnumElement
+            (Identifier))
+          (typedefEnumElement
+            (Identifier))
+          (typedefEnumElement
+            (Identifier))
+          (typedefEnumElement
+            (Identifier))
+          (typedefEnumElement
+            (Identifier))
+          (typedefEnumElement
+            (Identifier))
+          (typedefEnumElement
+            (Identifier)))
+        (Identifier)))))
+
+========================================================================
+typedef struct/tagged union
 ========================================================================
 
 typedef struct { int x; int y; } Coord;
