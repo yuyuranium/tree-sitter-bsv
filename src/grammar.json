@@ -1062,78 +1062,95 @@
       ]
     },
     "moduleStmt": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "moduleInst"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "methodDef"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "rule"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "varDo"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "varDeclDo"
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "("
-            },
-            {
-              "type": "SYMBOL",
-              "name": "expression"
-            },
-            {
-              "type": "STRING",
-              "value": ")"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "returnStmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "functionDef"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "moduleDef"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "moduleBeginEndStmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "moduleIfStmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "moduleCaseStmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "moduleWhileStmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "moduleForStmt"
-        }
-      ]
+      "type": "PREC",
+      "value": -3,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "moduleInst"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "methodDef"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "rule"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "varDo"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "varDeclDo"
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "functionCall"
+              },
+              {
+                "type": "STRING",
+                "value": ";"
+              }
+            ]
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "("
+              },
+              {
+                "type": "SYMBOL",
+                "name": "expression"
+              },
+              {
+                "type": "STRING",
+                "value": ")"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "returnStmt"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "functionDef"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "moduleDef"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "moduleBeginEndStmt"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "moduleIfStmt"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "moduleCaseStmt"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "moduleWhileStmt"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "moduleForStmt"
+          }
+        ]
+      }
     },
     "moduleBeginEndStmt": {
       "type": "SEQ",
@@ -2641,49 +2658,53 @@
       ]
     },
     "functionBodyStmt": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "returnStmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "varDecl"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "varAssign"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "functionDef"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "moduleDef"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "functionBodyBeginEndStmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "functionBodyIfStmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "functionBodyCaseStmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "functionBodyWhileStmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "functionBodyForStmt"
-        }
-      ]
+      "type": "PREC",
+      "value": -3,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "returnStmt"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "varDecl"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "varAssign"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "functionDef"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "moduleDef"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "functionBodyBeginEndStmt"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "functionBodyIfStmt"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "functionBodyCaseStmt"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "functionBodyWhileStmt"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "functionBodyForStmt"
+          }
+        ]
+      }
     },
     "returnStmt": {
       "type": "SEQ",
@@ -3192,6 +3213,10 @@
         {
           "type": "STRING",
           "value": "?"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "functionCall"
         }
       ]
     },
@@ -3338,74 +3363,91 @@
       ]
     },
     "actionStmt": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "varDo"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "varDeclDo"
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "("
-            },
-            {
-              "type": "SYMBOL",
-              "name": "expression"
-            },
-            {
-              "type": "STRING",
-              "value": ")"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "actionBlock"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "varDecl"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "varAssign"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "functionDef"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "moduleDef"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "actionBeginEndStmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "actionIfStmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "actionCaseStmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "actionWhileStmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "actionForStmt"
-        }
-      ]
+      "type": "PREC",
+      "value": -3,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "varDo"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "varDeclDo"
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "functionCall"
+              },
+              {
+                "type": "STRING",
+                "value": ";"
+              }
+            ]
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "("
+              },
+              {
+                "type": "SYMBOL",
+                "name": "expression"
+              },
+              {
+                "type": "STRING",
+                "value": ")"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "actionBlock"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "varDecl"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "varAssign"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "functionDef"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "moduleDef"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "actionBeginEndStmt"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "actionIfStmt"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "actionCaseStmt"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "actionWhileStmt"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "actionForStmt"
+          }
+        ]
+      }
     },
     "actionBeginEndStmt": {
       "type": "SEQ",
@@ -3908,78 +3950,95 @@
       ]
     },
     "actionValueStmt": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "varDo"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "varDeclDo"
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "("
-            },
-            {
-              "type": "SYMBOL",
-              "name": "expression"
-            },
-            {
-              "type": "STRING",
-              "value": ")"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "returnStmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "actionBlock"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "varDecl"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "varAssign"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "functionDef"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "moduleDef"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "actionValueBeginEndStmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "actionValueIfStmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "actionValueCaseStmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "actionValueWhileStmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "actionValueForStmt"
-        }
-      ]
+      "type": "PREC",
+      "value": -3,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "varDo"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "varDeclDo"
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "functionCall"
+              },
+              {
+                "type": "STRING",
+                "value": ";"
+              }
+            ]
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "("
+              },
+              {
+                "type": "SYMBOL",
+                "name": "expression"
+              },
+              {
+                "type": "STRING",
+                "value": ")"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "returnStmt"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "actionBlock"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "varDecl"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "varAssign"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "functionDef"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "moduleDef"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "actionValueBeginEndStmt"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "actionValueIfStmt"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "actionValueCaseStmt"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "actionValueWhileStmt"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "actionValueForStmt"
+          }
+        ]
+      }
     },
     "actionValueBeginEndStmt": {
       "type": "SEQ",
@@ -4461,6 +4520,65 @@
           {
             "type": "SYMBOL",
             "name": "expression"
+          }
+        ]
+      }
+    },
+    "functionCall": {
+      "type": "PREC_LEFT",
+      "value": 15,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "exprPrimary"
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "("
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "expression"
+                      },
+                      {
+                        "type": "REPEAT",
+                        "content": {
+                          "type": "SEQ",
+                          "members": [
+                            {
+                              "type": "STRING",
+                              "value": ","
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "expression"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              },
+              {
+                "type": "STRING",
+                "value": ")"
+              }
+            ]
           }
         ]
       }
@@ -5049,6 +5167,14 @@
     [
       "moduleApp",
       "exprPrimary"
+    ],
+    [
+      "typeIde",
+      "exprPrimary"
+    ],
+    [
+      "typeNat",
+      "decNum"
     ]
   ],
   "precedences": [],

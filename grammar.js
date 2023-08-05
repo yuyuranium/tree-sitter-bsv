@@ -17,7 +17,9 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.condPredicate],
-    [$.moduleApp, $.exprPrimary]
+    [$.moduleApp, $.exprPrimary],
+    [$.typeIde, $.exprPrimary],
+    [$.typeNat, $.decNum]
   ],
 
   word: $ => $.identifier,
@@ -71,7 +73,7 @@ module.exports = grammar({
     ///////////
     type: $ => choice(
       $.typePrimary,
-      seq($.typePrimary, '(', comma_sep($.type), ')')
+      seq($.typePrimary, '(', comma_sep($.type), ')')  // Function type
     ),
 
     typePrimary: $ => choice(
@@ -148,13 +150,13 @@ module.exports = grammar({
       comma_sep(seq(optional($.attributeInstances), $.type, $.identifier))
     ),
 
-    moduleStmt: $ => choice(
+    moduleStmt: $ => prec(-3, choice(
       $.moduleInst,
       $.methodDef,
       // subinterfaceDef
       $.rule,
       $.varDo, $.varDeclDo,
-      // functionCall
+      seq($.functionCall, ';'),
       // systemTaskStmt
       seq('(', $.expression, ')'),
       $.returnStmt,
@@ -165,8 +167,7 @@ module.exports = grammar({
       $.moduleCaseStmt,
       $.moduleWhileStmt,
       $.moduleForStmt
-      // if, case, for, while
-    ),
+    )),
 
     moduleBeginEndStmt: $ => beginEndStmt($, $.moduleStmt),
     moduleIfStmt: $ => ifStmt($, $.moduleStmt),
@@ -279,7 +280,7 @@ module.exports = grammar({
       $.actionValueBlock,
       repeat1($.functionBodyStmt)
     ),
-    functionBodyStmt: $ => choice(
+    functionBodyStmt: $ => prec(-3, choice(
       $.returnStmt,
       $.varDecl,
       $.varAssign,
@@ -290,8 +291,7 @@ module.exports = grammar({
       $.functionBodyCaseStmt,
       $.functionBodyWhileStmt,
       $.functionBodyForStmt
-      // if, case, for, while
-    ),
+    )),
     returnStmt: $ => seq('return', $.expression, ';'),
 
     functionBodyBeginEndStmt: $ => beginEndStmt($, $.functionBodyStmt),
@@ -315,7 +315,8 @@ module.exports = grammar({
       $.stringLiteral,
       // systemFunctionCall
       seq('(', $.expression, ')'),
-      '?'
+      '?',
+      $.functionCall
       // ...
     ),
 
@@ -338,10 +339,10 @@ module.exports = grammar({
       repeat($.actionStmt),
       'endaction', optional(seq(':', $.identifier))
     ),
-    actionStmt: $ => choice(
+    actionStmt: $ => prec(-3, choice(
       // regWrite
       $.varDo, $.varDeclDo,
-      // functionCall
+      seq($.functionCall, ';'),
       // systemTaskStmt
       seq('(', $.expression, ')'),
       $.actionBlock,
@@ -354,8 +355,7 @@ module.exports = grammar({
       $.actionCaseStmt,
       $.actionWhileStmt,
       $.actionForStmt
-      // if, case, for, while
-    ),
+    )),
 
     actionBeginEndStmt: $ => beginEndStmt($, $.actionStmt),
     actionIfStmt: $ => ifStmt($, $.actionStmt),
@@ -371,10 +371,10 @@ module.exports = grammar({
       repeat($.actionStmt),
       'endactionvalue', optional(seq(':', $.identifier))
     ),
-    actionValueStmt: $ => choice(
+    actionValueStmt: $ => prec(-3, choice(
       // regWrite
       $.varDo, $.varDeclDo,
-      // functionCall
+      seq($.functionCall, ';'),
       // systemTaskStmt
       seq('(', $.expression, ')'),
       $.returnStmt,
@@ -388,8 +388,7 @@ module.exports = grammar({
       $.actionValueCaseStmt,
       $.actionValueWhileStmt,
       $.actionValueForStmt
-      // if, case, for, while
-    ),
+    )),
 
     actionValueBeginEndStmt: $ => beginEndStmt($, $.actionValueStmt),
     actionValueIfStmt: $ => ifStmt($, $.actionValueStmt),
@@ -399,6 +398,11 @@ module.exports = grammar({
 
     varDeclDo: $ => prec.right(-2, seq($.type, $.identifier, '<-', $.expression)),
     varDo: $ => prec.right(-2, seq($.identifier, '<-', $.expression)),
+
+    functionCall: $ => prec.left(15, seq(
+      // Note: The function must includes the argument list, like func(arg1, arg2)
+      $.exprPrimary, seq('(', optional(comma_sep($.expression)), ')')
+    )),
 
     //////////////////////
     // Pattern matching //

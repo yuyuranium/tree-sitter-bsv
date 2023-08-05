@@ -162,6 +162,10 @@
           "named": true
         },
         {
+          "type": "functionCall",
+          "named": true
+        },
+        {
           "type": "functionDef",
           "named": true
         },
@@ -325,6 +329,10 @@
         },
         {
           "type": "expression",
+          "named": true
+        },
+        {
+          "type": "functionCall",
           "named": true
         },
         {
@@ -649,6 +657,10 @@
           "named": true
         },
         {
+          "type": "functionCall",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -858,6 +870,25 @@
         },
         {
           "type": "functionBodyStmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "functionCall",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "exprPrimary",
+          "named": true
+        },
+        {
+          "type": "expression",
           "named": true
         }
       ]
@@ -1482,6 +1513,10 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        },
+        {
+          "type": "functionCall",
           "named": true
         },
         {
