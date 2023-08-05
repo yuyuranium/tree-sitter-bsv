@@ -43,3 +43,163 @@ endpackage
         (identifier))
       (exportItem
         (Identifier)))))
+
+========================================================================
+typedef
+========================================================================
+
+typedef struct { int x; int y; } Coord;
+ typedef struct { Addr pc; RegFile rf; Memory mem; }  Proc;
+
+ typedef union tagged {
+     bit  [4:0] Register;
+     bit [21:0] Literal;
+     struct {
+         bit  [4:0] regAddr;
+         bit  [4:0] regIndex;
+     } Indexed;
+} InstrOperand;
+
+typedef union tagged {
+    struct {
+        Op op; Reg rs; CPUReg rt; UInt16 imm;
+    } Immediate;
+    struct {
+        Op op; UInt26 target;
+    } Jump;
+ } Instruction
+   deriving (Bits);
+
+------------------------------------------------------------------------
+
+(program
+  (packageStmt
+    (typeDef
+      (typedefStruct
+        (structMember
+          (type
+            (typePrimary))
+          (identifier))
+        (structMember
+          (type
+            (typePrimary))
+          (identifier))
+        (typeDefType
+          (typeIde
+            (Identifier))))))
+  (packageStmt
+    (typeDef
+      (typedefStruct
+        (structMember
+          (type
+            (typePrimary
+              (typeIde
+                (Identifier))))
+          (identifier))
+        (structMember
+          (type
+            (typePrimary
+              (typeIde
+                (Identifier))))
+          (identifier))
+        (structMember
+          (type
+            (typePrimary
+              (typeIde
+                (Identifier))))
+          (identifier))
+        (typeDefType
+          (typeIde
+            (Identifier))))))
+  (packageStmt
+    (typeDef
+      (typedefTaggedUnion
+        (unionMember
+          (type
+            (typePrimary
+              (typeNat
+                (decDigits))
+              (typeNat
+                (decDigits))))
+          (Identifier))
+        (unionMember
+          (type
+            (typePrimary
+              (typeNat
+                (decDigits))
+              (typeNat
+                (decDigits))))
+          (Identifier))
+        (unionMember
+          (subStruct
+            (structMember
+              (type
+                (typePrimary
+                  (typeNat
+                    (decDigits))
+                  (typeNat
+                    (decDigits))))
+              (identifier))
+            (structMember
+              (type
+                (typePrimary
+                  (typeNat
+                    (decDigits))
+                  (typeNat
+                    (decDigits))))
+              (identifier)))
+          (Identifier))
+        (typeDefType
+          (typeIde
+            (Identifier))))))
+  (packageStmt
+    (typeDef
+      (typedefTaggedUnion
+        (unionMember
+          (subStruct
+            (structMember
+              (type
+                (typePrimary
+                  (typeIde
+                    (Identifier))))
+              (identifier))
+            (structMember
+              (type
+                (typePrimary
+                  (typeIde
+                    (Identifier))))
+              (identifier))
+            (structMember
+              (type
+                (typePrimary
+                  (typeIde
+                    (Identifier))))
+              (identifier))
+            (structMember
+              (type
+                (typePrimary
+                  (typeIde
+                    (Identifier))))
+              (identifier)))
+          (Identifier))
+        (unionMember
+          (subStruct
+            (structMember
+              (type
+                (typePrimary
+                  (typeIde
+                    (Identifier))))
+              (identifier))
+            (structMember
+              (type
+                (typePrimary
+                  (typeIde
+                    (Identifier))))
+              (identifier)))
+          (Identifier))
+        (typeDefType
+          (typeIde
+            (Identifier)))
+        (derives
+          (typeclassIde
+            (Identifier)))))))

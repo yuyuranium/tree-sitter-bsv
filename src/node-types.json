@@ -591,6 +591,21 @@
     }
   },
   {
+    "type": "derives",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "typeclassIde",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "exp",
     "named": true,
     "fields": {}
@@ -1677,6 +1692,10 @@
           "named": true
         },
         {
+          "type": "typeDef",
+          "named": true
+        },
+        {
           "type": "varAssign",
           "named": true
         },
@@ -1724,6 +1743,40 @@
         },
         {
           "type": "packageStmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "proviso",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "Identifier",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "provisos",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "proviso",
           "named": true
         }
       ]
@@ -1869,6 +1922,59 @@
     "fields": {}
   },
   {
+    "type": "structMember",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "subUnion",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "subStruct",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "structMember",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "subUnion",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "unionMember",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "subinterfaceDecl",
     "named": true,
     "fields": {},
@@ -1905,6 +2011,33 @@
         },
         {
           "type": "typePrimary",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeDef",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "typedefEnum",
+          "named": true
+        },
+        {
+          "type": "typedefStruct",
+          "named": true
+        },
+        {
+          "type": "typedefSynonym",
+          "named": true
+        },
+        {
+          "type": "typedefTaggedUnion",
           "named": true
         }
       ]
@@ -2011,6 +2144,170 @@
         },
         {
           "type": "typeNat",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeclassIde",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typedefEnum",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "Identifier",
+          "named": true
+        },
+        {
+          "type": "derives",
+          "named": true
+        },
+        {
+          "type": "typedefEnumElements",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typedefEnumElement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "Identifier",
+          "named": true
+        },
+        {
+          "type": "intLiteral",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typedefEnumElements",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "typedefEnumElement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typedefStruct",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "derives",
+          "named": true
+        },
+        {
+          "type": "structMember",
+          "named": true
+        },
+        {
+          "type": "typeDefType",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typedefSynonym",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "typeDefType",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typedefTaggedUnion",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "derives",
+          "named": true
+        },
+        {
+          "type": "typeDefType",
+          "named": true
+        },
+        {
+          "type": "unionMember",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "unionMember",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "Identifier",
+          "named": true
+        },
+        {
+          "type": "subStruct",
+          "named": true
+        },
+        {
+          "type": "subUnion",
+          "named": true
+        },
+        {
+          "type": "type",
           "named": true
         }
       ]
@@ -2331,6 +2628,10 @@
     "named": false
   },
   {
+    "type": "deriving",
+    "named": false
+  },
+  {
     "type": "e",
     "named": false
   },
@@ -2376,6 +2677,10 @@
   },
   {
     "type": "endrule",
+    "named": false
+  },
+  {
+    "type": "enum",
     "named": false
   },
   {
@@ -2440,7 +2745,7 @@
   },
   {
     "type": "provisos",
-    "named": true
+    "named": false
   },
   {
     "type": "reset_by",
@@ -2455,11 +2760,39 @@
     "named": false
   },
   {
+    "type": "struct",
+    "named": false
+  },
+  {
+    "type": "tagged",
+    "named": false
+  },
+  {
     "type": "type",
     "named": false
   },
   {
+    "type": "typedef",
+    "named": false
+  },
+  {
+    "type": "union",
+    "named": false
+  },
+  {
+    "type": "void",
+    "named": false
+  },
+  {
     "type": "while",
+    "named": false
+  },
+  {
+    "type": "{",
+    "named": false
+  },
+  {
+    "type": "}",
     "named": false
   }
 ]

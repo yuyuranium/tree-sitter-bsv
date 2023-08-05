@@ -57,7 +57,7 @@ module.exports = grammar({
     packageStmt: $ => choice(
       $.moduleDef,
       $.interfaceDecl,
-      // typeDef
+      $.typeDef,
       $.varDecl,
       $.varAssign,
       $.functionDef
@@ -177,8 +177,6 @@ module.exports = grammar({
     moduleWhileStmt: $ => whileStmt($, $.moduleStmt),
     moduleForStmt: $ => forStmt($, $.moduleStmt),
 
-    provisos: $ => 'provisos()',
-
     //////////////////////////
     // Module instantiation //
     //////////////////////////
@@ -239,6 +237,70 @@ module.exports = grammar({
       'endrule', optional(seq(':', $.identifier))
     ),
     ruleCond: $ => seq('(', $.condPredicate, ')'),
+
+    ///////////////////////////////////////////
+    // User-defined types (type definitions) //
+    ///////////////////////////////////////////
+    typeDef: $ => choice(
+      $.typedefSynonym,
+      $.typedefEnum,
+      $.typedefStruct,
+      $.typedefTaggedUnion
+    ),
+
+    typedefSynonym: $ => seq('typedef', $.type, $.typeDefType, ';'),
+
+    typedefEnum: $ => seq(
+      'typedef', 'enum', '{', $.typedefEnumElements, '}', $.Identifier,
+      optional($.derives), ';'
+    ),
+    typedefEnumElements: $ => comma_sep($.typedefEnumElement),
+    typedefEnumElement: $ => choice(
+      seq($.Identifier, optional(seq('=', $.intLiteral))),
+      seq($.Identifier, optional(seq('[', $.intLiteral, ']')), optional(seq('=', $.intLiteral))),
+      seq($.Identifier, optional(seq('[', $.intLiteral, ':', $.intLiteral, ']')), optional(seq('=', $.intLiteral))),
+    ),
+
+    typedefStruct: $ => seq(
+      'typedef', 'struct', '{',
+      repeat($.structMember),
+      '}', $.typeDefType, optional($.derives), ';'
+    ),
+    typedefTaggedUnion: $ => seq(
+      'typedef', 'union', 'tagged', '{',
+      repeat($.unionMember),
+      '}', $.typeDefType, optional($.derives), ';'
+    ),
+    structMember: $ => choice(
+      seq($.type, $.identifier, ';'),
+      seq($.subUnion, $.identifier, ';')
+    ),
+    unionMember: $ => choice(
+      seq($.type, $.Identifier, ';'),
+      seq($.subStruct, $.Identifier, ';'),
+      seq($.subUnion, $.Identifier, ';'),
+      seq('void', $.Identifier, ';')
+    ),
+    subStruct: $ => seq(
+      'struct', '{',
+      repeat($.structMember),
+      '}'
+    ),
+    subUnion: $ => seq(
+      'union', 'tagged', '{',
+      repeat($.unionMember),
+      '}'
+    ),
+
+    /////////////////////////////////////////////////////
+    // Type classes (overloading groups) and provisos  //
+    /////////////////////////////////////////////////////
+    provisos: $ => seq('provisos', '(', comma_sep($.proviso), ')'),
+    proviso: $ => seq($.Identifier, '#', '(', comma_sep($.type), ')'),
+
+    typeclassIde: $ => $.Identifier,
+    
+    derives: $ => seq('deriving', '(', comma_sep($.typeclassIde), ')'),
 
     //////////////////////////////////////////
     // Variable declarations and statements //
