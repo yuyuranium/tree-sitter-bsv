@@ -137,3 +137,12 @@
 "?" @constant
 (intLiteral) @number
 (realLiteral) @number
+
+(moduleApp
+  (identifier) @constructor)
+
+(methodProto
+  (identifier) @function)
+
+(methodDef
+  (identifier) @function)
