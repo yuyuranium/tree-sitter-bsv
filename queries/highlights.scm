@@ -22,7 +22,6 @@
   "enum"
   "export"
   ; "ifc_inout"
-  "import"
   ; "inout"
   ; "input_clock"
   ; "input_reset"
@@ -64,6 +63,11 @@
   ; "valueof"
   "while"
 ] @keyword
+
+[
+  "import"
+  "export"
+] @include
 
 "typedef" @keyword.definition
 
