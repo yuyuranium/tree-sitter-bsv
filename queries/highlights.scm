@@ -20,7 +20,6 @@
   ; "enable"
   "end"
   "enum"
-  "export"
   ; "ifc_inout"
   ; "inout"
   ; "input_clock"
@@ -61,7 +60,6 @@
   "union"
   ; "valueOf"
   ; "valueof"
-  "while"
 ] @keyword
 
 [
