@@ -128,17 +128,25 @@
   "<-"
 ] @operator
 
-[ ";" ":" "," ] @punctuation.delimiter
+"?" @constant
+
+[ ";" ":" "," "::" ] @punctuation.delimiter
+
+[ "(" ")" "[" "]" "{" "}"] @punctuation.bracket
+
+(condExpr [ "?" ":" ] @conditional.ternary)
 
 (typeIde) @type
 (typeNat) @type.quantifier
 
 (comment) @comment @spell
 
-"?" @constant
 (intLiteral) @number
 (realLiteral) @number
 (stringLiteral) @string
+
+(attrName
+  (identifier) @property)
 
 (typeFormal
   (identifier) @parameter)
