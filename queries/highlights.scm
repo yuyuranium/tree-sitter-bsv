@@ -155,6 +155,11 @@
 (typeFormal
   (identifier) @parameter)
 
+(moduleProto
+  (identifier) @constructor)
+(moduleFormalParam
+  (identifier) @parameter)
+
 (moduleApp
   (identifier) @constructor)
 
