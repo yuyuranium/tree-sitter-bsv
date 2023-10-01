@@ -59,13 +59,13 @@
   "type"
   ; "typeclass"
   ; "endtypeclass"
-  "typedef"
   "union"
   ; "valueOf"
   ; "valueof"
-  "void"
   "while"
 ] @keyword
+
+"typedef" @keyword.definition
 
 [
   "while"
@@ -95,6 +95,7 @@
   "int"
   "Action"
   "ActionValue"
+  "void"
 ] @type.builtin
 
 [
@@ -137,6 +138,10 @@
 "?" @constant
 (intLiteral) @number
 (realLiteral) @number
+(stringLiteral) @string
+
+(typeFormal
+  (identifier) @parameter)
 
 (moduleApp
   (identifier) @constructor)
@@ -144,5 +149,26 @@
 (methodProto
   (identifier) @function)
 
+(methodProtoFormal
+  (identifier) @parameter)
+
 (methodDef
   (identifier) @function)
+
+(methodFormal
+  (identifier) @parameter)
+
+(functionCall
+  (exprPrimary (identifier) @function.call))
+
+(structMember
+  (identifier) @field)
+
+(unionMember
+  (Identifier) @field)
+
+(typedefEnum
+  (Identifier) @type)
+
+(typedefEnumElement
+  (Identifier) @field)
