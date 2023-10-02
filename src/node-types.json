@@ -3009,8 +3009,16 @@
     "named": false
   },
   {
+    "type": "False",
+    "named": false
+  },
+  {
     "type": "Identifier",
     "named": true
+  },
+  {
+    "type": "True",
+    "named": false
   },
   {
     "type": "[",

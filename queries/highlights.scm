@@ -101,6 +101,11 @@
 ] @type.builtin
 
 [
+ "True"
+ "False"
+] @boolean
+
+[
   "+"
   "-"
   "!"

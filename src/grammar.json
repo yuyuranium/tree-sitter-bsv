@@ -4727,6 +4727,14 @@
               "name": "identifier"
             }
           ]
+        },
+        {
+          "type": "STRING",
+          "value": "True"
+        },
+        {
+          "type": "STRING",
+          "value": "False"
         }
       ]
     },

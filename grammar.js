@@ -459,12 +459,13 @@ module.exports = grammar({
       // methodCall
       // typeAssertion
       // structExpr
-      seq($.exprPrimary, '.', $.identifier)
+      seq($.exprPrimary, '.', $.identifier),
       // taggedUnionExpr
       // interfaceExpr
       // ruleExpr
       // caseExpr
       // seqFsmStmt, parFsmStmt
+      "True", "False"
     ),
 
     condExpr: $ => prec.right(PREC.COND, seq(
