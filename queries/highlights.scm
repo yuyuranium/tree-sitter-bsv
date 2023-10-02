@@ -155,6 +155,21 @@
 (realLiteral) @number
 (stringLiteral) @string
 
+; Struct member selection
+(exprPrimary
+  "." (identifier) @property)
+
+(structMember
+  (identifier) @field)
+
+(unionMember
+  (Identifier) @field)
+
+(typedefEnum
+  (Identifier) @type)
+(typedefEnumElement
+  (Identifier) @field)
+
 (attrName
   (identifier) @property)
 
@@ -185,18 +200,3 @@
   (identifier) @function)
 (methodFormal
   (identifier) @parameter)
-
-(structMember
-  (identifier) @field)
-
-(unionMember
-  (Identifier) @field)
-
-(typedefEnum
-  (Identifier) @type)
-(typedefEnumElement
-  (Identifier) @field)
-
-; Struct member selection
-(exprPrimary
-  "." (identifier) @property)
