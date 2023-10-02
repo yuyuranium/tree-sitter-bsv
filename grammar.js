@@ -399,13 +399,14 @@ module.exports = grammar({
         optional($.functionBody),  // Can have no functionBody
         'endfunction', optional(seq(':', $.identifier))
       ),
-      seq(
-        'function', $.type, $.identifier, '(', optional($.functionFormals), ')',
-        optional($.provisos), '=', $.expression, ';'
-      )
+      $.functionAssign
+    ),
+    functionAssign: $ => seq(
+      'function', $.type, $.identifier, '(', optional($.functionFormals), ')',
+      optional($.provisos), '=', $.expression, ';'
     ),
     functionProto: $ => seq(
-        'function', $.type, $.identifier, '(', optional($.functionFormals), ')', optional($.provisos), ';'
+      'function', $.type, $.identifier, '(', optional($.functionFormals), ')', optional($.provisos), ';'
     ),
     functionFormals: $ => comma_sep($.functionFormal),
     functionFormal: $ => seq($.type, $.identifier),

@@ -165,6 +165,8 @@
 
 (functionProto
   (identifier) @function)
+(functionAssign
+  (identifier) @function)
 (functionFormal
   (identifier) @parameter)
 (functionCall

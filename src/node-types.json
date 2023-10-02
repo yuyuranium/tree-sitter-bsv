@@ -961,6 +961,37 @@
     }
   },
   {
+    "type": "functionAssign",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "functionFormals",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "provisos",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "functionBody",
     "named": true,
     "fields": {},
@@ -1169,15 +1200,11 @@
           "named": true
         },
         {
-          "type": "expression",
+          "type": "functionAssign",
           "named": true
         },
         {
           "type": "functionBody",
-          "named": true
-        },
-        {
-          "type": "functionFormals",
           "named": true
         },
         {
@@ -1186,14 +1213,6 @@
         },
         {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "provisos",
-          "named": true
-        },
-        {
-          "type": "type",
           "named": true
         }
       ]
