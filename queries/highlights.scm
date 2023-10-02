@@ -128,7 +128,10 @@
   "||"
   "="
   "<-"
+  "&&&"
 ] @operator
+
+"matches" @keyword.operator
 
 "?" @constant
 
@@ -157,24 +160,24 @@
   (identifier) @constructor)
 (moduleFormalParam
   (identifier) @parameter)
-
 (moduleApp
   (identifier) @constructor)
 
-(methodProto
+(functionProto
   (identifier) @function)
-
-(methodProtoFormal
+(functionFormal
   (identifier) @parameter)
-
-(methodDef
-  (identifier) @function)
-
-(methodFormal
-  (identifier) @parameter)
-
 (functionCall
   (exprPrimary (identifier) @function.call))
+
+(methodProto
+  (identifier) @function)
+(methodProtoFormal
+  (identifier) @parameter)
+(methodDef
+  (identifier) @function)
+(methodFormal
+  (identifier) @parameter)
 
 (structMember
   (identifier) @field)
@@ -184,6 +187,5 @@
 
 (typedefEnum
   (Identifier) @type)
-
 (typedefEnumElement
   (Identifier) @field)

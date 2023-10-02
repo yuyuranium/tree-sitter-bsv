@@ -213,7 +213,7 @@ module.exports = grammar({
     ),
     moduleApp: $ => seq(
       $.identifier,
-      '(', optional(comma_sep($.moduleActualParamArg)), ')'
+      optional(seq('(', optional(comma_sep($.moduleActualParamArg)), ')'))
     ),
     moduleActualParamArg: $ => choice(
       $.expression,
@@ -392,20 +392,20 @@ module.exports = grammar({
     //////////////////////////
     // Function definitions //
     //////////////////////////
-    functionDef: $ => seq(
-      optional($.attributeInstances),
-      $.functionProto,
-      optional($.functionBody),  // Can have no functionBody
-      'endfunction', optional(seq(':', $.identifier))
-    ),
-    functionProto: $ => choice(
+    functionDef: $ => choice(
       seq(
-        'function', $.type, $.identifier, '(', optional($.functionFormals), ')', optional($.provisos), ';'
+        optional($.attributeInstances),
+        $.functionProto,
+        optional($.functionBody),  // Can have no functionBody
+        'endfunction', optional(seq(':', $.identifier))
       ),
       seq(
         'function', $.type, $.identifier, '(', optional($.functionFormals), ')',
         optional($.provisos), '=', $.expression, ';'
       )
+    ),
+    functionProto: $ => seq(
+        'function', $.type, $.identifier, '(', optional($.functionFormals), ')', optional($.provisos), ';'
     ),
     functionFormals: $ => comma_sep($.functionFormal),
     functionFormal: $ => seq($.type, $.identifier),
