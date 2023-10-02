@@ -3898,8 +3898,16 @@
           "name": "functionProto"
         },
         {
-          "type": "SYMBOL",
-          "name": "functionBody"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "functionBody"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -3951,8 +3959,16 @@
               "value": "("
             },
             {
-              "type": "SYMBOL",
-              "name": "functionFormals"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "functionFormals"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             },
             {
               "type": "STRING",
@@ -3996,8 +4012,16 @@
               "value": "("
             },
             {
-              "type": "SYMBOL",
-              "name": "functionFormals"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "functionFormals"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             },
             {
               "type": "STRING",

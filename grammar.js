@@ -395,15 +395,15 @@ module.exports = grammar({
     functionDef: $ => seq(
       optional($.attributeInstances),
       $.functionProto,
-      $.functionBody,
+      optional($.functionBody),  // Can have no functionBody
       'endfunction', optional(seq(':', $.identifier))
     ),
     functionProto: $ => choice(
       seq(
-        'function', $.type, $.identifier, '(', $.functionFormals, ')', optional($.provisos), ';'
+        'function', $.type, $.identifier, '(', optional($.functionFormals), ')', optional($.provisos), ';'
       ),
       seq(
-        'function', $.type, $.identifier, '(', $.functionFormals, ')',
+        'function', $.type, $.identifier, '(', optional($.functionFormals), ')',
         optional($.provisos), '=', $.expression, ';'
       )
     ),
@@ -412,7 +412,7 @@ module.exports = grammar({
     functionBody: $ => choice(
       $.actionBlock,
       $.actionValueBlock,
-      repeat1($.functionBodyStmt)  // Hotfix: can have no functionBody
+      repeat1($.functionBodyStmt)
     ),
     functionBodyStmt: $ => prec(PREC.STMT, choice(
       $.returnStmt,
