@@ -50,7 +50,14 @@ module.exports = grammar({
     [$.IValue, $.exprPrimary],
     [$.typeIde, $.subinterfaceDef],
     [$.typeIde, $.methodDef],
-    [$.typeNat, $.decNum]
+    [$.typeNat, $.decNum],
+    [$.moduleBeginEndStmt, $.expressionBeginEndStmt],
+    [$.expressionBeginEndStmt, $.actionBeginEndStmt],
+    [$.expressionBeginEndStmt, $.actionValueBeginEndStmt],
+    [$.moduleCaseStmt, $.expressionCaseStmt],
+    [$.expressionCaseStmt, $.actionCaseStmt],
+    [$.expressionCaseStmt, $.actionValueCaseStmt],
+    [$.typeIde, $.moduleApp, $.exprPrimary],
   ],
 
   word: $ => $.identifier,
@@ -185,7 +192,7 @@ module.exports = grammar({
       $.rule,
       $.varDo, $.varDeclDo,
       seq($.functionCall, ';'),
-      // systemTaskStmt
+      $.systemTaskStmt,
       seq('(', $.expression, ')'),
       $.returnStmt,
       $.varDecl, $.varDeclDo,
@@ -449,21 +456,23 @@ module.exports = grammar({
       $.realLiteral,
       $.stringLiteral,
       // systemFunctionCall
+      seq('valueof', '(', $.type, ')'),
+      seq('valueOf', '(', $.type, ')'),
       seq('(', $.expression, ')'),
       '?',  // Don't-care expressions
-      // bitConcat, bitSelect
-      // beginEndExpr
+      $.bitConcat, $.bitSelect,
+      $.beginEndExpr,
       $.actionBlock,
       $.actionValueBlock,
       $.functionCall,
-      // methodCall
-      // typeAssertion
-      // structExpr
-      seq($.exprPrimary, '.', $.identifier),
-      // taggedUnionExpr
-      // interfaceExpr
-      // ruleExpr
-      // caseExpr
+      $.methodCall,
+      $.typeAssertion,
+      $.structExpr,
+      seq($.exprPrimary, '.', $.identifier),  // Struct member selection
+      $.taggedUnionExpr,
+      $.interfaceExpr,
+      $.rulesExpr,
+      $.caseExpr,
       // seqFsmStmt, parFsmStmt
       "True", "False"
     ),
@@ -539,6 +548,19 @@ module.exports = grammar({
       }));
     },
 
+    bitConcat: $ => seq('{', comma_sep($.expression), '}'),
+
+    bitSelect: $ => prec(PREC.ARRAY_INDEX, seq(
+      $.exprPrimary, '[', $.expression, optional(seq(':', $.expression)), ']'
+    )),
+
+    beginEndExpr: $ => prec.left(seq(
+      'begin', optional(seq(':', $.identifier)),
+      repeat($.expressionStmt),
+      $.expression,
+      'end', optional(seq(':', $.identifier))
+    )),
+
     /////////////
     // Actions //
     /////////////
@@ -551,7 +573,7 @@ module.exports = grammar({
       $.regWrite,
       $.varDo, $.varDeclDo,
       seq($.functionCall, ';'),
-      // systemTaskStmt
+      $.systemTaskStmt,
       seq('(', $.expression, ')'),
       $.actionBlock,
       $.varDecl,
@@ -583,7 +605,7 @@ module.exports = grammar({
       $.regWrite,
       $.varDo, $.varDeclDo,
       seq($.functionCall, ';'),
-      // systemTaskStmt
+      $.systemTaskStmt,
       seq('(', $.expression, ')'),
       $.returnStmt,
       $.actionBlock,
@@ -612,17 +634,83 @@ module.exports = grammar({
       $.exprPrimary, seq('(', optional(comma_sep($.expression)), ')')
     )),
 
+    methodCall: $ => prec.left(PREC.CALL, seq(
+      $.exprPrimary, '.', $.identifier,
+      optional(seq('(', optional(comma_sep($.expression)), ')'))
+    )),
+
+    typeAssertion: $ => choice(
+      seq($.type, '\'', $.bitConcat),
+      seq($.type, '\'', '(', $.expression, ')')
+    ),
+
+    structExpr: $ => seq($.Identifier, '{', comma_sep($.memberBind), '}'),
+    memberBind: $ => seq($.identifier, ':', $.expression),
+
+    taggedUnionExpr: $ => choice(
+      seq('tagged', $.Identifier, '{', comma_sep($.memberBind), '}'),
+      seq('tagged', $.Identifier, $.exprPrimary)
+    ),
+
+    interfaceExpr: $ => prec.left(seq(
+      'interface', $.Identifier, ';',
+      repeat($.interfaceStmt),
+      'endinterface', optional(seq(':', $.Identifier))
+    )),
+
+    rulesExpr: $ => prec.left(seq(
+      optional($.attributeInstances),
+      'rules', optional(seq(':', $.identifier)),
+      $.rulesStmt,
+      'endrules', optional(seq(':', $.identifier))
+    )),
+
+    rulesStmt: $ => choice($.rule, $.expressionStmt),
+
     //////////////////////
     // Pattern matching //
     //////////////////////
-    // TODO: parse pattern
     pattern: $ => choice(
       seq('.', $.identifier),  // Pattern variable
-      seq('.', '*')            // Wildcard
-      // constantPattern
-      // taggedUnionPattern
-      // structPattern
-      // tuplePattern
+      seq('.', '*'),           // Wildcard
+      $.constantPattern,       // Constant
+      $.taggedUnionPattern,    // Tagged union
+      $.structPattern,         // Struct
+      $.tuplePattern           // Tuple
+    ),
+
+    constantPattern: $ => choice(
+      $.intLiteral,
+      $.realLiteral,
+      $.stringLiteral,
+      $.Identifier  // Enum label
+    ),
+    taggedUnionPattern: $ => seq('tagged', $.Identifier, optional($.pattern)),
+    structPattern: $ => seq('tagged', $.Identifier, '{', comma_sep(seq($.identifier, ':', $.pattern)), '}'),
+    tuplePattern: $ => seq('{', comma_sep($.pattern), '}'),
+
+    /////////////////////
+    // Case expression //
+    /////////////////////
+    caseExpr: $ => seq(
+      'case', '(', $.expression, ')', 'matches',
+      repeat($.caseExprItem),
+      'endcase'
+    ),
+    caseExprItem: $ => choice(
+      seq($.pattern, optional(seq('&&&', $.expression)), ':', $.expression),
+      seq('default', optional(':'), $.expression)
+    ),
+
+    ////////////////////////////////
+    // System tasks and functions //
+    ////////////////////////////////
+    systemTaskStmt: $ => seq(
+      $.displayTaskName, '(', optional(comma_sep($.expression)), ')', ';'
+    ),
+    displayTaskName: $ => choice(
+      '$display', '$displayb', '$displayo', '$displayh',
+      '$write', '$writeb', '$writeo', '$writeh'
     ),
 
     ////////////////

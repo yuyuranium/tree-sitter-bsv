@@ -178,6 +178,10 @@
           "named": true
         },
         {
+          "type": "systemTaskStmt",
+          "named": true
+        },
+        {
           "type": "varAssign",
           "named": true
         },
@@ -356,6 +360,10 @@
           "named": true
         },
         {
+          "type": "systemTaskStmt",
+          "named": true
+        },
+        {
           "type": "varAssign",
           "named": true
         },
@@ -523,6 +531,29 @@
     }
   },
   {
+    "type": "beginEndExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "expressionStmt",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "binaryExpr",
     "named": true,
     "fields": {
@@ -635,6 +666,78 @@
     }
   },
   {
+    "type": "bitConcat",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bitSelect",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "exprPrimary",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "caseExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "caseExprItem",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "caseExprItem",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "pattern",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "condExpr",
     "named": true,
     "fields": {},
@@ -669,6 +772,33 @@
     }
   },
   {
+    "type": "constantPattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Identifier",
+          "named": true
+        },
+        {
+          "type": "intLiteral",
+          "named": true
+        },
+        {
+          "type": "realLiteral",
+          "named": true
+        },
+        {
+          "type": "stringLiteral",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "derives",
     "named": true,
     "fields": {},
@@ -682,6 +812,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "displayTaskName",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "exportDecl",
@@ -757,6 +892,22 @@
           "named": true
         },
         {
+          "type": "beginEndExpr",
+          "named": true
+        },
+        {
+          "type": "bitConcat",
+          "named": true
+        },
+        {
+          "type": "bitSelect",
+          "named": true
+        },
+        {
+          "type": "caseExpr",
+          "named": true
+        },
+        {
           "type": "exprPrimary",
           "named": true
         },
@@ -777,11 +928,39 @@
           "named": true
         },
         {
+          "type": "interfaceExpr",
+          "named": true
+        },
+        {
+          "type": "methodCall",
+          "named": true
+        },
+        {
           "type": "realLiteral",
           "named": true
         },
         {
+          "type": "rulesExpr",
+          "named": true
+        },
+        {
           "type": "stringLiteral",
+          "named": true
+        },
+        {
+          "type": "structExpr",
+          "named": true
+        },
+        {
+          "type": "taggedUnionExpr",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "typeAssertion",
           "named": true
         }
       ]
@@ -1371,6 +1550,25 @@
     }
   },
   {
+    "type": "interfaceExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "Identifier",
+          "named": true
+        },
+        {
+          "type": "interfaceStmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "interfaceMemberDecl",
     "named": true,
     "fields": {},
@@ -1407,6 +1605,48 @@
         },
         {
           "type": "subinterfaceDef",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "memberBind",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "methodCall",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "exprPrimary",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -1883,6 +2123,10 @@
           "named": true
         },
         {
+          "type": "systemTaskStmt",
+          "named": true
+        },
+        {
           "type": "varDecl",
           "named": true
         },
@@ -2021,7 +2265,23 @@
       "required": false,
       "types": [
         {
+          "type": "constantPattern",
+          "named": true
+        },
+        {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "structPattern",
+          "named": true
+        },
+        {
+          "type": "taggedUnionPattern",
+          "named": true
+        },
+        {
+          "type": "tuplePattern",
           "named": true
         }
       ]
@@ -2170,6 +2430,48 @@
     }
   },
   {
+    "type": "rulesExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attributeInstances",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "rulesStmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "rulesStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expressionStmt",
+          "named": true
+        },
+        {
+          "type": "rule",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "sign",
     "named": true,
     "fields": {}
@@ -2206,6 +2508,25 @@
     "fields": {}
   },
   {
+    "type": "structExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "Identifier",
+          "named": true
+        },
+        {
+          "type": "memberBind",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "structMember",
     "named": true,
     "fields": {},
@@ -2223,6 +2544,29 @@
         },
         {
           "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "structPattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "Identifier",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "pattern",
           "named": true
         }
       ]
@@ -2313,6 +2657,82 @@
     }
   },
   {
+    "type": "systemTaskStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "displayTaskName",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "taggedUnionExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "Identifier",
+          "named": true
+        },
+        {
+          "type": "exprPrimary",
+          "named": true
+        },
+        {
+          "type": "memberBind",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "taggedUnionPattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "Identifier",
+          "named": true
+        },
+        {
+          "type": "pattern",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tuplePattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "pattern",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "type",
     "named": true,
     "fields": {},
@@ -2326,6 +2746,29 @@
         },
         {
           "type": "typePrimary",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeAssertion",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bitConcat",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "type",
           "named": true
         }
       ]
@@ -2849,6 +3292,38 @@
     "named": false
   },
   {
+    "type": "$display",
+    "named": false
+  },
+  {
+    "type": "$displayb",
+    "named": false
+  },
+  {
+    "type": "$displayh",
+    "named": false
+  },
+  {
+    "type": "$displayo",
+    "named": false
+  },
+  {
+    "type": "$write",
+    "named": false
+  },
+  {
+    "type": "$writeb",
+    "named": false
+  },
+  {
+    "type": "$writeh",
+    "named": false
+  },
+  {
+    "type": "$writeo",
+    "named": false
+  },
+  {
     "type": "%",
     "named": false
   },
@@ -2862,6 +3337,10 @@
   },
   {
     "type": "&&&",
+    "named": false
+  },
+  {
+    "type": "'",
     "named": false
   },
   {
@@ -3133,6 +3612,10 @@
     "named": false
   },
   {
+    "type": "endrules",
+    "named": false
+  },
+  {
     "type": "enum",
     "named": false
   },
@@ -3221,6 +3704,10 @@
     "named": false
   },
   {
+    "type": "rules",
+    "named": false
+  },
+  {
     "type": "struct",
     "named": false
   },
@@ -3238,6 +3725,14 @@
   },
   {
     "type": "union",
+    "named": false
+  },
+  {
+    "type": "valueOf",
+    "named": false
+  },
+  {
+    "type": "valueof",
     "named": false
   },
   {
