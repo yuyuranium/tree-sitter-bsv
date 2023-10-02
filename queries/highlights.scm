@@ -196,3 +196,7 @@
   (Identifier) @type)
 (typedefEnumElement
   (Identifier) @field)
+
+; Struct member selection
+(exprPrimary
+  "." (identifier) @property)
