@@ -229,7 +229,7 @@ module.exports = grammar({
         'method', optional($.type), $.identifier,
         optional(seq('(', optional($.methodFormals), ')')),
         optional($.implicitCond), ';',
-        $.functionBody,
+        optional($.functionBody),
         'endmethod', optional(seq(':', $.identifier))
       ),
       seq(

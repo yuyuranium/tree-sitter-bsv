@@ -1804,8 +1804,16 @@
               "value": ";"
             },
             {
-              "type": "SYMBOL",
-              "name": "functionBody"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "functionBody"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             },
             {
               "type": "STRING",
