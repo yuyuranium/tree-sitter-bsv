@@ -27,7 +27,7 @@
   ; "instance"
   "interface"
   "let"
-  ; "match"
+  "match"
   "matches"
   "method"
   "module"
@@ -48,8 +48,8 @@
   "endpackage"
   "provisos"
   "reset_by"
-  ; "rules"
-  ; "endrules"
+  "rules"
+  "endrules"
   ; "same_family"
   ; "schedule"
   "struct"
@@ -58,8 +58,6 @@
   ; "typeclass"
   ; "endtypeclass"
   "union"
-  ; "valueOf"
-  ; "valueof"
 ] @keyword
 
 [
@@ -136,7 +134,11 @@
   "&&&"
 ] @operator
 
-"matches" @keyword.operator
+[
+  "matches"
+  "valueOf"
+  "valueof"
+] @keyword.operator
 
 "?" @constant
 
