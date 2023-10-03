@@ -46,7 +46,7 @@ module.exports = grammar({
     [$.condPredicate],
     [$.moduleApp, $.exprPrimary],
     [$.typeIde, $.exprPrimary],
-    [$.IValue, $.exprPrimary],
+    [$.lValue, $.exprPrimary],
     [$.typeIde, $.subinterfaceDef],
     [$.typeIde, $.methodDef],
     [$.typeNat, $.decNum],
@@ -386,19 +386,19 @@ module.exports = grammar({
     arrayDims: $ => repeat1(seq('[', $.expression, ']')),
 
     varAssign: $ => prec(PREC.ASSIGN, choice(
-      seq($.IValue, '=', $.expression, ';'),
+      seq($.lValue, '=', $.expression, ';'),
       seq('let', $.identifier, '<-', $.expression, ';'),
       seq('match', $.pattern, '=', $.expression, ';')
     )),
-    IValue: $ => choice(
+    lValue: $ => choice(
       $.identifier,
-      prec(PREC.FIELD, seq($.IValue, '.', $.identifier)),
-      prec(PREC.ARRAY_INDEX, seq($.IValue, '[', $.expression, ']')),
-      prec(PREC.ARRAY_INDEX, seq($.IValue, '[', $.expression, ':', $.expression, ']'))
+      prec(PREC.FIELD, seq($.lValue, '.', $.identifier)),
+      prec(PREC.ARRAY_INDEX, seq($.lValue, '[', $.expression, ']')),
+      prec(PREC.ARRAY_INDEX, seq($.lValue, '[', $.expression, ':', $.expression, ']'))
     ),
 
     regWrite: $ => choice(
-      prec(PREC.ASSIGN, seq($.IValue, '<=', $.expression, ';')),
+      prec(PREC.ASSIGN, seq($.lValue, '<=', $.expression, ';')),
       prec(PREC.ASSIGN, seq('(', $.expression, ')', '<=', $.expression, ';')),
     ),
 
@@ -634,7 +634,7 @@ module.exports = grammar({
     actionValueForStmt: $ => forStmt($, $.actionValueStmt),
 
     varDeclDo: $ => prec(PREC.ASSIGN, seq($.type, $.identifier, '<-', $.expression, ';')),
-    varDo: $ => prec(PREC.ASSIGN, seq($.IValue, '<-', $.expression, ';')),
+    varDo: $ => prec(PREC.ASSIGN, seq($.lValue, '<-', $.expression, ';')),
 
     functionCall: $ => prec.left(PREC.CALL, seq(
       // Note: The function must includes the argument list, like func(arg1, arg2)

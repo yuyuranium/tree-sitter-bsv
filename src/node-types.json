@@ -1,28 +1,5 @@
 [
   {
-    "type": "IValue",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "IValue",
-          "named": true
-        },
-        {
-          "type": "expression",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "actionBeginEndStmt",
     "named": true,
     "fields": {},
@@ -1619,6 +1596,29 @@
     }
   },
   {
+    "type": "lValue",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "lValue",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "memberBind",
     "named": true,
     "fields": {},
@@ -2370,11 +2370,11 @@
       "required": true,
       "types": [
         {
-          "type": "IValue",
+          "type": "expression",
           "named": true
         },
         {
-          "type": "expression",
+          "type": "lValue",
           "named": true
         }
       ]
@@ -3177,15 +3177,15 @@
       "required": true,
       "types": [
         {
-          "type": "IValue",
-          "named": true
-        },
-        {
           "type": "expression",
           "named": true
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "lValue",
           "named": true
         },
         {
@@ -3254,11 +3254,11 @@
       "required": true,
       "types": [
         {
-          "type": "IValue",
+          "type": "expression",
           "named": true
         },
         {
-          "type": "expression",
+          "type": "lValue",
           "named": true
         }
       ]
