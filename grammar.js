@@ -27,8 +27,7 @@ const PREC = {
   BINOP_LOGIC_AND: 2,
   BINOP_LOGIC_OR: 1,
   COND: -1,
-  ASSIGN: -2,
-  STMT: -3
+  ASSIGN: -2
 };
 
 module.exports = grammar({
@@ -51,13 +50,20 @@ module.exports = grammar({
     [$.typeIde, $.subinterfaceDef],
     [$.typeIde, $.methodDef],
     [$.typeNat, $.decNum],
+    [$.moduleStmt, $.expressionStmt],
+    [$.exprPrimary, $.actionStmt],
+    [$.exprPrimary, $.actionValueStmt],
+    [$.exprPrimary, $.moduleStmt],
     [$.moduleBeginEndStmt, $.expressionBeginEndStmt],
+    [$.expressionStmt, $.actionStmt],
+    [$.expressionStmt, $.actionValueStmt],
     [$.expressionBeginEndStmt, $.actionBeginEndStmt],
     [$.expressionBeginEndStmt, $.actionValueBeginEndStmt],
     [$.moduleCaseStmt, $.expressionCaseStmt],
     [$.expressionCaseStmt, $.actionCaseStmt],
     [$.expressionCaseStmt, $.actionValueCaseStmt],
     [$.typeIde, $.moduleApp, $.exprPrimary],
+    [$.exprPrimary, $.structExpr]
   ],
 
   word: $ => $.identifier,
@@ -185,7 +191,7 @@ module.exports = grammar({
       comma_sep(seq(optional($.attributeInstances), $.type, $.identifier))
     ),
 
-    moduleStmt: $ => prec(PREC.STMT, choice(
+    moduleStmt: $ => choice(
       $.moduleInst,
       $.methodDef,
       $.subinterfaceDef,
@@ -203,7 +209,7 @@ module.exports = grammar({
       $.moduleCaseStmt,
       $.moduleWhileStmt,
       $.moduleForStmt
-    )),
+    ),
 
     moduleBeginEndStmt: $ => beginEndStmt($, $.moduleStmt),
     moduleIfStmt: $ => ifStmt($, $.moduleStmt),
@@ -220,7 +226,7 @@ module.exports = grammar({
     ),
     moduleApp: $ => seq(
       $.identifier,
-      optional(seq('(', optional(comma_sep($.moduleActualParamArg)), ')'))
+      seq('(', optional(comma_sep($.moduleActualParamArg)), ')')
     ),
     moduleActualParamArg: $ => choice(
       $.expression,
@@ -255,7 +261,7 @@ module.exports = grammar({
       ),
       seq(
         'method', optional(choice('Action', 'ActionValue', $.type)), $.identifier,
-        optional(seq('(', $.methodFormals, ')')),
+        optional(seq('(', optional($.methodFormals), ')')),
         optional($.implicitCond), '=', $.expression, ';'
       )
     ),
@@ -374,15 +380,15 @@ module.exports = grammar({
     //////////////////////////////////////////
     varDecl: $ => choice(
       seq($.type, comma_sep($.varInit), ';'),
-      seq('let', $.identifier, '=', $.expression, ';')
+      prec(PREC.ASSIGN, seq('let', $.identifier, '=', $.expression, ';'))
     ),
     varInit: $ => seq($.identifier, optional($.arrayDims), optional(seq('=', $.expression))),
     arrayDims: $ => repeat1(seq('[', $.expression, ']')),
 
-    varAssign: $ => prec.right(PREC.ASSIGN, choice(
+    varAssign: $ => prec(PREC.ASSIGN, choice(
       seq($.IValue, '=', $.expression, ';'),
-      seq('let', $.identifier, '<-', $.expression, ';')
-      // match pattern = expression ;
+      seq('let', $.identifier, '<-', $.expression, ';'),
+      seq('match', $.pattern, '=', $.expression, ';')
     )),
     IValue: $ => choice(
       $.identifier,
@@ -391,10 +397,10 @@ module.exports = grammar({
       prec(PREC.ARRAY_INDEX, seq($.IValue, '[', $.expression, ':', $.expression, ']'))
     ),
 
-    regWrite: $ => prec.right(PREC.ASSIGN, choice(
-      seq($.IValue, '<=', $.expression, ';'),
-      seq('(', $.expression, ')', '<=', $.expression, ';'),
-    )),
+    regWrite: $ => choice(
+      prec(PREC.ASSIGN, seq($.IValue, '<=', $.expression, ';')),
+      prec(PREC.ASSIGN, seq('(', $.expression, ')', '<=', $.expression, ';')),
+    ),
 
     //////////////////////////
     // Function definitions //
@@ -422,7 +428,7 @@ module.exports = grammar({
       $.actionValueBlock,
       repeat1($.functionBodyStmt)
     ),
-    functionBodyStmt: $ => prec(PREC.STMT, choice(
+    functionBodyStmt: $ => choice(
       $.returnStmt,
       $.varDecl,
       $.varAssign,
@@ -433,7 +439,7 @@ module.exports = grammar({
       $.functionBodyCaseStmt,
       $.functionBodyWhileStmt,
       $.functionBodyForStmt
-    )),
+    ),
     returnStmt: $ => seq('return', $.expression, ';'),
 
     functionBodyBeginEndStmt: $ => beginEndStmt($, $.functionBodyStmt),
@@ -452,6 +458,7 @@ module.exports = grammar({
     ),
     exprPrimary: $ => choice(
       $.identifier,
+      $.Identifier,
       $.intLiteral,
       $.realLiteral,
       $.stringLiteral,
@@ -468,7 +475,7 @@ module.exports = grammar({
       $.methodCall,
       $.typeAssertion,
       $.structExpr,
-      seq($.exprPrimary, '.', $.identifier),  // Struct member selection
+      prec(PREC.FIELD, seq($.exprPrimary, '.', $.identifier)),  // Struct member selection
       $.taggedUnionExpr,
       $.interfaceExpr,
       $.rulesExpr,
@@ -569,7 +576,7 @@ module.exports = grammar({
       repeat($.actionStmt),
       'endaction', optional(seq(':', $.identifier))
     )),
-    actionStmt: $ => prec(PREC.STMT, choice(
+    actionStmt: $ => choice(
       $.regWrite,
       $.varDo, $.varDeclDo,
       seq($.functionCall, ';'),
@@ -585,7 +592,7 @@ module.exports = grammar({
       $.actionCaseStmt,
       $.actionWhileStmt,
       $.actionForStmt
-    )),
+    ),
 
     actionBeginEndStmt: $ => beginEndStmt($, $.actionStmt),
     actionIfStmt: $ => ifStmt($, $.actionStmt),
@@ -601,7 +608,7 @@ module.exports = grammar({
       repeat($.actionStmt),
       'endactionvalue', optional(seq(':', $.identifier))
     )),
-    actionValueStmt: $ => prec(PREC.STMT, choice(
+    actionValueStmt: $ => choice(
       $.regWrite,
       $.varDo, $.varDeclDo,
       seq($.functionCall, ';'),
@@ -618,7 +625,7 @@ module.exports = grammar({
       $.actionValueCaseStmt,
       $.actionValueWhileStmt,
       $.actionValueForStmt
-    )),
+    ),
 
     actionValueBeginEndStmt: $ => beginEndStmt($, $.actionValueStmt),
     actionValueIfStmt: $ => ifStmt($, $.actionValueStmt),
@@ -626,8 +633,8 @@ module.exports = grammar({
     actionValueWhileStmt: $ => whileStmt($, $.actionValueStmt),
     actionValueForStmt: $ => forStmt($, $.actionValueStmt),
 
-    varDeclDo: $ => prec.right(PREC.ASSIGN, seq($.type, $.identifier, '<-', $.expression, ';')),
-    varDo: $ => prec.right(PREC.ASSIGN, seq($.identifier, '<-', $.expression, ';')),
+    varDeclDo: $ => prec(PREC.ASSIGN, seq($.type, $.identifier, '<-', $.expression, ';')),
+    varDo: $ => prec(PREC.ASSIGN, seq($.IValue, '<-', $.expression, ';')),
 
     functionCall: $ => prec.left(PREC.CALL, seq(
       // Note: The function must includes the argument list, like func(arg1, arg2)
@@ -647,13 +654,13 @@ module.exports = grammar({
     structExpr: $ => seq($.Identifier, '{', comma_sep($.memberBind), '}'),
     memberBind: $ => seq($.identifier, ':', $.expression),
 
-    taggedUnionExpr: $ => choice(
+    taggedUnionExpr: $ => prec.right(choice(
       seq('tagged', $.Identifier, '{', comma_sep($.memberBind), '}'),
-      seq('tagged', $.Identifier, $.exprPrimary)
-    ),
+      seq('tagged', $.Identifier, optional($.exprPrimary))
+    )),
 
     interfaceExpr: $ => prec.left(seq(
-      'interface', $.Identifier, ';',
+      'interface', $.type, ';',
       repeat($.interfaceStmt),
       'endinterface', optional(seq(':', $.Identifier))
     )),
