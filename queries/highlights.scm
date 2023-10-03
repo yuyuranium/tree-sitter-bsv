@@ -159,16 +159,28 @@
 (exprPrimary
   "." (identifier) @property)
 
+(exprPrimary
+  (Identifier) @constant)
+
 (structMember
   (identifier) @field)
 
 (unionMember
   (Identifier) @field)
 
+(structExpr
+  (Identifier) @type)
+
+(taggedUnionExpr
+  (Identifier) @field)
+
+(memberBind
+  (identifier) @field)
+
 (typedefEnum
   (Identifier) @type)
 (typedefEnumElement
-  (Identifier) @field)
+  (Identifier) @constant)
 
 (attrName
   (identifier) @property)
