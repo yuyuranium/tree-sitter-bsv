@@ -156,8 +156,8 @@
 (stringLiteral) @string
 
 ; Struct member selection
-; (exprPrimary
-;   "." (identifier) @property)
+(exprPrimary
+  "." (identifier) @property)
 
 (structMember
   (identifier) @field)
