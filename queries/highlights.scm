@@ -160,6 +160,8 @@
 ; Struct member selection
 (exprPrimary
   "." (identifier) @property)
+(lValue
+  "." (identifier) @property)
 
 (exprPrimary
   (Identifier) @constant)
