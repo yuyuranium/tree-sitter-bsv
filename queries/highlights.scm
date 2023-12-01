@@ -35,6 +35,8 @@
   ; "output_clock"
   ; "output_reset"
   "package"
+  "seq"
+  "par"
   "parameter"
   ; "path"
   ; "port"
@@ -46,6 +48,8 @@
   "endmethod"
   "endmodule"
   "endpackage"
+  "endseq"
+  "endpar"
   "provisos"
   "reset_by"
   "rules"
@@ -70,8 +74,8 @@
 [
   "while"
   "for"
-  ; "continue"
-  ; "break"
+  "continue"
+  "break"
 ] @repeat
 
 [
@@ -138,6 +142,7 @@
   "matches"
   "valueOf"
   "valueof"
+  "noAction"
 ] @keyword.operator
 
 "?" @constant
@@ -192,6 +197,10 @@
 (typeFormal
   (identifier) @parameter)
 
+(typeclassIde) @type
+(proviso
+  (Identifier) @type)
+
 (moduleProto
   (identifier) @constructor)
 (moduleFormalParam
@@ -207,6 +216,9 @@
   (identifier) @parameter)
 (functionCall
   (exprPrimary (identifier) @function.call))
+
+(systemTaskStmt
+  (displayTaskName) @function.call)
 
 (methodProto
   (identifier) @function)

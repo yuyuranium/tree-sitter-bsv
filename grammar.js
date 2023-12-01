@@ -27,7 +27,8 @@ const PREC = {
   BINOP_LOGIC_AND: 2,
   BINOP_LOGIC_OR: 1,
   COND: -1,
-  ASSIGN: -2
+  ASSIGN: -2,
+  STMT: -3
 };
 
 module.exports = grammar({
@@ -59,9 +60,18 @@ module.exports = grammar({
     [$.expressionStmt, $.actionValueStmt],
     [$.expressionBeginEndStmt, $.actionBeginEndStmt],
     [$.expressionBeginEndStmt, $.actionValueBeginEndStmt],
+    [$.moduleStmt, $.caseExprItem],
+    [$.moduleCaseStmt, $.caseExpr],
+    [$.expressionCaseStmt, $.caseExpr],
     [$.moduleCaseStmt, $.expressionCaseStmt],
+    [$.moduleCaseStmt, $.expressionCaseStmt, $.caseExpr],
+    [$.caseExpr, $.actionCaseStmt],
     [$.expressionCaseStmt, $.actionCaseStmt],
+    [$.expressionCaseStmt, $.actionCaseStmt, $.caseExpr],
+    [$.actionValueStmt, $.caseExprItem],
+    [$.caseExpr, $.actionValueCaseStmt],
     [$.expressionCaseStmt, $.actionValueCaseStmt],
+    [$.expressionCaseStmt, $.actionValueCaseStmt, $.caseExpr],
     [$.typeIde, $.moduleApp, $.exprPrimary],
     [$.exprPrimary, $.structExpr]
   ],
@@ -462,7 +472,7 @@ module.exports = grammar({
       $.intLiteral,
       $.realLiteral,
       $.stringLiteral,
-      // systemFunctionCall
+      $.systemFunctionCall,
       seq('valueof', '(', $.type, ')'),
       seq('valueOf', '(', $.type, ')'),
       seq('(', $.expression, ')'),
@@ -480,7 +490,8 @@ module.exports = grammar({
       $.interfaceExpr,
       $.rulesExpr,
       $.caseExpr,
-      // seqFsmStmt, parFsmStmt
+      prec(PREC.STMT, $.seqFsmStmt),
+      prec(PREC.STMT, $.parFsmStmt),
       "True", "False"
     ),
 
@@ -699,25 +710,97 @@ module.exports = grammar({
     /////////////////////
     // Case expression //
     /////////////////////
-    caseExpr: $ => seq(
-      'case', '(', $.expression, ')', 'matches',
-      repeat($.caseExprItem),
-      'endcase'
+    caseExpr: $ => choice(
+      seq(
+        'case', '(', $.expression, ')', 'matches',
+        repeat($.caseExprPatItem),
+        'endcase'
+      ),
+      seq(
+        'case', '(', $.expression, ')',
+        repeat($.caseExprItem),
+        'endcase'
+      )
+    ),
+    caseExprPatItem: $ => choice(
+      seq($.pattern, optional(seq('&&&', $.expression)), ':', $.returnStmt),
+      seq('default', optional(':'), $.returnStmt)
     ),
     caseExprItem: $ => choice(
-      seq($.pattern, optional(seq('&&&', $.expression)), ':', $.expression),
-      seq('default', optional(':'), $.expression)
+      seq(comma_sep($.expression), ':', $.returnStmt),
+      seq('default', optional(':'), $.returnStmt)
+    ),
+
+    //////////////////////////
+    // Finite state machine //
+    //////////////////////////
+    fsmStmt: $ => choice(
+      $.exprFsmStmt,
+      $.seqFsmStmt,
+      $.parFsmStmt,
+      $.ifFsmStmt,
+      $.whileFsmStmt,
+      $.repeatFsmStmt,
+      $.forFsmStmt,
+      $.returnFsmStmt
+    ),
+    exprFsmStmt: $ => choice(
+      $.regWrite,
+      seq($.expression, ';'),
+      $.systemTaskStmt,
+      seq('noAction', ';')
+    ),
+    seqFsmStmt: $ => seq(
+      'seq', repeat1($.fsmStmt), 'endseq'
+    ),
+    parFsmStmt: $ => seq(
+      'par', repeat1($.fsmStmt), 'endpar'
+    ),
+    ifFsmStmt: $ => prec.left(seq(
+      'if', $.expression, $.fsmStmt,
+      optional(seq('else', $.fsmStmt))
+    )),
+    whileFsmStmt: $ => seq(
+      'while', '(', $.expression, ')',
+      $.loopBodyFsmStmt
+    ),
+    forFsmStmt: $ => seq(
+      'for', '(', $.fsmStmt, ';', $.expression, ';', $.fsmStmt, ')',
+      $.loopBodyFsmStmt
+    ),
+    returnFsmStmt: $ => seq(
+      'return', ';'
+    ),
+    repeatFsmStmt: $ => seq(
+      'repeat', '(', $.expression, ')',
+      $.loopBodyFsmStmt
+    ),
+    loopBodyFsmStmt: $ => choice(
+      $.fsmStmt,
+      seq('break', ';'),
+      seq('continue', ';')
     ),
 
     ////////////////////////////////
     // System tasks and functions //
     ////////////////////////////////
-    systemTaskStmt: $ => seq(
-      $.displayTaskName, '(', optional(comma_sep($.expression)), ')', ';'
+    systemTaskStmt: $ => choice(
+      seq(
+        choice(
+          '$dumpvars',
+          '$dumpon',
+          '$dumpoff'
+        ),
+        ';'),
+      seq( $.displayTaskName, '(', optional(comma_sep($.expression)), ')', ';')
     ),
     displayTaskName: $ => choice(
       '$display', '$displayb', '$displayo', '$displayh',
       '$write', '$writeb', '$writeo', '$writeh'
+    ),
+    systemFunctionCall: $ => choice(
+      '$time',
+      '$stime'
     ),
 
     ////////////////

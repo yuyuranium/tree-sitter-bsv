@@ -4712,6 +4712,10 @@
           "name": "stringLiteral"
         },
         {
+          "type": "SYMBOL",
+          "name": "systemFunctionCall"
+        },
+        {
           "type": "SEQ",
           "members": [
             {
@@ -4846,6 +4850,22 @@
         {
           "type": "SYMBOL",
           "name": "caseExpr"
+        },
+        {
+          "type": "PREC",
+          "value": -3,
+          "content": {
+            "type": "SYMBOL",
+            "name": "seqFsmStmt"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": -3,
+          "content": {
+            "type": "SYMBOL",
+            "name": "parFsmStmt"
+          }
         },
         {
           "type": "STRING",
@@ -7966,42 +7986,79 @@
       ]
     },
     "caseExpr": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "STRING",
-          "value": "case"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "case"
+            },
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "SYMBOL",
+              "name": "expression"
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            },
+            {
+              "type": "STRING",
+              "value": "matches"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SYMBOL",
+                "name": "caseExprPatItem"
+              }
+            },
+            {
+              "type": "STRING",
+              "value": "endcase"
+            }
+          ]
         },
         {
-          "type": "STRING",
-          "value": "("
-        },
-        {
-          "type": "SYMBOL",
-          "name": "expression"
-        },
-        {
-          "type": "STRING",
-          "value": ")"
-        },
-        {
-          "type": "STRING",
-          "value": "matches"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SYMBOL",
-            "name": "caseExprItem"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": "endcase"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "case"
+            },
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "SYMBOL",
+              "name": "expression"
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SYMBOL",
+                "name": "caseExprItem"
+              }
+            },
+            {
+              "type": "STRING",
+              "value": "endcase"
+            }
+          ]
         }
       ]
     },
-    "caseExprItem": {
+    "caseExprPatItem": {
       "type": "CHOICE",
       "members": [
         {
@@ -8038,7 +8095,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "expression"
+              "name": "returnStmt"
             }
           ]
         },
@@ -8063,25 +8120,17 @@
             },
             {
               "type": "SYMBOL",
-              "name": "expression"
+              "name": "returnStmt"
             }
           ]
         }
       ]
     },
-    "systemTaskStmt": {
-      "type": "SEQ",
+    "caseExprItem": {
+      "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "displayTaskName"
-        },
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
-          "type": "CHOICE",
+          "type": "SEQ",
           "members": [
             {
               "type": "SEQ",
@@ -8109,17 +8158,421 @@
               ]
             },
             {
-              "type": "BLANK"
+              "type": "STRING",
+              "value": ":"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "returnStmt"
             }
           ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "default"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ":"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "returnStmt"
+            }
+          ]
+        }
+      ]
+    },
+    "fsmStmt": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "exprFsmStmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "seqFsmStmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "parFsmStmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ifFsmStmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "whileFsmStmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "repeatFsmStmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "forFsmStmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "returnFsmStmt"
+        }
+      ]
+    },
+    "exprFsmStmt": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "regWrite"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "expression"
+            },
+            {
+              "type": "STRING",
+              "value": ";"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "systemTaskStmt"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "noAction"
+            },
+            {
+              "type": "STRING",
+              "value": ";"
+            }
+          ]
+        }
+      ]
+    },
+    "seqFsmStmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "seq"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "fsmStmt"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "endseq"
+        }
+      ]
+    },
+    "parFsmStmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "par"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "fsmStmt"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "endpar"
+        }
+      ]
+    },
+    "ifFsmStmt": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "if"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "expression"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "fsmStmt"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "else"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "fsmStmt"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "whileFsmStmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "while"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
         },
         {
           "type": "STRING",
           "value": ")"
         },
         {
+          "type": "SYMBOL",
+          "name": "loopBodyFsmStmt"
+        }
+      ]
+    },
+    "forFsmStmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "for"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "fsmStmt"
+        },
+        {
           "type": "STRING",
           "value": ";"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "fsmStmt"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "loopBodyFsmStmt"
+        }
+      ]
+    },
+    "returnFsmStmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "return"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "repeatFsmStmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "repeat"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "loopBodyFsmStmt"
+        }
+      ]
+    },
+    "loopBodyFsmStmt": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "fsmStmt"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "break"
+            },
+            {
+              "type": "STRING",
+              "value": ";"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "continue"
+            },
+            {
+              "type": "STRING",
+              "value": ";"
+            }
+          ]
+        }
+      ]
+    },
+    "systemTaskStmt": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "$dumpvars"
+                },
+                {
+                  "type": "STRING",
+                  "value": "$dumpon"
+                },
+                {
+                  "type": "STRING",
+                  "value": "$dumpoff"
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": ";"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "displayTaskName"
+            },
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "expression"
+                    },
+                    {
+                      "type": "REPEAT",
+                      "content": {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": ","
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "expression"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            },
+            {
+              "type": "STRING",
+              "value": ";"
+            }
+          ]
         }
       ]
     },
@@ -8157,6 +8610,19 @@
         {
           "type": "STRING",
           "value": "$writeh"
+        }
+      ]
+    },
+    "systemFunctionCall": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "$time"
+        },
+        {
+          "type": "STRING",
+          "value": "$stime"
         }
       ]
     },
@@ -8748,8 +9214,29 @@
       "actionValueBeginEndStmt"
     ],
     [
+      "moduleStmt",
+      "caseExprItem"
+    ],
+    [
+      "moduleCaseStmt",
+      "caseExpr"
+    ],
+    [
+      "expressionCaseStmt",
+      "caseExpr"
+    ],
+    [
       "moduleCaseStmt",
       "expressionCaseStmt"
+    ],
+    [
+      "moduleCaseStmt",
+      "expressionCaseStmt",
+      "caseExpr"
+    ],
+    [
+      "caseExpr",
+      "actionCaseStmt"
     ],
     [
       "expressionCaseStmt",
@@ -8757,7 +9244,25 @@
     ],
     [
       "expressionCaseStmt",
+      "actionCaseStmt",
+      "caseExpr"
+    ],
+    [
+      "actionValueStmt",
+      "caseExprItem"
+    ],
+    [
+      "caseExpr",
       "actionValueCaseStmt"
+    ],
+    [
+      "expressionCaseStmt",
+      "actionValueCaseStmt"
+    ],
+    [
+      "expressionCaseStmt",
+      "actionValueCaseStmt",
+      "caseExpr"
     ],
     [
       "typeIde",
