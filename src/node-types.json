@@ -2362,6 +2362,10 @@
           "named": true
         },
         {
+          "type": "moduleProto",
+          "named": true
+        },
+        {
           "type": "varDecl",
           "named": true
         }

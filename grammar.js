@@ -396,7 +396,7 @@ module.exports = grammar({
       $.typeIde,
       seq('(', comma_sep($.typeIde), ')')
     ),
-    overloadedDef: $ => choice($.functionProto, $.varDecl),
+    overloadedDef: $ => choice($.functionProto, $.varDecl, $.moduleProto),
 
     typeclassInstanceDef: $ => seq(
       'instance', $.typeclassIde, '#', '(', comma_sep($.type), ')', optional($.provisos), ';',
