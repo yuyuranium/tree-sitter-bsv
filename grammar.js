@@ -113,9 +113,9 @@ module.exports = grammar({
       $.typeDef,
       $.varDecl,
       $.varAssign,
-      $.functionDef
-      // typeclassDef
-      // typeclassInstanceDef
+      $.functionDef,
+      $.typeclassDef,
+      $.typeclassInstanceDef
       // externModuleImport
     ),
 
@@ -381,7 +381,32 @@ module.exports = grammar({
     provisos: $ => seq('provisos', '(', comma_sep($.proviso), ')'),
     proviso: $ => seq($.Identifier, '#', '(', comma_sep($.type), ')'),
 
+    typeclassDef: $ => seq(
+      'typeclass', $.typeclassIde, $.typeFormals, optional($.provisos),
+      optional($.typedepends), ';',
+      repeat($.overloadedDef),
+      'endtypeclass', optional(seq(':', $.typeclassIde))
+    ),
     typeclassIde: $ => $.Identifier,
+    typeFormals: $ => seq('#', '(', comma_sep($.typeFormal), ')'),
+    typeFormal: $ => seq(optional('numeric'), 'type', $.typeIde),
+    typedepends: $ => seq('dependencies', '(', comma_sep($.typedepend), ')'),
+    typedepend: $ => seq($.typelist, 'determines', $.typelist),
+    typelist: $ => choice(
+      $.typeIde,
+      seq('(', comma_sep($.typeIde), ')')
+    ),
+    overloadedDef: $ => choice($.functionProto, $.varDecl),
+
+    typeclassInstanceDef: $ => seq(
+      'instance', $.typeclassIde, '#', '(', comma_sep($.type), ')', optional($.provisos), ';',
+      repeat(choice(
+        seq($.varAssign, ';'),
+        $.functionDef,
+        $.moduleDef
+      )),
+      'endinstance', optional(seq(':', $.typeclassIde))
+    ),
     
     derives: $ => seq('deriving', '(', comma_sep($.typeclassIde), ')'),
 

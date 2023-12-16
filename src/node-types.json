@@ -2350,6 +2350,25 @@
     }
   },
   {
+    "type": "overloadedDef",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "functionProto",
+          "named": true
+        },
+        {
+          "type": "varDecl",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "package",
     "named": true,
     "fields": {},
@@ -2413,6 +2432,14 @@
         },
         {
           "type": "typeDef",
+          "named": true
+        },
+        {
+          "type": "typeclassDef",
+          "named": true
+        },
+        {
+          "type": "typeclassInstanceDef",
           "named": true
         },
         {
@@ -3058,7 +3085,7 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "typeIde",
           "named": true
         }
       ]
@@ -3137,6 +3164,37 @@
     }
   },
   {
+    "type": "typeclassDef",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "overloadedDef",
+          "named": true
+        },
+        {
+          "type": "provisos",
+          "named": true
+        },
+        {
+          "type": "typeFormals",
+          "named": true
+        },
+        {
+          "type": "typeclassIde",
+          "named": true
+        },
+        {
+          "type": "typedepends",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "typeclassIde",
     "named": true,
     "fields": {},
@@ -3146,6 +3204,41 @@
       "types": [
         {
           "type": "Identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeclassInstanceDef",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "functionDef",
+          "named": true
+        },
+        {
+          "type": "moduleDef",
+          "named": true
+        },
+        {
+          "type": "provisos",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "typeclassIde",
+          "named": true
+        },
+        {
+          "type": "varAssign",
           "named": true
         }
       ]
@@ -3268,6 +3361,51 @@
         },
         {
           "type": "unionMember",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typedepend",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "typelist",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typedepends",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "typedepend",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typelist",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "typeIde",
           "named": true
         }
       ]
@@ -3844,7 +3982,15 @@
     "named": false
   },
   {
+    "type": "dependencies",
+    "named": false
+  },
+  {
     "type": "deriving",
+    "named": false
+  },
+  {
+    "type": "determines",
     "named": false
   },
   {
@@ -3869,6 +4015,10 @@
   },
   {
     "type": "endfunction",
+    "named": false
+  },
+  {
+    "type": "endinstance",
     "named": false
   },
   {
@@ -3904,6 +4054,10 @@
     "named": false
   },
   {
+    "type": "endtypeclass",
+    "named": false
+  },
+  {
     "type": "enum",
     "named": false
   },
@@ -3933,6 +4087,10 @@
   },
   {
     "type": "import",
+    "named": false
+  },
+  {
+    "type": "instance",
     "named": false
   },
   {
@@ -4025,6 +4183,10 @@
   },
   {
     "type": "type",
+    "named": false
+  },
+  {
+    "type": "typeclass",
     "named": false
   },
   {

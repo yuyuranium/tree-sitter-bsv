@@ -13,9 +13,9 @@
   "default"
   ; "default_clock"
   ; "default_reset"
-  ; "dependencies"
+  "dependencies"
   "deriving"
-  ; "determines"
+  "determines"
   ; "e"
   ; "enable"
   "end"
@@ -24,7 +24,7 @@
   ; "inout"
   ; "input_clock"
   ; "input_reset"
-  ; "instance"
+  "instance"
   "interface"
   "let"
   "match"
@@ -43,7 +43,7 @@
   "endaction"
   "endactionvalue"
   "endcase"
-  ; "endinstance"
+  "endinstance"
   "endinterface"
   "endmethod"
   "endmodule"
@@ -59,8 +59,8 @@
   "struct"
   "tagged"
   "type"
-  ; "typeclass"
-  ; "endtypeclass"
+  "typeclass"
+  "endtypeclass"
   "union"
 ] @keyword
 
@@ -195,7 +195,7 @@
   (identifier) @property)
 
 (typeFormal
-  (identifier) @parameter)
+  (typeIde (identifier) @parameter))
 
 (typeclassIde) @type
 (proviso
