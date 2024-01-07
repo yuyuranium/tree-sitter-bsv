@@ -748,12 +748,12 @@ module.exports = grammar({
       )
     ),
     caseExprPatItem: $ => choice(
-      seq($.pattern, optional(seq('&&&', $.expression)), ':', $.returnStmt),
-      seq('default', optional(':'), $.returnStmt)
+      field('case_item', seq($.pattern, optional(seq('&&&', $.expression)), ':', $.returnStmt)),
+      field('default_item', seq('default', optional(':'), $.returnStmt))
     ),
     caseExprItem: $ => choice(
-      seq(comma_sep($.expression), ':', $.returnStmt),
-      seq('default', optional(':'), $.returnStmt)
+      field('case_item', seq(comma_sep($.expression), ':', $.returnStmt)),
+      field('default_item', seq('default', optional(':'), $.returnStmt))
     ),
 
     //////////////////////////
@@ -782,16 +782,16 @@ module.exports = grammar({
       'par', repeat1($.fsmStmt), 'endpar'
     ),
     ifFsmStmt: $ => prec.left(seq(
-      'if', $.expression, $.fsmStmt,
+      'if', $.expression, field('if_body', $.fsmStmt),
       optional(seq('else', $.fsmStmt))
     )),
     whileFsmStmt: $ => seq(
       'while', '(', $.expression, ')',
-      $.loopBodyFsmStmt
+      field('while_body', $.loopBodyFsmStmt)
     ),
     forFsmStmt: $ => seq(
       'for', '(', $.fsmStmt, ';', $.expression, ';', $.fsmStmt, ')',
-      $.loopBodyFsmStmt
+      field('for_body', $.loopBodyFsmStmt)
     ),
     returnFsmStmt: $ => seq(
       'return', ';'
@@ -925,7 +925,7 @@ function ifStmt($, stmt) {
 
 function caseStmt($, stmt) {
   let caseItem = field('case_item', seq(comma_sep($.expression), ':', stmt));
-  let defaultItem = field('default_itme', seq('default', optional(':'), stmt));
+  let defaultItem = field('default_item', seq('default', optional(':'), stmt));
   // cases matches
   return seq(
     'case', '(', $.expression, ')',

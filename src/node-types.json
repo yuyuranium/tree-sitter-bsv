@@ -63,7 +63,7 @@
           }
         ]
       },
-      "default_itme": {
+      "default_item": {
         "multiple": true,
         "required": false,
         "types": [
@@ -296,7 +296,7 @@
           }
         ]
       },
-      "default_itme": {
+      "default_item": {
         "multiple": true,
         "required": false,
         "types": [
@@ -826,43 +826,97 @@
   {
     "type": "caseExprItem",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        },
-        {
-          "type": "returnStmt",
-          "named": true
-        }
-      ]
+    "fields": {
+      "case_item": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "expression",
+            "named": true
+          },
+          {
+            "type": "returnStmt",
+            "named": true
+          }
+        ]
+      },
+      "default_item": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "default",
+            "named": false
+          },
+          {
+            "type": "returnStmt",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "caseExprPatItem",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        },
-        {
-          "type": "pattern",
-          "named": true
-        },
-        {
-          "type": "returnStmt",
-          "named": true
-        }
-      ]
+    "fields": {
+      "case_item": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "&&&",
+            "named": false
+          },
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "expression",
+            "named": true
+          },
+          {
+            "type": "pattern",
+            "named": true
+          },
+          {
+            "type": "returnStmt",
+            "named": true
+          }
+        ]
+      },
+      "default_item": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "default",
+            "named": false
+          },
+          {
+            "type": "returnStmt",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1201,7 +1255,7 @@
           }
         ]
       },
-      "default_itme": {
+      "default_item": {
         "multiple": true,
         "required": false,
         "types": [
@@ -1371,7 +1425,18 @@
   {
     "type": "forFsmStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "for_body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "loopBodyFsmStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -1382,10 +1447,6 @@
         },
         {
           "type": "fsmStmt",
-          "named": true
-        },
-        {
-          "type": "loopBodyFsmStmt",
           "named": true
         }
       ]
@@ -1533,7 +1594,7 @@
           }
         ]
       },
-      "default_itme": {
+      "default_item": {
         "multiple": true,
         "required": false,
         "types": [
@@ -1818,7 +1879,18 @@
   {
     "type": "ifFsmStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "if_body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "fsmStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -2291,7 +2363,7 @@
           }
         ]
       },
-      "default_itme": {
+      "default_item": {
         "multiple": true,
         "required": false,
         "types": [
@@ -3963,17 +4035,24 @@
   {
     "type": "whileFsmStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "while_body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "loopBodyFsmStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "expression",
-          "named": true
-        },
-        {
-          "type": "loopBodyFsmStmt",
           "named": true
         }
       ]
