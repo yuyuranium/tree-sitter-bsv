@@ -40,15 +40,52 @@
   {
     "type": "actionCaseStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "case_item": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "actionStmt",
+            "named": true
+          },
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
+      "default_itme": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "actionStmt",
+            "named": true
+          },
+          {
+            "type": "default",
+            "named": false
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
-        {
-          "type": "actionStmt",
-          "named": true
-        },
         {
           "type": "expression",
           "named": true
@@ -59,15 +96,22 @@
   {
     "type": "actionForStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "for_body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "actionStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "actionStmt",
-          "named": true
-        },
         {
           "type": "expression",
           "named": true
@@ -86,7 +130,18 @@
   {
     "type": "actionIfStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "if_body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "actionStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -218,15 +273,52 @@
   {
     "type": "actionValueCaseStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "case_item": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "actionValueStmt",
+            "named": true
+          },
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
+      "default_itme": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "actionValueStmt",
+            "named": true
+          },
+          {
+            "type": "default",
+            "named": false
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
-        {
-          "type": "actionValueStmt",
-          "named": true
-        },
         {
           "type": "expression",
           "named": true
@@ -237,15 +329,22 @@
   {
     "type": "actionValueForStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "for_body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "actionValueStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "actionValueStmt",
-          "named": true
-        },
         {
           "type": "expression",
           "named": true
@@ -264,7 +363,18 @@
   {
     "type": "actionValueIfStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "if_body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "actionValueStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -362,15 +472,22 @@
   {
     "type": "actionValueWhileStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "while_body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "actionValueStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
-        {
-          "type": "actionValueStmt",
-          "named": true
-        },
         {
           "type": "expression",
           "named": true
@@ -381,15 +498,22 @@
   {
     "type": "actionWhileStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "while_body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "actionStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
-        {
-          "type": "actionStmt",
-          "named": true
-        },
         {
           "type": "expression",
           "named": true
@@ -1054,17 +1178,54 @@
   {
     "type": "expressionCaseStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "case_item": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "expression",
+            "named": true
+          },
+          {
+            "type": "expressionStmt",
+            "named": true
+          }
+        ]
+      },
+      "default_itme": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "default",
+            "named": false
+          },
+          {
+            "type": "expressionStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "expression",
-          "named": true
-        },
-        {
-          "type": "expressionStmt",
           "named": true
         }
       ]
@@ -1073,17 +1234,24 @@
   {
     "type": "expressionForStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "for_body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expressionStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
         {
           "type": "expression",
-          "named": true
-        },
-        {
-          "type": "expressionStmt",
           "named": true
         },
         {
@@ -1100,7 +1268,18 @@
   {
     "type": "expressionIfStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "if_body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expressionStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -1166,17 +1345,24 @@
   {
     "type": "expressionWhileStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "while_body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expressionStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "expression",
-          "named": true
-        },
-        {
-          "type": "expressionStmt",
           "named": true
         }
       ]
@@ -1324,17 +1510,54 @@
   {
     "type": "functionBodyCaseStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "case_item": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "expression",
+            "named": true
+          },
+          {
+            "type": "functionBodyStmt",
+            "named": true
+          }
+        ]
+      },
+      "default_itme": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "default",
+            "named": false
+          },
+          {
+            "type": "functionBodyStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "expression",
-          "named": true
-        },
-        {
-          "type": "functionBodyStmt",
           "named": true
         }
       ]
@@ -1343,17 +1566,24 @@
   {
     "type": "functionBodyForStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "for_body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "functionBodyForStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
         {
           "type": "expression",
-          "named": true
-        },
-        {
-          "type": "functionBodyForStmt",
           "named": true
         },
         {
@@ -1370,7 +1600,18 @@
   {
     "type": "functionBodyIfStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "if_body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "functionBodyStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -1440,17 +1681,24 @@
   {
     "type": "functionBodyWhileStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "while_body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "functionBodyStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "expression",
-          "named": true
-        },
-        {
-          "type": "functionBodyStmt",
           "named": true
         }
       ]
@@ -2020,17 +2268,54 @@
   {
     "type": "moduleCaseStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "case_item": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "expression",
+            "named": true
+          },
+          {
+            "type": "moduleStmt",
+            "named": true
+          }
+        ]
+      },
+      "default_itme": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "default",
+            "named": false
+          },
+          {
+            "type": "moduleStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "expression",
-          "named": true
-        },
-        {
-          "type": "moduleStmt",
           "named": true
         }
       ]
@@ -2066,7 +2351,18 @@
   {
     "type": "moduleForStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "for_body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "moduleStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -2077,10 +2373,6 @@
         },
         {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "moduleStmt",
           "named": true
         },
         {
@@ -2154,7 +2446,18 @@
   {
     "type": "moduleIfStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "if_body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "moduleStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -2314,17 +2617,24 @@
   {
     "type": "moduleWhileStmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "while_body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "moduleStmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "expression",
-          "named": true
-        },
-        {
-          "type": "moduleStmt",
           "named": true
         }
       ]

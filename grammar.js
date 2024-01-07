@@ -918,14 +918,14 @@ function beginEndStmt($, stmt) {
 function ifStmt($, stmt) {
   return prec.left(seq(
     'if', '(', $.condPredicate, ')',
-    stmt,
+    field('if_body', stmt),
     optional(seq('else', stmt))
   ));
 }
 
 function caseStmt($, stmt) {
-  let caseItem = seq(comma_sep($.expression), ':', stmt);
-  let defaultItem = seq('default', optional(':'), stmt);
+  let caseItem = field('case_item', seq(comma_sep($.expression), ':', stmt));
+  let defaultItem = field('default_itme', seq('default', optional(':'), stmt));
   // cases matches
   return seq(
     'case', '(', $.expression, ')',
@@ -938,7 +938,7 @@ function caseStmt($, stmt) {
 function whileStmt($, stmt) {
   return seq(
     'while', '(', $.expression, ')',
-    stmt
+    field('while_body', stmt)
   );
 }
 
@@ -958,7 +958,7 @@ function forStmt($, stmt) {
   let forIncr = comma_sep(varIncr);
   return seq(
     'for', '(', forInit, ';', forTest, ';', forIncr, ')',
-    stmt
+    field('for_body', stmt)
   );
 }
 
