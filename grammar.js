@@ -211,7 +211,7 @@ module.exports = grammar({
       $.systemTaskStmt,
       seq('(', $.expression, ')'),
       $.returnStmt,
-      $.varDecl, $.varDeclDo,
+      $.varDecl, $.varAssign,
       $.functionDef,
       $.moduleDef,
       $.moduleBeginEndStmt,

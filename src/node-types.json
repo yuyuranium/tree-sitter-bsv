@@ -2672,6 +2672,10 @@
           "named": true
         },
         {
+          "type": "varAssign",
+          "named": true
+        },
+        {
           "type": "varDecl",
           "named": true
         },
