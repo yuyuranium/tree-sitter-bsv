@@ -45,12 +45,10 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.condPredicate],
-    [$.moduleApp, $.exprPrimary],
     [$.typeIde, $.exprPrimary],
     [$.lValue, $.exprPrimary],
     [$.typeIde, $.subinterfaceDef],
     [$.typeIde, $.methodDef],
-    [$.typeNat, $.decNum],
     [$.moduleStmt, $.expressionStmt],
     [$.exprPrimary, $.actionStmt],
     [$.exprPrimary, $.actionValueStmt],
@@ -132,7 +130,7 @@ module.exports = grammar({
     typePrimary: $ => choice(
       seq($.typeIde, optional(seq('#', '(', comma_sep($.type), ')'))),
       $.typeNat,
-      seq('bit', '[', $.typeNat, ':', $.typeNat, ']'),
+      seq('bit', optional(seq('[', $.typeNat, ':', $.typeNat, ']'))),
       'int'
     ),
 

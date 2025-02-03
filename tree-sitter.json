@@ -1,0 +1,29 @@
+{
+  "grammars": [
+    {
+      "name": "bsv",
+      "camelcase": "Bsv",
+      "scope": "source.bsv",
+      "path": ".",
+      "file-types": [
+        "bsv"
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "license": "ISC",
+    "description": "BSV grammar for tree-sitter",
+    "links": {
+      "repository": "https://github.com/tree-sitter/tree-sitter-bsv"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true
+  }
+}

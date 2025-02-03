@@ -1,4 +1,5 @@
 {
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "bsv",
   "word": "identifier",
   "rules": {
@@ -407,24 +408,37 @@
               "value": "bit"
             },
             {
-              "type": "STRING",
-              "value": "["
-            },
-            {
-              "type": "SYMBOL",
-              "name": "typeNat"
-            },
-            {
-              "type": "STRING",
-              "value": ":"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "typeNat"
-            },
-            {
-              "type": "STRING",
-              "value": "]"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "["
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "typeNat"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": ":"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "typeNat"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "]"
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             }
           ]
         },
@@ -9610,10 +9624,6 @@
       "condPredicate"
     ],
     [
-      "moduleApp",
-      "exprPrimary"
-    ],
-    [
       "typeIde",
       "exprPrimary"
     ],
@@ -9628,10 +9638,6 @@
     [
       "typeIde",
       "methodDef"
-    ],
-    [
-      "typeNat",
-      "decNum"
     ],
     [
       "moduleStmt",
@@ -9737,4 +9743,3 @@
   ],
   "supertypes": []
 }
-
