@@ -67,7 +67,7 @@
 [
   "import"
   "export"
-] @include
+] @keyword.import
 
 "typedef" @keyword.definition
 
