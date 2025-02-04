@@ -113,7 +113,8 @@ module.exports = grammar({
       $.varAssign,
       $.functionDef,
       $.typeclassDef,
-      $.typeclassInstanceDef
+      $.typeclassInstanceDef,
+      $.externCImport
       // externModuleImport
     ),
 
@@ -808,14 +809,9 @@ module.exports = grammar({
     // System tasks and functions //
     ////////////////////////////////
     systemTaskStmt: $ => choice(
-      seq(
-        choice(
-          '$dumpvars',
-          '$dumpon',
-          '$dumpoff'
-        ),
-        ';'),
-      seq( $.displayTaskName, '(', optional(comma_sep($.expression)), ')', ';')
+      // General case
+      seq($.dollarIdentifier, optional(seq('(', optional(comma_sep($.expression)), ')')), ';'),
+      seq($.displayTaskName, '(', optional(comma_sep($.expression)), ')', ';')
     ),
     displayTaskName: $ => choice(
       '$display', '$displayb', '$displayo', '$displayh',
@@ -825,6 +821,17 @@ module.exports = grammar({
       '$time',
       '$stime'
     ),
+    dollarIdentifier: $ => token(seq('$', LOWER_CASE_CHARS, IDENTIFIER_CHARS)),
+
+    /////////////////////////////////
+    // Embedding C in a BSV Design //
+    /////////////////////////////////
+    externCImport: $ => seq(
+      'import', '"BDPI"', optional(seq($.identifier, '=')), 'function', $.type,
+      $.identifier, '(', optional($.CFuncArgs), ')', optional($.provisos), ';'
+    ),
+    CFuncArgs: $ => comma_sep($.CFuncArg),
+    CFuncArg: $ => seq($.type, optional($.identifier)),
 
     ////////////////
     // Attributes //

@@ -1,5 +1,39 @@
 [
   {
+    "type": "CFuncArg",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "CFuncArgs",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "CFuncArg",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "actionBeginEndStmt",
     "named": true,
     "fields": {},
@@ -1423,6 +1457,33 @@
     }
   },
   {
+    "type": "externCImport",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "CFuncArgs",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "provisos",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "forFsmStmt",
     "named": true,
     "fields": {
@@ -2809,6 +2870,10 @@
       "required": true,
       "types": [
         {
+          "type": "externCImport",
+          "named": true
+        },
+        {
           "type": "functionDef",
           "named": true
         },
@@ -3309,10 +3374,14 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "displayTaskName",
+          "named": true
+        },
+        {
+          "type": "dollarIdentifier",
           "named": true
         },
         {
@@ -4076,6 +4145,10 @@
     "named": false
   },
   {
+    "type": "\"BDPI\"",
+    "named": false
+  },
+  {
     "type": "#",
     "named": false
   },
@@ -4093,18 +4166,6 @@
   },
   {
     "type": "$displayo",
-    "named": false
-  },
-  {
-    "type": "$dumpoff",
-    "named": false
-  },
-  {
-    "type": "$dumpon",
-    "named": false
-  },
-  {
-    "type": "$dumpvars",
     "named": false
   },
   {
@@ -4390,6 +4451,10 @@
   {
     "type": "determines",
     "named": false
+  },
+  {
+    "type": "dollarIdentifier",
+    "named": true
   },
   {
     "type": "else",

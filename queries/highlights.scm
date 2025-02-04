@@ -65,6 +65,10 @@
 ] @keyword
 
 [
+  "\"BDPI\""
+] @string
+
+[
   "import"
   "export"
 ] @keyword.import
@@ -219,6 +223,11 @@
 
 (systemTaskStmt
   (displayTaskName) @function.call)
+
+(systemTaskStmt
+  (dollarIdentifier) @function.call)
+
+(systemFunctionCall) @function.call
 
 (methodProto
   (identifier) @function)
