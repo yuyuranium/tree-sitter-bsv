@@ -480,7 +480,7 @@ module.exports = grammar({
     functionBodyIfStmt: $ => ifStmt($, $.functionBodyStmt),
     functionBodyCaseStmt: $ => caseStmt($, $.functionBodyStmt),
     functionBodyWhileStmt: $ => whileStmt($, $.functionBodyStmt),
-    functionBodyForStmt: $ => forStmt($, $.functionBodyForStmt),
+    functionBodyForStmt: $ => forStmt($, $.functionBodyStmt),
 
     /////////////////
     // Expressions //
@@ -789,7 +789,9 @@ module.exports = grammar({
       field('while_body', $.loopBodyFsmStmt)
     ),
     forFsmStmt: $ => seq(
-      'for', '(', $.fsmStmt, ';', $.expression, ';', $.fsmStmt, ')',
+      // The first ';' is removed due to the existance of ';' in all fsmStmt.
+      // 'for', '(', $.fsmStmt, ';', $.expression, ';', $.fsmStmt, ')',
+      'for', '(', $.fsmStmt, $.expression, ';', $.fsmStmt, ')',
       field('for_body', $.loopBodyFsmStmt)
     ),
     returnFsmStmt: $ => seq(
@@ -859,10 +861,10 @@ module.exports = grammar({
     )),
 
     baseLiteral: $ => choice(
-      seq(choice('\'d', '\'D'), $.decDigitsUnderscore),
-      seq(choice('\'h', '\'H'), $.hexDigitsUnderscore),
-      seq(choice('\'o', '\'O'), $.octDigitsUnderscore),
-      seq(choice('\'b', '\'B'), $.binDigitsUnderscore),
+      seq(optional($.decNum), choice('\'d', '\'D'), $.decDigitsUnderscore),
+      seq(optional($.decNum), choice('\'h', '\'H'), $.hexDigitsUnderscore),
+      seq(optional($.decNum), choice('\'o', '\'O'), $.octDigitsUnderscore),
+      seq(optional($.decNum), choice('\'b', '\'B'), $.binDigitsUnderscore),
     ),
 
     decNum: $ => token(seq(/[0-9]+/, optional(/[0-9_]+/))),

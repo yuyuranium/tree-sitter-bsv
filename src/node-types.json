@@ -643,7 +643,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -652,6 +652,10 @@
         },
         {
           "type": "decDigitsUnderscore",
+          "named": true
+        },
+        {
+          "type": "decNum",
           "named": true
         },
         {
@@ -1694,7 +1698,7 @@
         "required": true,
         "types": [
           {
-            "type": "functionBodyForStmt",
+            "type": "functionBodyStmt",
             "named": true
           }
         ]

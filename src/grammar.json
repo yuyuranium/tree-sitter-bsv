@@ -5072,7 +5072,7 @@
           "name": "for_body",
           "content": {
             "type": "SYMBOL",
-            "name": "functionBodyForStmt"
+            "name": "functionBodyStmt"
           }
         }
       ]
@@ -8863,10 +8863,6 @@
           "name": "fsmStmt"
         },
         {
-          "type": "STRING",
-          "value": ";"
-        },
-        {
           "type": "SYMBOL",
           "name": "expression"
         },
@@ -9476,6 +9472,18 @@
               "type": "CHOICE",
               "members": [
                 {
+                  "type": "SYMBOL",
+                  "name": "decNum"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
                   "type": "STRING",
                   "value": "'d"
                 },
@@ -9494,6 +9502,18 @@
         {
           "type": "SEQ",
           "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "decNum"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
             {
               "type": "CHOICE",
               "members": [
@@ -9520,6 +9540,18 @@
               "type": "CHOICE",
               "members": [
                 {
+                  "type": "SYMBOL",
+                  "name": "decNum"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
                   "type": "STRING",
                   "value": "'o"
                 },
@@ -9538,6 +9570,18 @@
         {
           "type": "SEQ",
           "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "decNum"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
             {
               "type": "CHOICE",
               "members": [
