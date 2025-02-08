@@ -11,3 +11,4 @@ test.bsv
 *.o
 bindings/c/*.h
 .build/
+result/
