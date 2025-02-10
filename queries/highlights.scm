@@ -184,11 +184,11 @@
 (structExpr
   (Identifier) @type)
 
-(taggedUnionExpr
-  (Identifier) @field)
+(taggedUnionExpr .
+  (Identifier) @type)
 
-(memberBind
-  (identifier) @field)
+(memberBind .
+  (identifier) @property)
 
 (typedefEnum
   (Identifier) @type)
