@@ -45,10 +45,8 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.condPredicate],
-    [$.typeIde, $.exprPrimary],
     [$.lValue, $.exprPrimary],
     [$.typeIde, $.subinterfaceDef],
-    [$.typeIde, $.methodDef],
     [$.moduleStmt, $.expressionStmt],
     [$.exprPrimary, $.actionStmt],
     [$.exprPrimary, $.actionValueStmt],
@@ -70,7 +68,7 @@ module.exports = grammar({
     [$.caseExpr, $.actionValueCaseStmt],
     [$.expressionCaseStmt, $.actionValueCaseStmt],
     [$.expressionCaseStmt, $.actionValueCaseStmt, $.caseExpr],
-    [$.typeIde, $.moduleApp, $.exprPrimary],
+    [$.moduleApp, $.exprPrimary],
     [$.exprPrimary, $.structExpr]
   ],
 
@@ -125,7 +123,8 @@ module.exports = grammar({
     ///////////
     type: $ => choice(
       $.typePrimary,
-      seq($.typePrimary, '(', comma_sep($.type), ')')  // Function type
+      // Function type (revised)
+      seq('function', $.type, $.identifier, '(', optional($.functionFormals), ')')
     ),
 
     typePrimary: $ => choice(

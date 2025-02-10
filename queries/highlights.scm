@@ -160,7 +160,7 @@
 (typeIde) @type
 (typeNat) @type.quantifier
 
-(comment) @comment @spell
+(comment) @comment.documentation @spell
 
 (intLiteral) @number
 (realLiteral) @number

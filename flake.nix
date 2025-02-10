@@ -22,6 +22,7 @@
             name = "bsv-docstrings";
             packages = with pkgs; [
               tree-sitter
+              nodejs
             ];
           };
 
