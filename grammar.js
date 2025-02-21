@@ -268,7 +268,11 @@ module.exports = grammar({
         'endmethod', optional(seq(':', $.identifier))
       ),
       seq(
-        'method', optional(choice('Action', 'ActionValue', $.type)), $.identifier,
+        'method', optional(choice(
+          'Action',
+          seq('ActionValue', '#', '(', $.type, ')'),
+          $.type)
+        ), $.identifier,
         optional(seq('(', optional($.methodFormals), ')')),
         optional($.implicitCond), '=', $.expression, ';'
       )

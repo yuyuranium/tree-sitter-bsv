@@ -2118,8 +2118,29 @@
                       "value": "Action"
                     },
                     {
-                      "type": "STRING",
-                      "value": "ActionValue"
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "STRING",
+                          "value": "ActionValue"
+                        },
+                        {
+                          "type": "STRING",
+                          "value": "#"
+                        },
+                        {
+                          "type": "STRING",
+                          "value": "("
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "type"
+                        },
+                        {
+                          "type": "STRING",
+                          "value": ")"
+                        }
+                      ]
                     },
                     {
                       "type": "SYMBOL",

@@ -201,6 +201,10 @@
 (typeFormal
   (typeIde (identifier) @parameter))
 
+(subinterfaceDef
+  .
+  (Identifier) @type)
+
 (typeclassIde) @type
 (proviso
   (Identifier) @type)
