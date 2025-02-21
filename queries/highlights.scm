@@ -80,13 +80,13 @@
   "for"
   "continue"
   "break"
-] @repeat
+] @keyword.repeat
 
 [
  "if"
  "else"
  "case"
-] @conditional
+] @keyword.conditional
 
 [
   "function"
