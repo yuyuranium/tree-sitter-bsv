@@ -187,6 +187,9 @@
 (taggedUnionExpr .
   (Identifier) @type)
 
+(taggedUnionPattern
+  (Identifier) @type)
+
 (memberBind .
   (identifier) @property)
 
