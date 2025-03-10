@@ -878,7 +878,7 @@ module.exports = grammar({
     decDigitsUnderscore: $ => /[0-9_]+/,
     hexDigitsUnderscore: $ => /[0-9a-fA-F_]+/,
     octDigitsUnderscore: $ => /[0-7_]+/,
-    binDigitsUnderscore: $ => /[01_]+/,
+    binDigitsUnderscore: $ => /[01\?_]+/,
 
     ///////////////////
     // Real literals //

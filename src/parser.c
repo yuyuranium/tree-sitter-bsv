@@ -10385,6 +10385,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == '/') ADVANCE(12);
       if (lookahead == '0' ||
           lookahead == '1' ||
+          lookahead == '?' ||
           lookahead == '_') ADVANCE(160);
       if (('\t' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') SKIP(19);
@@ -11165,6 +11166,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       ACCEPT_TOKEN(sym_binDigitsUnderscore);
       if (lookahead == '0' ||
           lookahead == '1' ||
+          lookahead == '?' ||
           lookahead == '_') ADVANCE(160);
       END_STATE();
     case 161:

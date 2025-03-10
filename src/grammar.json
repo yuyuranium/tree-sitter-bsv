@@ -9674,7 +9674,7 @@
     },
     "binDigitsUnderscore": {
       "type": "PATTERN",
-      "value": "[01_]+"
+      "value": "[01\\?_]+"
     },
     "realLiteral": {
       "type": "CHOICE",
