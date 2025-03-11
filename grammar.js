@@ -135,7 +135,7 @@ module.exports = grammar({
     ),
 
     // Polymorphism types starts with lowercase letters
-    typeIde: $ => choice($.Identifier, $.identifier),
+    typeIde: $ => seq(optional(seq($.packageIde, '::')), choice($.Identifier, $.identifier)),
     typeNat: $ => $.decDigits,
 
     ///////////////
@@ -494,8 +494,8 @@ module.exports = grammar({
       $.exprPrimary
     ),
     exprPrimary: $ => choice(
-      $.identifier,
-      $.Identifier,
+      seq(optional(seq($.packageIde, '::')), $.identifier),
+      seq(optional(seq($.packageIde, '::')), $.Identifier),
       $.intLiteral,
       $.realLiteral,
       $.stringLiteral,

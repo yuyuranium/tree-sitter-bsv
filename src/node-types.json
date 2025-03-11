@@ -1183,6 +1183,10 @@
           "named": true
         },
         {
+          "type": "packageIde",
+          "named": true
+        },
+        {
           "type": "parFsmStmt",
           "named": true
         },
@@ -3583,7 +3587,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -3592,6 +3596,10 @@
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "packageIde",
           "named": true
         }
       ]
