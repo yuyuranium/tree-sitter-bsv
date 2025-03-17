@@ -519,7 +519,7 @@ module.exports = grammar({
       $.caseExpr,
       prec(PREC.STMT, $.seqFsmStmt),
       prec(PREC.STMT, $.parFsmStmt),
-      "True", "False"
+      "True", "False", "noAction"
     ),
 
     condExpr: $ => prec.right(PREC.COND, seq(
@@ -775,7 +775,6 @@ module.exports = grammar({
       $.regWrite,
       seq($.expression, ';'),
       $.systemTaskStmt,
-      seq('noAction', ';')
     ),
     seqFsmStmt: $ => seq(
       'seq', repeat1($.fsmStmt), 'endseq'

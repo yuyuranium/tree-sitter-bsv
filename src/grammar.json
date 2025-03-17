@@ -5374,6 +5374,10 @@
         {
           "type": "STRING",
           "value": "False"
+        },
+        {
+          "type": "STRING",
+          "value": "noAction"
         }
       ]
     },
@@ -8810,19 +8814,6 @@
         {
           "type": "SYMBOL",
           "name": "systemTaskStmt"
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "noAction"
-            },
-            {
-              "type": "STRING",
-              "value": ";"
-            }
-          ]
         }
       ]
     },
