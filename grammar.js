@@ -643,7 +643,7 @@ module.exports = grammar({
     //////////////////
     actionValueBlock: $ => prec.left(seq(
       'actionvalue', optional(seq(':', $.identifier)),
-      repeat($.actionStmt),
+      repeat($.actionValueStmt),
       'endactionvalue', optional(seq(':', $.identifier))
     )),
     actionValueStmt: $ => choice(

@@ -294,7 +294,7 @@
       "required": false,
       "types": [
         {
-          "type": "actionStmt",
+          "type": "actionValueStmt",
           "named": true
         },
         {
