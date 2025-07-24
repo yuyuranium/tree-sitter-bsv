@@ -80,6 +80,10 @@
         "required": false,
         "types": [
           {
+            "type": "&&&",
+            "named": false
+          },
+          {
             "type": ",",
             "named": false
           },
@@ -93,6 +97,10 @@
           },
           {
             "type": "expression",
+            "named": true
+          },
+          {
+            "type": "pattern",
             "named": true
           }
         ]
@@ -313,6 +321,10 @@
         "required": false,
         "types": [
           {
+            "type": "&&&",
+            "named": false
+          },
+          {
             "type": ",",
             "named": false
           },
@@ -326,6 +338,10 @@
           },
           {
             "type": "expression",
+            "named": true
+          },
+          {
+            "type": "pattern",
             "named": true
           }
         ]
@@ -1280,6 +1296,10 @@
         "required": false,
         "types": [
           {
+            "type": "&&&",
+            "named": false
+          },
+          {
             "type": ",",
             "named": false
           },
@@ -1293,6 +1313,10 @@
           },
           {
             "type": "expressionStmt",
+            "named": true
+          },
+          {
+            "type": "pattern",
             "named": true
           }
         ]
@@ -1646,6 +1670,10 @@
         "required": false,
         "types": [
           {
+            "type": "&&&",
+            "named": false
+          },
+          {
             "type": ",",
             "named": false
           },
@@ -1659,6 +1687,10 @@
           },
           {
             "type": "functionBodyStmt",
+            "named": true
+          },
+          {
+            "type": "pattern",
             "named": true
           }
         ]
@@ -2415,6 +2447,10 @@
         "required": false,
         "types": [
           {
+            "type": "&&&",
+            "named": false
+          },
+          {
             "type": ",",
             "named": false
           },
@@ -2428,6 +2464,10 @@
           },
           {
             "type": "moduleStmt",
+            "named": true
+          },
+          {
+            "type": "pattern",
             "named": true
           }
         ]

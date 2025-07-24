@@ -57,6 +57,7 @@ module.exports = grammar({
     [$.expressionBeginEndStmt, $.actionBeginEndStmt],
     [$.expressionBeginEndStmt, $.actionValueBeginEndStmt],
     [$.moduleStmt, $.caseExprItem],
+    [$.moduleStmt, $.caseExprPatItem],
     [$.moduleCaseStmt, $.caseExpr],
     [$.expressionCaseStmt, $.caseExpr],
     [$.moduleCaseStmt, $.expressionCaseStmt],
@@ -65,6 +66,7 @@ module.exports = grammar({
     [$.expressionCaseStmt, $.actionCaseStmt],
     [$.expressionCaseStmt, $.actionCaseStmt, $.caseExpr],
     [$.actionValueStmt, $.caseExprItem],
+    [$.actionValueStmt, $.caseExprPatItem],
     [$.caseExpr, $.actionValueCaseStmt],
     [$.expressionCaseStmt, $.actionValueCaseStmt],
     [$.expressionCaseStmt, $.actionValueCaseStmt, $.caseExpr],
@@ -934,13 +936,22 @@ function ifStmt($, stmt) {
 
 function caseStmt($, stmt) {
   let caseItem = field('case_item', seq(comma_sep($.expression), ':', stmt));
+  let casePatItem = field('case_item', seq($.pattern, optional(seq('&&&', $.expression)), ':', stmt))
   let defaultItem = field('default_item', seq('default', optional(':'), stmt));
   // cases matches
-  return seq(
-    'case', '(', $.expression, ')',
-    repeat(caseItem),
-    optional(defaultItem),
-    'endcase'
+  return choice(
+    seq(
+      'case', '(', $.expression, ')',
+      repeat(caseItem),
+      optional(defaultItem),
+      'endcase'
+    ),
+    seq(
+      'case', '(', $.expression, ')', 'matches',
+      repeat(casePatItem),
+      optional(defaultItem),
+      'endcase'
+    )
   );
 }
 
