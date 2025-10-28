@@ -438,6 +438,7 @@ module.exports = grammar({
 
     regWrite: $ => choice(
       prec(PREC.ASSIGN, seq($.lValue, '<=', $.expression, ';')),
+      prec(PREC.ASSIGN, seq($.functionCall, '<=', $.expression, ';')),
       prec(PREC.ASSIGN, seq('(', $.expression, ')', '<=', $.expression, ';')),
     ),
 
@@ -936,7 +937,7 @@ function ifStmt($, stmt) {
 
 function caseStmt($, stmt) {
   let caseItem = field('case_item', seq(comma_sep($.expression), ':', stmt));
-  let casePatItem = field('case_item', seq($.pattern, optional(seq('&&&', $.expression)), ':', stmt))
+  let casePatItem = field('case_pat_item', seq($.pattern, optional(seq('&&&', $.expression)), ':', stmt))
   let defaultItem = field('default_item', seq('default', optional(':'), stmt));
   // cases matches
   return choice(

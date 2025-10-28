@@ -1468,7 +1468,7 @@
               "type": "REPEAT",
               "content": {
                 "type": "FIELD",
-                "name": "case_item",
+                "name": "case_pat_item",
                 "content": {
                   "type": "SEQ",
                   "members": [
@@ -2833,7 +2833,7 @@
               "type": "REPEAT",
               "content": {
                 "type": "FIELD",
-                "name": "case_item",
+                "name": "case_pat_item",
                 "content": {
                   "type": "SEQ",
                   "members": [
@@ -4564,6 +4564,31 @@
             "type": "SEQ",
             "members": [
               {
+                "type": "SYMBOL",
+                "name": "functionCall"
+              },
+              {
+                "type": "STRING",
+                "value": "<="
+              },
+              {
+                "type": "SYMBOL",
+                "name": "expression"
+              },
+              {
+                "type": "STRING",
+                "value": ";"
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC",
+          "value": -2,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
                 "type": "STRING",
                 "value": "("
               },
@@ -5146,7 +5171,7 @@
               "type": "REPEAT",
               "content": {
                 "type": "FIELD",
-                "name": "case_item",
+                "name": "case_pat_item",
                 "content": {
                   "type": "SEQ",
                   "members": [
@@ -7335,7 +7360,7 @@
               "type": "REPEAT",
               "content": {
                 "type": "FIELD",
-                "name": "case_item",
+                "name": "case_pat_item",
                 "content": {
                   "type": "SEQ",
                   "members": [
@@ -8070,7 +8095,7 @@
               "type": "REPEAT",
               "content": {
                 "type": "FIELD",
-                "name": "case_item",
+                "name": "case_pat_item",
                 "content": {
                   "type": "SEQ",
                   "members": [

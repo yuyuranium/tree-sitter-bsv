@@ -80,11 +80,29 @@
         "required": false,
         "types": [
           {
-            "type": "&&&",
+            "type": ",",
             "named": false
           },
           {
-            "type": ",",
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "actionStmt",
+            "named": true
+          },
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
+      "case_pat_item": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "&&&",
             "named": false
           },
           {
@@ -321,11 +339,29 @@
         "required": false,
         "types": [
           {
-            "type": "&&&",
+            "type": ",",
             "named": false
           },
           {
-            "type": ",",
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "actionValueStmt",
+            "named": true
+          },
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
+      "case_pat_item": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "&&&",
             "named": false
           },
           {
@@ -1296,11 +1332,29 @@
         "required": false,
         "types": [
           {
-            "type": "&&&",
+            "type": ",",
             "named": false
           },
           {
-            "type": ",",
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "expression",
+            "named": true
+          },
+          {
+            "type": "expressionStmt",
+            "named": true
+          }
+        ]
+      },
+      "case_pat_item": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "&&&",
             "named": false
           },
           {
@@ -1670,11 +1724,29 @@
         "required": false,
         "types": [
           {
-            "type": "&&&",
+            "type": ",",
             "named": false
           },
           {
-            "type": ",",
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "expression",
+            "named": true
+          },
+          {
+            "type": "functionBodyStmt",
+            "named": true
+          }
+        ]
+      },
+      "case_pat_item": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "&&&",
             "named": false
           },
           {
@@ -2447,11 +2519,29 @@
         "required": false,
         "types": [
           {
-            "type": "&&&",
+            "type": ",",
             "named": false
           },
           {
-            "type": ",",
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "expression",
+            "named": true
+          },
+          {
+            "type": "moduleStmt",
+            "named": true
+          }
+        ]
+      },
+      "case_pat_item": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "&&&",
             "named": false
           },
           {
@@ -3079,6 +3169,10 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        },
+        {
+          "type": "functionCall",
           "named": true
         },
         {
