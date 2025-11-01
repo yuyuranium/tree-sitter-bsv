@@ -45,6 +45,7 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.condPredicate],
+    [$.lValue, $.subinterfaceDef],
     [$.lValue, $.exprPrimary],
     [$.typeIde, $.subinterfaceDef],
     [$.moduleStmt, $.expressionStmt],
@@ -701,7 +702,7 @@ module.exports = grammar({
     )),
 
     interfaceExpr: $ => prec.left(seq(
-      'interface', $.type, ';',
+      'interface', $.type, optional(';'),
       repeat($.interfaceStmt),
       'endinterface', optional(seq(':', $.Identifier))
     )),
