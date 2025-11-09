@@ -140,6 +140,7 @@
   "="
   "<-"
   "&&&"
+  "<="
 ] @operator
 
 [
@@ -151,11 +152,30 @@
 
 "?" @constant
 
-[ ";" ":" "," "::" ] @punctuation.delimiter
+[ ";" ":" "," "::" "." ] @punctuation.delimiter
 
 [ "(" ")" "[" "]" "{" "}"] @punctuation.bracket
 
 (condExpr [ "?" ":" ] @conditional.ternary)
+
+;; Preprocessor / Compiler Directives
+[
+  "`include"
+  "`define"
+  "`ifdef"
+  "`ifndef"
+  "`elsif"
+  "`else"
+  "`endif"
+  "`undef"
+  "`resetall"
+  "`undefineall"
+] @keyword.directive
+
+(compilerDirective (macroName) @constant.macro)
+(macroInvocation "`" @constant.macro)
+(macroInvocation (macroName) @constant.macro)
+(macroInvocation (macroActuals) @variable.parameter)
 
 (typeIde) @type
 (typeNat) @type.quantifier

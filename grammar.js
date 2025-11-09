@@ -1,4 +1,3 @@
-
 const UPPER_CASE_CHARS = /[A-Z]/
 const LOWER_CASE_CHARS = /[a-z_]/
 const IDENTIFIER_CHARS = /([a-zA-Z0-9_$])*/
@@ -39,7 +38,7 @@ module.exports = grammar({
   ],
 
   extras: $ => [
-    /\s/,
+    /\s|\\\r?\n/,
     $.comment
   ],
 
@@ -72,19 +71,52 @@ module.exports = grammar({
     [$.expressionCaseStmt, $.actionValueCaseStmt],
     [$.expressionCaseStmt, $.actionValueCaseStmt, $.caseExpr],
     [$.moduleApp, $.exprPrimary],
-    [$.exprPrimary, $.structExpr]
+    [$.exprPrimary, $.structExpr],
+    [$.compilerDirective, $.typePrimary],
+    [$.compilerDirective, $.exprPrimary],
+    [$.macroInvocation]
   ],
 
   word: $ => $.identifier,
 
   rules: {
-    program: $ => choice($.package, repeat($.packageBody)),
+    program: $ => repeat(choice($.package, $.packageBody, $.compilerDirective)),
+
+    /////////////////////////
+    // Compiler directives //
+    /////////////////////////
+    compilerDirective: $ => choice(
+      seq('`include', $.stringLiteral),
+      seq(
+        '`define',
+        field('name', $.macroName),
+        choice(
+          prec(2, seq(
+            token.immediate('('),
+            field('formals', $.macroFormals),
+            ')',
+            field('text', $.macroText)
+          )),
+          field('text', $.macroText)
+        )
+      ),
+      seq(choice('`ifdef', '`ifndef', '`elsif', '`undef'), $.macroName),
+      choice('`else', '`endif', '`resetall', '`undefineall'),
+      $.macroInvocation
+    ),
+    macroName: $ => choice($.identifier, $.Identifier),
+    macroFormals: $ => comma_sep(choice($.identifier, $.Identifier)),
+    macroText: $ => token(prec(-1, /(\\(.|\r?\n)|[^\\\n])*/)),
+
+    macroInvocation: $ => prec(1, seq('`', field('name', $.macroName), optional(seq('(', field('actuals', $.macroActuals), ')')))),
+    macroActuals: $ => comma_sep($.substText),
+    substText: $ => token(prec(-1, /([^,\(\)]|\([^\(\)]*\))*/)),
 
     //////////////
     // Packages //
     //////////////
     package: $ => seq(
-      'package', $.packageIde, ';',
+      'package', field('name', $.packageIde), ';',
       repeat($.packageBody),
       'endpackage', optional(seq(':', $.packageIde))
     ),
@@ -92,7 +124,8 @@ module.exports = grammar({
     packageBody: $ => choice(
       $.exportDecl,
       $.importDecl,
-      $.packageStmt
+      $.packageStmt,
+      $.compilerDirective
     ),
 
     exportDecl: $ => seq(
@@ -119,7 +152,7 @@ module.exports = grammar({
       // externModuleImport
     ),
 
-    packageIde: $ => $.Identifier,
+    packageIde: $ => choice($.Identifier, $.macroInvocation),
 
     ///////////
     // Types //
@@ -134,7 +167,8 @@ module.exports = grammar({
       seq($.typeIde, optional(seq('#', '(', comma_sep($.type), ')'))),
       $.typeNat,
       seq('bit', optional(seq('[', $.typeNat, ':', $.typeNat, ']'))),
-      'int'
+      'int',
+      $.macroInvocation
     ),
 
     // Polymorphism types starts with lowercase letters
@@ -146,18 +180,19 @@ module.exports = grammar({
     ///////////////
     interfaceDecl: $ => seq(
       optional($.attributeInstances),
-      'interface', $.typeDefType, ';',
+      'interface', field('name', $.typeDefType), ';',
       repeat($.interfaceMemberDecl),
       'endinterface', optional(seq(':', $.typeIde))
     ),
 
-    typeDefType: $ => seq($.typeIde, optional($.typeFormals)),
+    typeDefType: $ => seq(field('name', choice($.typeIde, $.macroInvocation)), optional($.typeFormals)),
     typeFormals: $ => seq('#', '(', comma_sep($.typeFormal), ')'),
     typeFormal: $ => seq(optional('numeric'), 'type', $.identifier),
 
     interfaceMemberDecl: $ => choice(
       $.methodProto,
-      $.subinterfaceDecl
+      $.subinterfaceDecl,
+      $.compilerDirective
     ),
 
     methodProto: $ => seq(
@@ -184,7 +219,7 @@ module.exports = grammar({
     ),
 
     moduleProto: $ => seq(
-      'module', optional(seq('[', $.type, ']')), $.identifier,
+      'module', optional(seq('[', $.type, ']')), field('name', choice($.identifier, $.macroInvocation)),
       optional($.moduleFormalParams), '(', optional($.moduleFormalArgs), ')',
       optional($.provisos), ';'
     ),
@@ -219,7 +254,8 @@ module.exports = grammar({
       $.moduleIfStmt,
       $.moduleCaseStmt,
       $.moduleWhileStmt,
-      $.moduleForStmt
+      $.moduleForStmt,
+      $.compilerDirective
     ),
 
     moduleBeginEndStmt: $ => beginEndStmt($, $.moduleStmt),
@@ -523,7 +559,8 @@ module.exports = grammar({
       $.caseExpr,
       prec(PREC.STMT, $.seqFsmStmt),
       prec(PREC.STMT, $.parFsmStmt),
-      "True", "False", "noAction"
+      "True", "False", "noAction",
+      $.macroInvocation
     ),
 
     condExpr: $ => prec.right(PREC.COND, seq(

@@ -1010,6 +1010,60 @@
     }
   },
   {
+    "type": "compilerDirective",
+    "named": true,
+    "fields": {
+      "formals": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "macroFormals",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "macroName",
+            "named": true
+          }
+        ]
+      },
+      "text": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "macroText",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "macroInvocation",
+          "named": true
+        },
+        {
+          "type": "macroName",
+          "named": true
+        },
+        {
+          "type": "stringLiteral",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "condExpr",
     "named": true,
     "fields": {},
@@ -1228,6 +1282,10 @@
         },
         {
           "type": "interfaceExpr",
+          "named": true
+        },
+        {
+          "type": "macroInvocation",
           "named": true
         },
         {
@@ -2146,10 +2204,21 @@
   {
     "type": "interfaceDecl",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "typeDefType",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "attributeInstances",
@@ -2157,10 +2226,6 @@
         },
         {
           "type": "interfaceMemberDecl",
-          "named": true
-        },
-        {
-          "type": "typeDefType",
           "named": true
         },
         {
@@ -2201,6 +2266,10 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "compilerDirective",
+          "named": true
+        },
         {
           "type": "methodProto",
           "named": true
@@ -2268,6 +2337,85 @@
       "types": [
         {
           "type": "fsmStmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "macroActuals",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "substText",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "macroFormals",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "Identifier",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "macroInvocation",
+    "named": true,
+    "fields": {
+      "actuals": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "macroActuals",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "macroName",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "macroName",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Identifier",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -2774,15 +2922,26 @@
   {
     "type": "moduleProto",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "macroInvocation",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
         {
           "type": "moduleFormalArgs",
           "named": true
@@ -2810,6 +2969,10 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "compilerDirective",
+          "named": true
+        },
         {
           "type": "expression",
           "named": true
@@ -2960,11 +3123,26 @@
   {
     "type": "package",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "packageIde",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
+        {
+          "type": "compilerDirective",
+          "named": true
+        },
         {
           "type": "exportDecl",
           "named": true
@@ -2994,6 +3172,10 @@
       "types": [
         {
           "type": "Identifier",
+          "named": true
+        },
+        {
+          "type": "macroInvocation",
           "named": true
         }
       ]
@@ -3101,6 +3283,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "compilerDirective",
+          "named": true
+        },
         {
           "type": "exportDecl",
           "named": true
@@ -3670,17 +3856,28 @@
   {
     "type": "typeDefType",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "macroInvocation",
+            "named": true
+          },
+          {
+            "type": "typeIde",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
           "type": "typeFormals",
-          "named": true
-        },
-        {
-          "type": "typeIde",
           "named": true
         }
       ]
@@ -3762,6 +3959,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "macroInvocation",
+          "named": true
+        },
         {
           "type": "type",
           "named": true
@@ -4539,6 +4740,50 @@
     "named": false
   },
   {
+    "type": "`",
+    "named": false
+  },
+  {
+    "type": "`define",
+    "named": false
+  },
+  {
+    "type": "`else",
+    "named": false
+  },
+  {
+    "type": "`elsif",
+    "named": false
+  },
+  {
+    "type": "`endif",
+    "named": false
+  },
+  {
+    "type": "`ifdef",
+    "named": false
+  },
+  {
+    "type": "`ifndef",
+    "named": false
+  },
+  {
+    "type": "`include",
+    "named": false
+  },
+  {
+    "type": "`resetall",
+    "named": false
+  },
+  {
+    "type": "`undef",
+    "named": false
+  },
+  {
+    "type": "`undefineall",
+    "named": false
+  },
+  {
     "type": "action",
     "named": false
   },
@@ -4723,6 +4968,10 @@
     "named": false
   },
   {
+    "type": "macroText",
+    "named": true
+  },
+  {
     "type": "match",
     "named": false
   },
@@ -4793,6 +5042,10 @@
   {
     "type": "struct",
     "named": false
+  },
+  {
+    "type": "substText",
+    "named": true
   },
   {
     "type": "tagged",

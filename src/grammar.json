@@ -4,20 +4,316 @@
   "word": "identifier",
   "rules": {
     "program": {
+      "type": "REPEAT",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "package"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "packageBody"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "compilerDirective"
+          }
+        ]
+      }
+    },
+    "compilerDirective": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "`include"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "stringLiteral"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "`define"
+            },
+            {
+              "type": "FIELD",
+              "name": "name",
+              "content": {
+                "type": "SYMBOL",
+                "name": "macroName"
+              }
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "PREC",
+                  "value": 2,
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "IMMEDIATE_TOKEN",
+                        "content": {
+                          "type": "STRING",
+                          "value": "("
+                        }
+                      },
+                      {
+                        "type": "FIELD",
+                        "name": "formals",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "macroFormals"
+                        }
+                      },
+                      {
+                        "type": "STRING",
+                        "value": ")"
+                      },
+                      {
+                        "type": "FIELD",
+                        "name": "text",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "macroText"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "text",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "macroText"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "`ifdef"
+                },
+                {
+                  "type": "STRING",
+                  "value": "`ifndef"
+                },
+                {
+                  "type": "STRING",
+                  "value": "`elsif"
+                },
+                {
+                  "type": "STRING",
+                  "value": "`undef"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "macroName"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "`else"
+            },
+            {
+              "type": "STRING",
+              "value": "`endif"
+            },
+            {
+              "type": "STRING",
+              "value": "`resetall"
+            },
+            {
+              "type": "STRING",
+              "value": "`undefineall"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "macroInvocation"
+        }
+      ]
+    },
+    "macroName": {
       "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "package"
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "Identifier"
+        }
+      ]
+    },
+    "macroFormals": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "Identifier"
+            }
+          ]
         },
         {
           "type": "REPEAT",
           "content": {
-            "type": "SYMBOL",
-            "name": "packageBody"
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "identifier"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "Identifier"
+                  }
+                ]
+              }
+            ]
           }
         }
       ]
+    },
+    "macroText": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": -1,
+        "content": {
+          "type": "PATTERN",
+          "value": "(\\\\(.|\\r?\\n)|[^\\\\\\n])*"
+        }
+      }
+    },
+    "macroInvocation": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "`"
+          },
+          {
+            "type": "FIELD",
+            "name": "name",
+            "content": {
+              "type": "SYMBOL",
+              "name": "macroName"
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "("
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "actuals",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "macroActuals"
+                    }
+                  },
+                  {
+                    "type": "STRING",
+                    "value": ")"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "macroActuals": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "substText"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "substText"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "substText": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": -1,
+        "content": {
+          "type": "PATTERN",
+          "value": "([^,\\(\\)]|\\([^\\(\\)]*\\))*"
+        }
+      }
     },
     "package": {
       "type": "SEQ",
@@ -27,8 +323,12 @@
           "value": "package"
         },
         {
-          "type": "SYMBOL",
-          "name": "packageIde"
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "packageIde"
+          }
         },
         {
           "type": "STRING",
@@ -82,6 +382,10 @@
         {
           "type": "SYMBOL",
           "name": "packageStmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "compilerDirective"
         }
       ]
     },
@@ -284,8 +588,17 @@
       ]
     },
     "packageIde": {
-      "type": "SYMBOL",
-      "name": "Identifier"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "Identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "macroInvocation"
+        }
+      ]
     },
     "type": {
       "type": "CHOICE",
@@ -444,6 +757,10 @@
         {
           "type": "STRING",
           "value": "int"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "macroInvocation"
         }
       ]
     },
@@ -510,8 +827,12 @@
           "value": "interface"
         },
         {
-          "type": "SYMBOL",
-          "name": "typeDefType"
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "typeDefType"
+          }
         },
         {
           "type": "STRING",
@@ -555,8 +876,21 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "typeIde"
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "typeIde"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "macroInvocation"
+              }
+            ]
+          }
         },
         {
           "type": "CHOICE",
@@ -649,6 +983,10 @@
         {
           "type": "SYMBOL",
           "name": "subinterfaceDecl"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "compilerDirective"
         }
       ]
     },
@@ -887,8 +1225,21 @@
           ]
         },
         {
-          "type": "SYMBOL",
-          "name": "identifier"
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "macroInvocation"
+              }
+            ]
+          }
         },
         {
           "type": "CHOICE",
@@ -1212,6 +1563,10 @@
         {
           "type": "SYMBOL",
           "name": "moduleForStmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "compilerDirective"
         }
       ]
     },
@@ -5751,6 +6106,10 @@
         {
           "type": "STRING",
           "value": "noAction"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "macroInvocation"
         }
       ]
     },
@@ -10547,7 +10906,7 @@
   "extras": [
     {
       "type": "PATTERN",
-      "value": "\\s"
+      "value": "\\s|\\\\\\r?\\n"
     },
     {
       "type": "SYMBOL",
@@ -10672,6 +11031,17 @@
     [
       "exprPrimary",
       "structExpr"
+    ],
+    [
+      "compilerDirective",
+      "typePrimary"
+    ],
+    [
+      "compilerDirective",
+      "exprPrimary"
+    ],
+    [
+      "macroInvocation"
     ]
   ],
   "precedences": [],

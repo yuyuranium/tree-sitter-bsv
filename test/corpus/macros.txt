@@ -1,0 +1,166 @@
+==================
+Macro Invocations
+==================
+
+`MY_MACRO
+---
+
+(program
+  (compilerDirective
+    (macroInvocation
+      (macroName
+        (Identifier)))))
+
+==================
+Macro with Arguments
+==================
+
+`MY_MACRO(1, 2, a + b)
+---
+
+(program
+  (compilerDirective
+    (macroInvocation
+      (macroName
+        (Identifier))
+      (macroActuals
+        (substText)
+        (substText)
+        (substText)))))
+
+==================
+Macro in Expression
+==================
+
+module m();
+  int x = `SIZE;
+endmodule
+---
+
+(program
+  (packageStmt
+    (moduleDef
+      (moduleProto
+        (identifier))
+      (moduleStmt
+        (varDecl
+          (type
+            (typePrimary))
+          (varInit
+            (identifier)
+            (expression
+              (exprPrimary
+                (macroInvocation
+                  (macroName
+                    (Identifier)))))))))))
+
+==================
+Macro in Type
+==================
+
+module m();
+  `TYPE x = 0;
+endmodule
+---
+
+(program
+  (packageStmt
+    (moduleDef
+      (moduleProto
+        (identifier))
+      (moduleStmt
+        (varDecl
+          (type
+            (typePrimary
+              (macroInvocation
+                (macroName
+                  (Identifier)))))
+          (varInit
+            (identifier)
+            (expression
+              (exprPrimary
+                (intLiteral
+                  (unsizedIntLiteral
+                    (decNum)))))))))))
+
+==================
+Define Directive
+==================
+
+`define VALUE 10
+---
+
+(program
+  (compilerDirective
+    (macroName
+      (Identifier))
+    (macroText)))
+
+==================
+Include Directive
+==================
+
+`include "file.bsv"
+---
+
+(program
+  (compilerDirective
+    (stringLiteral)))
+
+==================
+Conditional Directives
+==================
+
+`ifdef TEST
+  `define VALUE 1
+`else
+  `define VALUE 0
+`endif
+---
+
+(program
+  (compilerDirective
+    (macroName
+      (Identifier)))
+  (compilerDirective
+    (macroName
+      (Identifier))
+    (macroText))
+  (compilerDirective)
+  (compilerDirective
+    (macroName
+      (Identifier))
+    (macroText))
+  (compilerDirective))
+
+==================
+Macro as Module Name
+==================
+
+module `MOD_NAME ();
+endmodule
+---
+
+(program
+  (packageStmt
+    (moduleDef
+      (moduleProto
+        (macroInvocation
+          (macroName
+            (Identifier)))))))
+
+==================
+Macro as Interface Name
+==================
+
+interface `IFC_NAME;
+endinterface
+---
+
+(program
+  (packageStmt
+    (interfaceDecl
+      (typeDefType
+        (macroInvocation
+          (macroName
+            (Identifier)))))))
