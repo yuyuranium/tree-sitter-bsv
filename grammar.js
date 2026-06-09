@@ -803,6 +803,8 @@ module.exports = grammar({
     // Finite state machine //
     //////////////////////////
     fsmStmt: $ => choice(
+      prec(1, $.actionBlock),
+      prec(1, $.actionValueBlock),
       $.exprFsmStmt,
       $.seqFsmStmt,
       $.parFsmStmt,

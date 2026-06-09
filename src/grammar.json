@@ -9730,6 +9730,22 @@
       "type": "CHOICE",
       "members": [
         {
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "SYMBOL",
+            "name": "actionBlock"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "SYMBOL",
+            "name": "actionValueBlock"
+          }
+        },
+        {
           "type": "SYMBOL",
           "name": "exprFsmStmt"
         },

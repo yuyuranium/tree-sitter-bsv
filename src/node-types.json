@@ -1666,6 +1666,14 @@
       "required": true,
       "types": [
         {
+          "type": "actionBlock",
+          "named": true
+        },
+        {
+          "type": "actionValueBlock",
+          "named": true
+        },
+        {
           "type": "exprFsmStmt",
           "named": true
         },
